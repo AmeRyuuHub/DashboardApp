@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="30" height="30" version="1.1" viewBox="0 0 7.9375 7.9375" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(0 -289.06)" fill="#fff">
+  <path d="m0.078855 291.08-0.003545 5.8368 0.89372-0.5515v-1.442h1.122e-4l-0.014846-2.2303 2.2901 1.4371-1.8405 1.0058 9.261e-4 1.0604 3.4463-2.0528z"/>
+  <path d="m7.8677 291.07-0.68581 0.43548 0.00548 5.4076h0.6743z"/>
+  <path d="m6.8828 293.66-0.68581 0.43493 0.00275 2.8139h0.67978z"/>
+  <path d="m5.8979 292.83-0.68581 0.43548 0.00384 3.6405h0.67759z"/>
+  <path d="m4.913 295.11-0.68581 0.43492 0.00165 1.3601h0.68252z"/>
+  <path d="m0.081548 290.46v-1.3329l3.9195 2.4956 3.8821-2.4766v1.3101l-3.9002 2.4598z"/>
+ </g>
+</svg>
