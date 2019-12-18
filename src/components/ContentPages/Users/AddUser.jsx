@@ -2,7 +2,7 @@ import React from 'react';
 import { IconButton} from '@material-ui/core';
 import {PersonAdd} from '@material-ui/icons'
 import AddUserForm from './AddUserForm';
-import { DialogWithClose } from '../../Common/Dialogs';
+import { DialogWithClose } from '../../common/Dialogs';
 
 
 export default function AddUser(props) {

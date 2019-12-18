@@ -1,6 +1,6 @@
 
 
-import {dataRoutsIcons, dataLangList as langIcons} from '../../../components/Common/DataIcons/DataIcons';
+import {dataRoutsIcons, dataLangList as langIcons} from '../../../components/common/DataIcons/DataIcons';
 import logo from "../../../pics/logo-dark.svg";
 export const initialState = {
          appInfo: { title: "tv monitoring", logo: logo },

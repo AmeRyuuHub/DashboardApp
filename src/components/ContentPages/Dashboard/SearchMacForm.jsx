@@ -3,12 +3,12 @@ import React from "react";
 import { Field, reduxForm} from "redux-form";
 import { makeStyles} from "@material-ui/core/styles";
 import {Button, InputAdornment,MenuItem, SvgIcon, } from "@material-ui/core";
-import { checkHexidecimal, checkRequired } from "../../Common/ReduxValidators";
-import { lower } from "../../Common/NormalizeRedux";
-import { roundTextField, renderMenuSelectField } from "../../Common/ReduxFields/ReduxFieldComponent";
+import { checkHexidecimal} from "../../common/ReduxValidators";
+import { lower } from "../../common/NormalizeRedux";
+import { roundTextField, renderMenuSelectField } from "../../common/ReduxFields/ReduxFieldComponent";
 import { Search } from "@material-ui/icons";
-import {  MainLinearProgress } from "../../Common/ProgressLines/ProgressLines";
-import {dataStatusIcons} from '../../Common/DataIcons/DataIcons'
+import {  MainLinearProgress } from "../../common/ProgressLines/ProgressLines";
+import {dataStatusIcons} from '../../common/DataIcons/DataIcons'
 
 
 

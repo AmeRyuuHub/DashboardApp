@@ -1,11 +1,11 @@
 
 import React from 'react';
-import { withAuthRole } from '../../Common/HOC';
+import { withAuthRole,  withMainDiv } from '../../common/HOC';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'redux';
-import { withMainDiv } from '../../Common/HOC/';
+
 
 const useStyles = makeStyles(theme => ({
   content: {

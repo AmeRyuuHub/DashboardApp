@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 
 import  AccountProfile from './components/AccountProfile';
 import  AccountDetails  from './components/AccountDetails';
-import { withMainDiv,withAuthRole } from '../../Common/HOC/';
+import { withMainDiv,withAuthRole } from '../../common/HOC/';
 
 import { compose } from 'redux';
 

@@ -3,9 +3,9 @@ import React from 'react';
 import { Button, Typography, CircularProgress} from '@material-ui/core';
 
 import { Field, reduxForm } from 'redux-form'
-import { checkRequired, maxLengthCheck, emailCheck } from '../../Common/ReduxValidators';
-import { renderTextField} from '../../Common/ReduxFields/ReduxFieldComponent';
-import { renderSelectField } from '../../Common/ReduxFields/ReduxFieldComponent';
+import { checkRequired, maxLengthCheck, emailCheck } from '../../common/ReduxValidators';
+import { renderTextField} from '../../common/ReduxFields/ReduxFieldComponent';
+import { renderSelectField } from '../../common/ReduxFields/ReduxFieldComponent';
 import { makeStyles } from '@material-ui/core/styles';
 import { SubmissionError } from 'redux-form';
 import { Add } from '@material-ui/icons';

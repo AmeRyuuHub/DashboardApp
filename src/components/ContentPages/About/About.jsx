@@ -3,8 +3,8 @@ import {Button, Card, CardActions,CardContent,CardMedia,CssBaseline, Grid,Typogr
 import { makeStyles } from '@material-ui/core/styles';
 //import logo from '../../../pics/logo-main2.svg'
 import { Box } from '@material-ui/core';
-import { Copyright } from '../../Common/Copyright';
-import { withAuthRole, withMainDiv } from '../../Common/HOC/';
+import { Copyright } from '../../common/Copyright';
+import { withAuthRole, withMainDiv } from '../../common/HOC/';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
 // import backImage from '../../../pics/main_background_black.svg'

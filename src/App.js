@@ -9,7 +9,7 @@ import AuthContainer from'./containers/AuthContainer';
 //import {Footer} from './components/Footer/Footer';
 import Profile from './components/ContentPages/Profile/Profile'
 import { connect } from 'react-redux';
-import { MainLinearProgress } from './components/Common/ProgressLines/ProgressLines';
+import { MainLinearProgress } from './components/common/ProgressLines/ProgressLines';
 import { compose } from 'redux';
 import { getInitialized } from './store/redusers/AppInit/AppInit';
 import { setCarrentLang} from './store/redusers/DataUI/DataUI';

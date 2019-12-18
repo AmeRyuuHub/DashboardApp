@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Table, TableBody ,TableCell, TableHead, TableRow,  IconButton} from '@material-ui/core';
 import { Edit, Delete } from '@material-ui/icons';
-import { DialogWithClose } from '../../Common/Dialogs';
+import { DialogWithClose } from '../../common/Dialogs';
 
 
 

@@ -2,7 +2,7 @@
  import { makeStyles } from '@material-ui/core/styles';
  import {Icon, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton,  ListItemIcon, Card, CardContent, CardHeader, Divider, Slide} from '@material-ui/core';
  import {InfoOutlined} from '@material-ui/icons';
- import {dataListIcons} from '../../../Common/DataIcons/DataIcons';
+ import {dataListIcons} from '../../../common/DataIcons/DataIcons';
 
 
 
