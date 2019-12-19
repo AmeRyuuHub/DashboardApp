@@ -18,7 +18,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunkMiddleware)));
 const history = createBrowserHistory();
-
+window.store = store;
 ReactDOM.render(
         <Router history={history}>
             <Provider store={store}>
