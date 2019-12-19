@@ -9,7 +9,8 @@ import {
   Divider,
   ListItem,
   List,
-  Collapse
+  Collapse,
+  Button
 } from "@material-ui/core";
 import { dataUsersRoleIcons } from "../../common/Icons";
 
@@ -32,7 +33,7 @@ const OptionsMenu = ({
   getAuthLogout
 }) => {
   const classes = useStyles();
-
+  const [openList, setOpenList] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -43,8 +44,6 @@ const OptionsMenu = ({
     setAnchorEl(null);
   };
 
-  const [openList, setOpenList] = React.useState(false);
-
   const handleClickList = () => {
     setOpenList(!openList);
   };
@@ -52,9 +51,14 @@ const OptionsMenu = ({
   const handleLangMenuItemClick = index => {
     setCarrentLang(options[index].name);
   };
-
+  if (!auth) {
+    return (
+      <Button variant="outlined" color="inherit" component={Link} to="/auth">
+        Log In
+      </Button>
+    );
+  };
   return (
-    auth &&
     user && (
       <>
         <div>

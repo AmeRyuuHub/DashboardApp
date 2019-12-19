@@ -5,24 +5,29 @@ import { dataUsersRoleIcons } from "../../common/Icons";
 import { Link } from "react-router-dom";
 import { Button, Icon, Avatar } from "@material-ui/core";
 
-const SubMenu = props => {
-  return props.auth && props.user ? (
-    <Button
-      component={Link}
-      to="/profile"
-      color="inherit"
-      endIcon={
-        <Avatar>
-          <Icon component={dataUsersRoleIcons[props.user.icon]} />
-        </Avatar>
-      }
-    >
-      {props.user && props.user.name}
-    </Button>
-  ) : (
-    <Button variant="outlined" color="inherit" component={Link} to="/auth">
-      Log In
-    </Button>
+const SubMenu = ({ auth, user }) => {
+  if (!auth) {
+    return (
+      <Button variant="outlined" color="inherit" component={Link} to="/auth">
+        Log In
+      </Button>
+    );
+  }
+  return (
+    user && (
+      <Button
+        component={Link}
+        to="/profile"
+        color="inherit"
+        endIcon={
+          <Avatar>
+            <Icon component={dataUsersRoleIcons[user.icon]} />
+          </Avatar>
+        }
+      >
+        {user.name}
+      </Button>
+    )
   );
 };
 

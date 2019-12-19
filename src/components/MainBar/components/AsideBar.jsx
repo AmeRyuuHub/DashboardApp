@@ -1,33 +1,13 @@
 
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {Menu as MenuIcon} from '@material-ui/icons';
-import { IconButton,  Drawer} from '@material-ui/core';
-
+import { IconButton } from '@material-ui/core';
 import RoutsContent from './RoutsContent';
-
-const drawerWidth = 240;
-const useStyles = makeStyles(theme => ({
-  list: {
-    width: drawerWidth,
-    marginTop: theme.spacing(1),
-    display: "flex"
-  },
- 
-
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth
-  }
-}));
+import { StyledDrawer } from '../../common/styled';
 
 
-   
-const AsideBar = (props) => {
-    const classes = useStyles(); 
+
+const AsideBar = props => {
   const [asideView, setAsideView] = React.useState(false);
   const toggleDrawer = open => event => {
     if (
@@ -38,7 +18,6 @@ const AsideBar = (props) => {
     }
     setAsideView(open);
   };
-
 
   return (
     <>
@@ -51,17 +30,15 @@ const AsideBar = (props) => {
       >
         <MenuIcon />
       </IconButton>
-      <Drawer open={asideView} onClose={toggleDrawer(false)} className={classes.drawer}
-       variant="temporary"
+      <StyledDrawer
+        open={asideView}
+        onClose={toggleDrawer(false)}
         onClick={toggleDrawer(false)}
         onKeyDown={toggleDrawer(false)}
-        classes={{
-          paper: classes.drawerPaper,
-        }}>
-      
-       <RoutsContent  {...props} />
-      
-      </Drawer>
+        variant="temporary"
+      >
+        <RoutsContent {...props} />
+      </StyledDrawer>
     </>
   );
 };

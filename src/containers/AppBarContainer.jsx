@@ -36,7 +36,6 @@ const useStyles = makeStyles(theme => ({
     
   },
   bar:{
-   
      boxShadow:'none', minHeight:'70px'}
 }));
 
@@ -57,48 +56,55 @@ const AppBarContainer = React.memo(props => {
   const classes = useStyles();
   const theme = useTheme();
   const hideMD = useMediaQuery(theme.breakpoints.up("md"));
-  let pageName = routsMenu && routsMenu.filter(rout => rout.endPoint === pathname)[0];
+  let pageName =
+    routsMenu && routsMenu.filter(rout => rout.endPoint === pathname)[0];
 
-let homePage = (pathname ==="/" || pathname ==="");
+  let homePage = pathname === "/" || pathname === "";
 
   return (
     <div>
       <AppBar position="fixed" className={classes.bar}>
-        
-          <Toolbar className={!homePage ? classes.toolBar:classes.homeToolBar}>
-            {!homePage && !hideMD && routsMenu && (
-              <AsideBar
-                routs={routsMenu}
-                logo={appInfo.logo}
-                title={appInfo.title}
-                pathname={pathname}
-                routsApp={routsApp}
-              />
-            )}
+        <Toolbar className={!homePage ? classes.toolBar : classes.homeToolBar}>
+          {!homePage && !hideMD && routsMenu && (
+            <AsideBar
+              routs={routsMenu}
+              logo={appInfo.logo}
+              title={appInfo.title}
+              pathname={pathname}
+              routsApp={routsApp}
+            />
+          )}
 
-            {!homePage ? <Typography variant="h6">{pageName && pageName.value}</Typography>: <Typography variant="h6">{appInfo.title}</Typography>}
-
-            <div className={classes.navItems}>
-            {hideMD ? <> <LangMenu
+          <Typography variant="h6">
+            {!homePage ? pageName && pageName.value : appInfo.title}
+          </Typography>
+          
+          <div className={classes.navItems}>
+            {hideMD ? (
+              <>
+                <LangMenu
+                  options={langList}
+                  setCarrentLang={setCarrentLang}
+                  lang={lang}
+                />
+                <SubMenu
+                  auth={authStatus}
+                  user={user}
+                  getAuthLogout={getAuthLogout}
+                />
+              </>
+            ) : (
+              <CustomizedMenus
+                auth={authStatus}
+                user={user}
+                getAuthLogout={getAuthLogout}
                 options={langList}
                 setCarrentLang={setCarrentLang}
                 lang={lang}
               />
-
-              <SubMenu
-                auth={authStatus}
-                user={user}
-                getAuthLogout={getAuthLogout}
-              /></>: <CustomizedMenus auth={authStatus}
-              user={user}
-              getAuthLogout={getAuthLogout}
-              options={langList}
-              setCarrentLang={setCarrentLang}
-              lang={lang}/>}  
-              
-            </div>
-          </Toolbar>
-       
+            )}
+          </div>
+        </Toolbar>
       </AppBar>
       {!homePage && hideMD && routsMenu && (
         <ToolBarList
