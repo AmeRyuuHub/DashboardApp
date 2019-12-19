@@ -4,11 +4,11 @@ import { Field, reduxForm} from "redux-form";
 import { makeStyles} from "@material-ui/core/styles";
 import {Button, InputAdornment,MenuItem, SvgIcon, } from "@material-ui/core";
 import { checkHexidecimal} from "../../common/ReduxValidators";
-import { lower } from "../../common/ReduxNormalize";
+import { lower } from "../../common/NormalizeRedux";
 import { roundTextField, renderMenuSelectField } from "../../common/ReduxFields/ReduxFieldComponent";
 import { Search } from "@material-ui/icons";
-import {  MainLinearProgress } from "../../common/ProgressLines";
-import {dataStatusIcons} from '../../common/Icons'
+import {  MainLinearProgress } from "../../common/ProgressLines/ProgressLines";
+import {dataStatusIcons} from '../../common/DataIcons/DataIcons'
 
 
 

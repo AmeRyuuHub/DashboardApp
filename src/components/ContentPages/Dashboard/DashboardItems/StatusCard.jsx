@@ -2,7 +2,7 @@ import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Typography, Slide, SvgIcon} from "@material-ui/core";
-import { dataStatusIcons } from "../../../common/Icons";
+import { dataStatusIcons } from "../../../common/DataIcons/DataIcons";
 
 
 const useStyles = makeStyles(theme => ({

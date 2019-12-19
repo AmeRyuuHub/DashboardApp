@@ -1,22 +1,11 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import {
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Avatar,
-  Icon,
-  Divider,
-  ListItem,
-  List,
-  Collapse,
-  Button
-} from "@material-ui/core";
-import { dataUsersRoleIcons } from "../../common/Icons";
+import React from 'react';
+import { withStyles, makeStyles  } from '@material-ui/core/styles';
+import {IconButton, Menu, MenuItem, ListItemIcon, ListItemText, Avatar, Icon, Divider, ListSubheader, ListItem, List, Collapse,} from '@material-ui/core';
+import {dataUsersRoleIcons} from '../../common/DataIcons/DataIcons';
 
-import { MoreVert, AssignmentInd, MeetingRoom } from "@material-ui/icons";
-import { Link } from "react-router-dom";
-import { StyledMenu, StyledMenuItem } from "../../common/styled";
+import { MoreVert, AssignmentInd, MeetingRoom, Inbox, ExpandLess, ExpandMore, StarBorder } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
+
 
 const useStyles = makeStyles(theme => ({
   nested: {
@@ -24,16 +13,50 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const OptionsMenu = ({
-  options,
-  lang,
-  setCarrentLang,
-  auth,
-  user,
-  getAuthLogout
-}) => {
+const StyledMenu = withStyles(theme => ({
+  paper: {
+    border: "1px solid #d3d4d5",
+    padding: theme.spacing(1)
+  }
+}))(props => (
+  <Menu
+    disableAutoFocusItem={true}
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "center"
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center"
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles(theme => ({
+  root: {
+    "&:focus": {
+      backgroundColor: theme.palette.primary.main,
+      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+        color: theme.palette.common.white
+      }
+    },
+    "& .MuiListItemIcon-root": {
+      minWidth: "3rem"
+    },
+    "&.MuiListItem-root.Mui-disabled": {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
+      opacity: 1
+    }
+  }
+}))(MenuItem);
+
+export default function CustomizedMenus(props) {
   const classes = useStyles();
-  const [openList, setOpenList] = React.useState(false);
+  const { options, lang, setCarrentLang } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -44,6 +67,8 @@ const OptionsMenu = ({
     setAnchorEl(null);
   };
 
+  const [openList, setOpenList] = React.useState(false);
+
   const handleClickList = () => {
     setOpenList(!openList);
   };
@@ -51,15 +76,10 @@ const OptionsMenu = ({
   const handleLangMenuItemClick = index => {
     setCarrentLang(options[index].name);
   };
-  if (!auth) {
-    return (
-      <Button variant="outlined" color="inherit" component={Link} to="/auth">
-        Log In
-      </Button>
-    );
-  };
+
   return (
-    user && (
+    props.auth &&
+    props.user && (
       <>
         <div>
           <IconButton
@@ -77,14 +97,19 @@ const OptionsMenu = ({
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader">
+                Nested List Items
+              </ListSubheader>
+            }
           >
             <StyledMenuItem onClick={handleClose} disabled>
-              <ListItemText primary={user && user.name} />
+              <ListItemText primary={props.user && props.user.name} />
               <ListItemIcon style={{ justifyContent: "flex-end" }}>
                 <Avatar fontSize="small">
                   <Icon
                     fontSize="small"
-                    component={dataUsersRoleIcons[user.icon]}
+                    component={dataUsersRoleIcons[props.user.icon]}
                   />
                 </Avatar>
               </ListItemIcon>
@@ -132,7 +157,7 @@ const OptionsMenu = ({
             </Collapse>
             <StyledMenuItem
               onClick={() => {
-                getAuthLogout();
+                props.getAuthLogout();
                 handleClose();
               }}
             >
@@ -146,5 +171,4 @@ const OptionsMenu = ({
       </>
     )
   );
-};
-export default OptionsMenu;
+}
