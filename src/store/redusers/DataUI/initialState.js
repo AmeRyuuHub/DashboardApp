@@ -1,6 +1,6 @@
 
 
-import {dataRoutsIcons, dataLangList as langIcons} from '../../../components/common/DataIcons/DataIcons';
+import {dataRoutsIcons, dataLangList as langIcons} from '../../../components/common/Icons';
 import logo from "../../../pics/logo-dark.svg";
 export const initialState = {
          appInfo: { title: "tv monitoring", logo: logo },
@@ -208,14 +208,14 @@ export const initialState = {
                ru: {
                  firstTitle: "Все еще нет информации о состоянии ОТТ тюнера?",
                  secondTitle:
-                   "Попробуйте найти все, что вам нужно в нашем дашборде",
+                   "Попробуйте найти все, что вам нужно в нашем дашборде.",
                  titleButton: "Перейти к дашборду",
                  imgAlt: "ОТТ TV Monitoring"
                },
                ua: {
                  firstTitle: "Все ще немаєш інформації про стан ОТТ тюнера?",
                  secondTitle:
-                   "Спробуйте знайти все, що вам потрібно, у нашому дашборді",
+                   "Спробуйте знайти все, що вам потрібно, у нашому дашборді.",
                  titleButton: "Перейти до Дашборду",
                  imgAlt: "ОТТ TV Monitoring"
                },

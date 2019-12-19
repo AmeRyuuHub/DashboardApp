@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import App from './App';
 import {Router} from 'react-router-dom';
-import rootReducer from './store/redusers/index';
+import rootReducer from './store/redusers';
 import { createBrowserHistory } from 'history';
 import thunkMiddleware from "redux-thunk";
 import './index.css';
