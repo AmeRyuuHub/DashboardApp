@@ -1,11 +1,21 @@
-import React from 'react';
-import { withStyles, makeStyles  } from '@material-ui/core/styles';
-import {IconButton, Menu, MenuItem, ListItemIcon, ListItemText, Avatar, Icon, Divider, ListSubheader, ListItem, List, Collapse,} from '@material-ui/core';
-import {dataUsersRoleIcons} from '../../common/Icons';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Avatar,
+  Icon,
+  Divider,
+  ListItem,
+  List,
+  Collapse
+} from "@material-ui/core";
+import { dataUsersRoleIcons } from "../../common/Icons";
 
-import { MoreVert, AssignmentInd, MeetingRoom, Inbox, ExpandLess, ExpandMore, StarBorder } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
-
+import { MoreVert, AssignmentInd, MeetingRoom } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import { StyledMenu, StyledMenuItem } from "../../common/styled";
 
 const useStyles = makeStyles(theme => ({
   nested: {
@@ -13,50 +23,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const StyledMenu = withStyles(theme => ({
-  paper: {
-    border: "1px solid #d3d4d5",
-    padding: theme.spacing(1)
-  }
-}))(props => (
-  <Menu
-    disableAutoFocusItem={true}
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "center"
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center"
-    }}
-    {...props}
-  />
-));
-
-const StyledMenuItem = withStyles(theme => ({
-  root: {
-    "&:focus": {
-      backgroundColor: theme.palette.primary.main,
-      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-        color: theme.palette.common.white
-      }
-    },
-    "& .MuiListItemIcon-root": {
-      minWidth: "3rem"
-    },
-    "&.MuiListItem-root.Mui-disabled": {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white,
-      opacity: 1
-    }
-  }
-}))(MenuItem);
-
-export default function CustomizedMenus(props) {
+const OptionsMenu = ({
+  options,
+  lang,
+  setCarrentLang,
+  auth,
+  user,
+  getAuthLogout
+}) => {
   const classes = useStyles();
-  const { options, lang, setCarrentLang } = props;
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -78,8 +54,8 @@ export default function CustomizedMenus(props) {
   };
 
   return (
-    props.auth &&
-    props.user && (
+    auth &&
+    user && (
       <>
         <div>
           <IconButton
@@ -97,19 +73,14 @@ export default function CustomizedMenus(props) {
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleClose}
-            subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                Nested List Items
-              </ListSubheader>
-            }
           >
             <StyledMenuItem onClick={handleClose} disabled>
-              <ListItemText primary={props.user && props.user.name} />
+              <ListItemText primary={user && user.name} />
               <ListItemIcon style={{ justifyContent: "flex-end" }}>
                 <Avatar fontSize="small">
                   <Icon
                     fontSize="small"
-                    component={dataUsersRoleIcons[props.user.icon]}
+                    component={dataUsersRoleIcons[user.icon]}
                   />
                 </Avatar>
               </ListItemIcon>
@@ -157,7 +128,7 @@ export default function CustomizedMenus(props) {
             </Collapse>
             <StyledMenuItem
               onClick={() => {
-                props.getAuthLogout();
+                getAuthLogout();
                 handleClose();
               }}
             >
@@ -171,4 +142,5 @@ export default function CustomizedMenus(props) {
       </>
     )
   );
-}
+};
+export default OptionsMenu;
