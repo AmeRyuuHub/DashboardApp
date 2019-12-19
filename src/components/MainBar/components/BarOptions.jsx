@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles, makeStyles  } from '@material-ui/core/styles';
 import {IconButton, Menu, MenuItem, ListItemIcon, ListItemText, Avatar, Icon, Divider, ListSubheader, ListItem, List, Collapse,} from '@material-ui/core';
-import {dataUsersRoleIcons} from '../../common/DataIcons/DataIcons';
+import {dataUsersRoleIcons} from '../../common/Icons';
 
 import { MoreVert, AssignmentInd, MeetingRoom, Inbox, ExpandLess, ExpandMore, StarBorder } from '@material-ui/icons';
 import { Link } from 'react-router-dom';

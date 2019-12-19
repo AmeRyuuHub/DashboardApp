@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import {dataUsersRoleIcons} from '../../common/DataIcons/DataIcons';
+import {dataUsersRoleIcons} from '../../common/Icons';
 import {Link} from 'react-router-dom';
 import { MenuItem, Menu, Button, Icon, Avatar} from '@material-ui/core';
 

@@ -7,8 +7,8 @@ import { checkHexidecimal} from "../../common/ReduxValidators";
 import { lower } from "../../common/NormalizeRedux";
 import { roundTextField, renderMenuSelectField } from "../../common/ReduxFields/ReduxFieldComponent";
 import { Search } from "@material-ui/icons";
-import {  MainLinearProgress } from "../../common/ProgressLines/ProgressLines";
-import {dataStatusIcons} from '../../common/DataIcons/DataIcons'
+import {  MainLinearProgress } from "../../common/ProgressLines";
+import {dataStatusIcons} from '../../common/Icons'
 
 
 
