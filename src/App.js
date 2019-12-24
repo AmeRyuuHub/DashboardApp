@@ -14,7 +14,7 @@ import { compose } from 'redux';
 import { getInitialized } from './store/redusers/AppInit/AppInit';
 import { setCarrentLang} from './store/redusers/DataUI/DataUI';
 import UsersContainer from './containers/UsersContainer';
-
+import 'dotenv/config'
 
 //const Users = lazy(() => import('./components/ContentPages/Users/Users'));
 const Reports = lazy(() => import('./components/ContentPages/Reports/Reports'));

@@ -5,7 +5,7 @@ import * as axios from 'axios';
 
 
 const instance = axios.create({
-  baseURL:'http://77.120.3.147:4000/',
+  baseURL:process.env.API_URL,
   
   
 })
