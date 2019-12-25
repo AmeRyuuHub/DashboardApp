@@ -4,7 +4,6 @@ import {Button, Grid,Typography, Container, Slide} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
 import {Link} from 'react-router-dom'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
 const useStyles = makeStyles(theme => ({ 
   secondDiv:{
@@ -21,9 +20,7 @@ const useStyles = makeStyles(theme => ({
 const OtherBlock = props => {
   const { block, imgUrl, link, count } = props;
 
-  const trigger = useScrollTrigger({ 
-    disableHysteresis: true,
-  threshold: 500+count*100});
+  
   const classes = useStyles();
   let minHeight = { minHeight: "50vh" };
   return (
@@ -43,7 +40,7 @@ const OtherBlock = props => {
             direction={count & 1 ? "row-reverse" : "row"}
           >
             <Grid item xs={12} sm={6} md={6} lg={6} align="center">
-            <Slide direction="up" in={trigger}>
+            <Slide direction="up" in={true}>
             <img
                 src={imgUrl}
                 alt={block.firstTitle}
