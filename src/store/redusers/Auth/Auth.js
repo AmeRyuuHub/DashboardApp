@@ -9,10 +9,10 @@ export default function authApp(state = initialState, action) {
     case C.SET_AUTH_LOGIN:
       return {
         ...state,
-        result: action.payload.result,
+        fullName: action.payload,
         isFetching: false,
         loginStatus: true,
-        session_id: action.payload.session_id
+       
       };
 
     case C.SET_AUTH_LOGOUT:
@@ -88,18 +88,18 @@ export const getAuthLogin = (login,password) => {
     dispatch(startSubmit("authForm"));
     dispatch(setAuthFetching(true));
   
-    API.getLogin(login, password)
+    API.postLogin(login, password)
       .then(data => {
-        if (data.status) {
-          dispatch(setAuthLogin(data.result[0], data.session_id));
+        
+          dispatch(setAuthLogin(data.fullName));
           dispatch(stopSubmit("authForm"));
-          localStorage.setItem("jssid", data.session_id);
-        } else {
-          dispatch(setAuthLoginFailed(data.status));
-          dispatch(stopSubmit("authForm", {_error: "Login or password is incorrect" }));
-        }
-        dispatch(setAuthFetching(false));
-      })
+          localStorage.setItem("jssid", data.accessToken);
+          dispatch(setAuthFetching(false));
+        //   dispatch(setAuthLoginFailed(data.status));
+        //   dispatch(stopSubmit("authForm", {_error: "Login or password is incorrect" }));
+         }
+        
+      )
       .catch(() => {
         dispatch(setAuthLoginFailed(false));
         dispatch(
@@ -130,23 +130,3 @@ export const getAuthLogout = () => {
     
     };
   };
-  
-  // export const getAuthCheck = (token) => {
-  //   return dispatch => {
-  //     dispatch(setAuthFetching(true));
-     
-  //     API.getAuth(token)
-  //       .then(data => {
-  //         data.status ?
-  //           dispatch(setAuthCheck(data.results[0],data.session_id))
-  //          : 
-  //           dispatch(setAuthCheckFailed(data.status)); 
-        
-  //         dispatch(setAuthFetching(false));
-  //       })
-  //       .catch(() => {
-  //         dispatch(setAuthCheckFailed(false));
-  //         dispatch(setAuthFetching(false));
-  //       });
-  //   };
-  // };

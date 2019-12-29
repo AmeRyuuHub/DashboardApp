@@ -1,15 +1,13 @@
 
 import * as axios from 'axios';
-// import dotenv from 'dotenv'
 
 
-// dotenv.config()
-
-
+let token =localStorage.getItem('jssid');
 console.log(process.env.REACT_APP_API_URL);
 const instance = axios.create({
   baseURL:process.env.REACT_APP_API_URL,
-  
+  headers: {'Authorization': `Bearer ${token}`},
+  withCredentials: true,
   
 })
 export const API = {
@@ -21,28 +19,33 @@ export const API = {
   },
  
 getPing(MAC){
-  return instance.get(`ping/${MAC}`)
+  return instance.get(`status/${MAC}/ping`)
   .then(response=>{return response.data})
  
 },
 getDvbcInfo(MAC){
-  return instance.get(`dvbc/${MAC}`)
+  return instance.get(`status/${MAC}/dvbc`)
   .then(response=>{return response.data})
  
 },
 
-getAuth(token){
-  return instance.post(`auth`,{token})
+getAuth(){
+  return instance.get(`refresh/auth`)
   .then(response=>{return response.data})
  
 },
-getLogin(login, password){
+getToken(){
+  return instance.get(`refresh/auth`,)
+  .then(response=>{return response.data})
+ 
+},
+postLogin(login, password){
   return instance.post(`login`,{login, password})
   .then(response=>{return response.data})
  
 },
-getLogout(token){
-  return instance.post(`logout`,{token})
+patchLogout(){
+  return instance.patch(`logout`,)
   .then(response=>{return response.data})
  
 },
@@ -51,18 +54,19 @@ getUsers(){
   .then(response=>{return response.data})
  
 },
-getUsersAdd({username, password, fullname,email,role}){
-  return instance.post(`users/add`,{username, password, fullname,email,role_id:role})
+postNewUser({login, password, fullname,email,role}){
+  return instance.post(`users`,{login, password, fullname,email,role})
   .then(response=>{return response.data})
   
 },
-getUsersEdit(ID,role_id){
-  return instance.post(`users/edit`,{ID,role_id})
+getOneUser(ID){
+  return instance.get(`users/${ID}`)
   .then(response=>{return response.data})
   
 },
-getUsersDel(ID){
-  return instance.post(`users/del`,{ID})
+
+deleteUser(ID){
+  return instance.delete(`users/${ID}`,)
   .then(response=>{return response.data})
   
 },
