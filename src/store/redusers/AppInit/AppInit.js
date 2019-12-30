@@ -22,19 +22,17 @@ export  function setInitializeSuccess(status){
     return { type:C.SET_INITIALIZE_SUCCESS, payload: status}
 }
  
-  export const getInitialized = (token) => {
+  export const getInitialized = () => {
     return dispatch => {
-      token ?
-      API.getAuth(token)
+      API.getAuth()
         .then(data => {
-          data.status &&
-            dispatch(setAuthLogin(data.result[0],data.result[0].jsession_id));
+            dispatch(setAuthLogin(data));
             dispatch(setInitializeSuccess(true));
  
         })
         .catch(() => {
           dispatch(setInitializeSuccess(true));
           ;
-        }) : dispatch(setInitializeSuccess(true));
+        }) 
     };
   };

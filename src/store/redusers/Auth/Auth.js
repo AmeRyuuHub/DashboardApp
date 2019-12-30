@@ -9,28 +9,29 @@ export default function authApp(state = initialState, action) {
     case C.SET_AUTH_LOGIN:
       return {
         ...state,
-        fullName: action.payload,
+        fullName: action.payload.fullName,
         isFetching: false,
         loginStatus: true,
-       
+        role: JSON.parse(Buffer.from(action.payload.token.split('.')[1], 'base64').toString()).role, 
       };
 
     case C.SET_AUTH_LOGOUT:
       return {
         ...state,
-        result: null,
+        fullName: null,
         loginStatus:false,
         isFetching: false,
-        session_id: null
+        role:null,
+        
       };
 
     case C.SET_AUTH_CHECK:
       return {
         ...state,
-        result: action.payload.result,
+        fullName: action.payload,
         isFetching: false,
         loginStatus: true,
-        session_id: action.payload.session_id
+        
       };
 
     case C.SET_AUTH_FETCHING:
@@ -48,8 +49,8 @@ export default function authApp(state = initialState, action) {
 }
 
 
-export  function setAuthLogin(result,session_id){
-    return { type:C.SET_AUTH_LOGIN, payload: {result,session_id}}
+export  function setAuthLogin(data){
+    return { type:C.SET_AUTH_LOGIN, payload: data}
 }
 
 
@@ -91,9 +92,9 @@ export const getAuthLogin = (login,password) => {
     API.postLogin(login, password)
       .then(data => {
         
-          dispatch(setAuthLogin(data.fullName));
+          dispatch(setAuthLogin(data));
           dispatch(stopSubmit("authForm"));
-          localStorage.setItem("jssid", data.accessToken);
+          localStorage.setItem("jssid", data.token);
           dispatch(setAuthFetching(false));
         //   dispatch(setAuthLoginFailed(data.status));
         //   dispatch(stopSubmit("authForm", {_error: "Login or password is incorrect" }));
@@ -111,22 +112,24 @@ export const getAuthLogin = (login,password) => {
 };
 
 export const getAuthLogout = () => {
-    return dispatch => {
-      let token =localStorage.getItem('jssid');
-     
-     if (token) {
+  return dispatch => {
+    let token = localStorage.getItem("jssid");
+
+    if (token) {
       dispatch(setAuthFetching(true));
-      API.getLogout(token)
-      .then(() => {
-        localStorage.removeItem('jssid');
-        dispatch(setAuthLogout()) ;
-        dispatch(setAuthFetching(false));
-      })
-      .catch(() => {
+      API.patchLogout()
+        .then(() => {
+          localStorage.removeItem("jssid");
+          dispatch(setAuthLogout());
+          dispatch(setAuthFetching(false));
+        })
+        .catch(() => {
           dispatch(setAuthLogoutFailed(false));
           dispatch(setAuthFetching(false));
-      });
-     }
-    
-    };
+        });
+    } else {
+      localStorage.removeItem("jssid");
+      dispatch(setAuthLogout());
+    }
   };
+};

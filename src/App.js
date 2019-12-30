@@ -1,4 +1,4 @@
-import React,{lazy,Suspense} from 'react';
+import React,{lazy,Suspense, useEffect} from 'react';
 import './App.css';
 import {Route} from 'react-router-dom';
 import HomePageContainer from './containers/HomePageContainer';
@@ -22,26 +22,27 @@ const Reports = lazy(() => import('./components/ContentPages/Reports/Reports'));
 
 
 
-class App extends React.Component {
-  componentDidMount() {
-    const ssid = localStorage.getItem("jssid");
-    !this.props.init && this.props.getInitialized(ssid);
-    const userLang = localStorage.getItem("tvm_lang");
-    if (userLang && (this.props.lang !== userLang)) {
-      switch (userLang) {
-        case "ru":
-        case "en":
-        case "ua":
-          this.props.setCarrentLang(userLang);
-          break;
-        default:
-          break;
-      }
-    }
-  }
+const App = (props)=>{
+   const { getInitialized, init } = props;
 
-  render() {
-    if (!this.props.init) {
+  useEffect(() => {
+    getInitialized();
+    //  let userLang = localStorage.getItem("tvm_lang");
+    //  if (userLang && (lang !== userLang)) {
+    //    switch (userLang) {
+    //      case "ru":
+    //      case "en":
+    //      case "ua":
+    //        setCarrentLang(userLang);
+    //        break;
+    //      default:
+    //        break;
+    //    }
+    //  }
+   }, [getInitialized]);
+
+  
+    if (!init) {
       return <MainLinearProgress />;
     }
     return (
@@ -60,10 +61,10 @@ class App extends React.Component {
       </Suspense>
       </>
     );
-  }
+  
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     init: state.appInit.initialized,
     lang: state.dataUI.lang

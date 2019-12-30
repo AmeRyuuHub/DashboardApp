@@ -4,6 +4,6 @@ export const initialState = {
   isFetching: false,
   requestLoginFailed: false,
   requestLogoutFailed: false,
- 
+  role:null
   
 }; 

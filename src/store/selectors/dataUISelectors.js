@@ -14,7 +14,7 @@ export const getDataRoutsApp= state => {
 };
 
 export const getUserRole = state => {
-  return state.authApp.result ? state.authApp.result.role_id:null;
+  return state.authApp.role;
 };
 export const getAppInfo = state => {
   return state.dataUI.appInfo;
@@ -74,19 +74,21 @@ export const getCurrentLang = createSelector(
 export const getAuthStatus = state => {
   return state.authApp.loginStatus;
 };
+
 export const getUser = state => {
-  return state.authApp.result;
+  return state.authApp.fullName;
 };
-export const getSessionId = state => {
-  return state.authApp.session_id;
-};
+// export const getSessionId = state => {
+//   return state.authApp.session_id;
+// };
 
 export const getUserInfo = createSelector(
   getAuthStatus,
   getUser,
-  (auth,user) => {
+  getUserRole,
+  (auth,user,role) => {
     
-    return (auth && user) ? ({name:user.fullname,icon:user.role_id}) :null;
+    return (auth && user) ? ({name:user,icon:role}) :null;
   }
 );
 
@@ -94,9 +96,6 @@ export const getAuthFetching = state => {
   return state.authApp.isFetching;
 };
 
-export const getloginStatus = state => {
-  return state.authApp.loginStatus;
-};
 
 
 export const getMainContainerData= state => {

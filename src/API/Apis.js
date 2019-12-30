@@ -1,30 +1,33 @@
 
 import * as axios from 'axios';
 
+const options = () =>{
+  console.log("get Storage");
+  return ({ headers: {'Authorization': `Bearer ${localStorage.getItem('jssid')}`}})
+ 
+}
 
-let token =localStorage.getItem('jssid');
-console.log(process.env.REACT_APP_API_URL);
-const instance = axios.create({
+let instance = axios.create({
   baseURL:process.env.REACT_APP_API_URL,
-  headers: {'Authorization': `Bearer ${token}`},
+ 
   withCredentials: true,
   
 })
 export const API = {
   getInfoByMac(MAC){
-    return instance.get(`status/${MAC}`)
+    return instance.get(`status/${MAC}`, options())
     
     .then(response=>{return response.data})
    
   },
  
 getPing(MAC){
-  return instance.get(`status/${MAC}/ping`)
+  return instance.get(`status/${MAC}/ping`, options())
   .then(response=>{return response.data})
  
 },
 getDvbcInfo(MAC){
-  return instance.get(`status/${MAC}/dvbc`)
+  return instance.get(`status/${MAC}/dvbc`, options())
   .then(response=>{return response.data})
  
 },
@@ -35,7 +38,7 @@ getAuth(){
  
 },
 getToken(){
-  return instance.get(`refresh/auth`,)
+  return instance.get(`refresh/token`,)
   .then(response=>{return response.data})
  
 },
@@ -45,28 +48,28 @@ postLogin(login, password){
  
 },
 patchLogout(){
-  return instance.patch(`logout`,)
+  return instance.patch(`logout`,null, options())
   .then(response=>{return response.data})
  
 },
 getUsers(){
-  return instance.get(`users`)
+  return instance.get(`users`, options())
   .then(response=>{return response.data})
  
 },
 postNewUser({login, password, fullname,email,role}){
-  return instance.post(`users`,{login, password, fullname,email,role})
+  return instance.post(`users`,{login, password, fullname,email,role}, options())
   .then(response=>{return response.data})
   
 },
 getOneUser(ID){
-  return instance.get(`users/${ID}`)
+  return instance.get(`users/${ID}`, options())
   .then(response=>{return response.data})
   
 },
 
 deleteUser(ID){
-  return instance.delete(`users/${ID}`,)
+  return instance.delete(`users/${ID}`, options())
   .then(response=>{return response.data})
   
 },
@@ -74,6 +77,8 @@ deleteUser(ID){
 
 
  
+
+
 
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getAuthFetching, getloginStatus} from '../store/selectors/dataUISelectors';
+import { getAuthFetching, getAuthStatus} from '../store/selectors/dataUISelectors';
 import logo from '../pics/logo-main.svg'
 import {Redirect} from 'react-router-dom'
 import { getAuthLogin } from '../store/redusers/Auth/Auth';
@@ -59,7 +59,7 @@ const AuthContainer = (props) => {
 function mapStateToProps(state) {
   return {
     isFetching: getAuthFetching(state),
-    loginStatus:getloginStatus(state),
+    loginStatus:getAuthStatus(state),
   };
 }
 
