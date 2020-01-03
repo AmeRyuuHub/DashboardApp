@@ -66,7 +66,7 @@ function Users(props) {
       <Table  aria-label="table" size="small">
         <TableHead >
           <TableRow>
-            <TableCell className={classes.table}>Username</TableCell>
+            <TableCell className={classes.table}>Login</TableCell>
             <TableCell align="right" className={classes.table}>Fullname</TableCell>
             <TableCell align="right" className={classes.table}>Email</TableCell>
             <TableCell align="right" className={classes.table}>Status</TableCell>
@@ -78,11 +78,11 @@ function Users(props) {
             <TableRow key={row.ID}>
              
               <TableCell component="th" scope="row">
-                {row.username}
+                {row.login}
               </TableCell>
-              <TableCell align="right">{row.fullname}</TableCell>
+              <TableCell align="right">{row.fullName}</TableCell>
               <TableCell align="right">{row.email}</TableCell>
-              <TableCell align="right">{statusRole[row.role_id]}</TableCell>
+              <TableCell align="right">{statusRole[row.role]}</TableCell>
               <TableCell align="center">
                 <IconButton onClick={() => {
                     handleClickEdit(index);

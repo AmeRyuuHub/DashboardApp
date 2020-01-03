@@ -6,7 +6,8 @@ import { dataStatusIcons } from "../../../common/Icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: "100%"
+    height: "100%",
+    
   },
 
   title: {
@@ -20,7 +21,8 @@ const useStyles = makeStyles(theme => ({
   divIcon: {
     display: "flex",
     justifyContent: "space-between",
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+  
   }
 }));
 

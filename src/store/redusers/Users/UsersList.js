@@ -3,6 +3,7 @@ import {C} from '../ActionsNameList'
 import {API} from '../../../API/Apis';
 import { initialState } from './initialState';
 import { startSubmit, stopSubmit, setSubmitSucceeded } from 'redux-form';
+import { getDeviceInfo } from '../../../common/ReduxThunk';
 
 
 export default function usersList(state = initialState, action) {
@@ -154,35 +155,32 @@ export  function setChangeUserFailed(status){
 export const getUsersListItems = () => {
   return dispatch => {
     dispatch(setUserListRequestStart());
-    API.getUsers()
+    getDeviceInfo(API.getUsers, null,API.getToken)
       .then(data => {
-        if (data.status) {
+        
           dispatch(setUserListRequestStatus(true));
-          dispatch(setUsersList(data.result));
-        } else {
-          dispatch(setUserListRequestStatus(false));
-        };
+          dispatch(setUsersList(data));
         dispatch(setUserListFetching(false));
       })
-      .catch(error => {
+      .catch(() => {
         dispatch(setUserListRequestStatus(false));
         dispatch(setUserListFetching(false));
         dispatch(setUserListFailed(true));
-        console.log(error);
       });
   };
 };
+
 
  
 export const getAddNewUser = (userData) => {
   return dispatch => {
     dispatch(startSubmit("AddUserForm"));
-    API.getUsersAdd(userData)
-      .then(data => {
-        dispatch(stopSubmit("AddUserForm",(!data.status) && {_error:"User is not Added"}));
-        data.status &&
+    console.log(userData);
+    getDeviceInfo(API.postNewUser, userData,API.getToken)
+      .then(() => {
+        dispatch(stopSubmit("AddUserForm"));
         dispatch(getUsersListItems());
-        data.status && dispatch(setSubmitSucceeded("AddUserForm"));    
+        dispatch(setSubmitSucceeded("AddUserForm"));    
       })
       .catch(error => {
         dispatch(stopSubmit("AddUserForm",{_error:"Something wrong, try latter..."}));

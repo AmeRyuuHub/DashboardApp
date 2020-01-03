@@ -54,8 +54,8 @@ getUsers(){
   .then(response=>{return response.data})
  
 },
-postNewUser({login, password, fullname,email,role}){
-  return instance.post(`users`,{login, password, fullname,email,role}, options())
+postNewUser({login, password, fullName,email,role}){
+  return instance.post(`users`,{login, password, fullName,email,role}, options())
   .then(response=>{return response.data})
   
 },
