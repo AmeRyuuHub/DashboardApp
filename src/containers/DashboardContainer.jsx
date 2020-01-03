@@ -4,10 +4,10 @@ import { getStbStatusByMac} from '../store/redusers/StatusByMac/StatusByMac';
 import {getPingInfoByMac} from '../store/redusers/PingByMac/PingByMac';
 import {getDvbcInfoByMac} from '../store/redusers/DvbcByMac/DvbcByMac';
 import {compose} from 'redux';
-import { withAuthRole, withMainDiv } from '../components/common/HOC/'
+import { withAuthRole, withMainDiv } from '../common/HOC'
 import { getStatusFetching, getStatusStbType, getStatusLastReport, getDetailsValue, getConnectValue, getStatusStbModel, getStatusSearchMac, getStatusSearchStatus, getStatusValueRow } from '../store/selectors/DashboardSelectors';
-import Dashboard from '../components/ContentPages/Dashboard/Dashboard';
-import SearchMacForm from '../components/ContentPages/Dashboard/SearchMacForm';
+import Dashboard from '../components/Dashboard/Dashboard';
+import SearchMacForm from '../components/Dashboard/SearchMacForm';
 import {  Grid, Container, Divider, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { getUILang } from '../store/selectors/dataUISelectors';

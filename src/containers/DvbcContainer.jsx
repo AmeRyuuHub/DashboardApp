@@ -3,8 +3,8 @@ import {CloudDownload} from "@material-ui/icons";
 import {  Button, Card, CardHeader, CardContent, CircularProgress, Typography, } from "@material-ui/core";
 import {  getDvbcRequestStatus, getDvbcRequestFailed, getDvbcFetching, getDataDvbcFreq, getDvbcFreqList } from "../store/selectors/DashboardSelectors";
 import { connect } from 'react-redux';
-import DvbcChart from "../components/ContentPages/Dashboard/DashboardItems/DvbcCharts/DvbcChart";
-import DvbcTimeChart from "../components/ContentPages/Dashboard/DashboardItems/DvbcCharts/DvbcTimeChart";
+import DvbcChart from "../components/Dashboard/DashboardItems/DvbcCharts/DvbcChart";
+import DvbcTimeChart from "../components/Dashboard/DashboardItems/DvbcCharts/DvbcTimeChart";
 
 
 

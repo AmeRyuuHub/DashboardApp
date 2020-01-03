@@ -3,6 +3,7 @@ import {C} from '../ActionsNameList'
 import {API} from '../../../API/Apis';
 import { stopSubmit,  startSubmit} from 'redux-form'
 import { initialState } from './initialState';
+import { getDeviceInfo } from "../../../common/ReduxThunk";
 
 export default function StatusByMac(state = initialState, action) {
   switch (action.type) {
@@ -66,7 +67,7 @@ export const getStbStatusByMac = MAC => {
   return dispatch => {
     dispatch(startSubmit("editMac"));
     dispatch(setStartSearch(MAC));
-    getDeviceInfo(API.getInfoByMac, MAC)
+    getDeviceInfo(API.getInfoByMac, MAC,API.getToken)
       .then(data => {
         dispatch(setInfoByMac(data.status));
         dispatch(setSearchResult(true));
@@ -88,19 +89,7 @@ export const getStbStatusByMac = MAC => {
 };
 
 
-const getDeviceInfo = async (rout, MAC) => {
-  try {
-    const data = await rout(MAC);
-    return data;
-  } catch (error) {
-    if (error.response.status === 498) {
-      let { token } = await API.getToken();
-      localStorage.setItem("jssid", token);
-      return getDeviceInfo(rout, MAC);
-    }
-    throw error;
-  }
-};
+
 
 //old version of thunk
 

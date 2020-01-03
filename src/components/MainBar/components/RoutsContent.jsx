@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, ListItemText, List,  ListItemIcon, Divider, Box, Icon } from '@material-ui/core';
 import {Link} from 'react-router-dom';
-import {StyledListItem} from '../../common/styled';
+import {StyledListItem} from '../../../common/styled';
 
 
 const useStyles = makeStyles(theme => ({

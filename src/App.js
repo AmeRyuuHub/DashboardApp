@@ -1,23 +1,19 @@
 import React,{lazy,Suspense, useEffect} from 'react';
 import './App.css';
 import {Route} from 'react-router-dom';
-import HomePageContainer from './containers/HomePageContainer';
-import AppBarContainer from './containers/AppBarContainer';
-import About from './components/ContentPages/About/About';
-import DashboardContainer from './containers/DashboardContainer';
-import AuthContainer from'./containers/AuthContainer';
+import { HomePageContainer, AppBarContainer, DashboardContainer, AuthContainer, UsersContainer } from './containers';
+import About from './components/About/About';
 //import {Footer} from './components/Footer/Footer';
-import Profile from './components/ContentPages/Profile/Profile'
+import Profile from './components/Profile/Profile'
 import { connect } from 'react-redux';
-import { MainLinearProgress } from './components/common/ProgressLines';
+import { MainLinearProgress } from './common/ProgressLines';
 import { compose } from 'redux';
 import { getInitialized } from './store/redusers/AppInit/AppInit';
 import { setCarrentLang} from './store/redusers/DataUI/DataUI';
-import UsersContainer from './containers/UsersContainer';
 import 'dotenv/config'
 
 //const Users = lazy(() => import('./components/ContentPages/Users/Users'));
-const Reports = lazy(() => import('./components/ContentPages/Reports/Reports'));
+const Reports = lazy(() => import('./components/Reports/Reports'));
 
 
 

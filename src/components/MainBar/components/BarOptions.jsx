@@ -12,11 +12,11 @@ import {
   Collapse,
   Button
 } from "@material-ui/core";
-import { dataUsersRoleIcons } from "../../common/Icons";
+import { dataUsersRoleIcons } from "../../../common/Icons";
 
 import { MoreVert, AssignmentInd, MeetingRoom } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { StyledMenu, StyledMenuItem } from "../../common/styled";
+import { StyledMenu, StyledMenuItem } from "../../../common/styled";
 
 const useStyles = makeStyles(theme => ({
   nested: {

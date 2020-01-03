@@ -1,7 +1,7 @@
 
 import React from 'react';
 import RoutsContent from './RoutsContent';
-import { StyledDrawer } from '../../common/styled';
+import { StyledDrawer } from '../../../common/styled';
 
 
 

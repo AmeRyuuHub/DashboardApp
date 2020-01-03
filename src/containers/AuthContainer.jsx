@@ -6,9 +6,9 @@ import {Redirect} from 'react-router-dom'
 import { getAuthLogin } from '../store/redusers/Auth/Auth';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Container, Box } from '@material-ui/core';
-import { MainLinearProgress } from '../components/common/ProgressLines';
+import { MainLinearProgress } from '../common/ProgressLines';
 import LoginForm from '../components/Auth/LoginForm';
-import { Copyright } from '../components/common/Copyright';
+import { Copyright } from '../common/Copyright';
 
 
 const useStyles = makeStyles(theme => ({

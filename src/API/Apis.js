@@ -15,16 +15,14 @@ let instance = axios.create({
 export const API = {
   getInfoByMac(MAC){
     return instance.get(`dashboard/${MAC}`, options())
-    
     .then(response=>{return response.data})
-   
   },
  
 getPing(MAC){
   return instance.get(`dashboard/${MAC}/ping`, options())
   .then(response=>{return response.data})
- 
 },
+
 getDvbcInfo(MAC){
   return instance.get(`dashboard/${MAC}/dvbc`, options())
   .then(response=>{return response.data})

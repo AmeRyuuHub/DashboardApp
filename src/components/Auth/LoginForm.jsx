@@ -3,8 +3,8 @@ import React from 'react';
 import { Button, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Field, reduxForm } from 'redux-form'
-import { checkRequired, maxLengthCheck } from '../common/ReduxValidators';
-import { renderTextField } from '../common/ReduxFields/ReduxFieldComponent';
+import { checkRequired, maxLengthCheck } from '../../common/ReduxValidators';
+import { renderTextField } from '../../common/ReduxFields/ReduxFieldComponent';
 
 
 const maxLength30 = maxLengthCheck(30);

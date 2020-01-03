@@ -6,9 +6,7 @@ import {
   getOtherBlocksWithLang
 } from "../store/selectors/dataUISelectors";
 import { connect } from "react-redux";
-import OtherBlock from "../components/ContentPages/HomePage/OtherBlock";
-import HowItWorksBlock from "../components/ContentPages/HomePage/HowItWorkBlock";
-import FirstBlock from "../components/ContentPages/HomePage/FirstBlock";
+import {OtherBlock, HowItWorksBlock, FirstBlock} from "../components/HomePage";
 import Footer from "../components/Footer/Footer";
 
 const HomePageContainer = props => {

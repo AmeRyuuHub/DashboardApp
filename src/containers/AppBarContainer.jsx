@@ -1,23 +1,30 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {withRouter} from 'react-router';
-import { getRoutsMenu, getAppTitle, getCurrentLang, getLangList,getAuthStatus, getUserInfo, getRoutsApp  } from '../store/selectors/dataUISelectors';
-
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
-//import {dataLangList} from '../components/Common/DataIcons/DataIcons';
-import AsideBar from '../components/MainBar/components/AsideBar';
-// import NavRouts from '../components/MainBar/components/NavRouts';
-import LangMenu from '../components/MainBar/components/LangMenu';
-import SubMenu from '../components/MainBar/components/SubMenu';
-import { setCarrentLang } from '../store/redusers/DataUI/DataUI';
-import { compose } from 'redux';
-import { getAuthLogout } from '../store/redusers/Auth/Auth';
-// import logo from '../pics/logo-dark.svg'
-import ToolBarList from '../components/MainBar/components/ToolBarList';
-import { useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import CustomizedMenus from '../components/MainBar/components/BarOptions';
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import {
+  getRoutsMenu,
+  getAppTitle,
+  getCurrentLang,
+  getLangList,
+  getAuthStatus,
+  getUserInfo,
+  getRoutsApp
+} from "../store/selectors/dataUISelectors";
+import { makeStyles } from "@material-ui/core/styles";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import {
+  AsideBar,
+  LangMenu,
+  SubMenu,
+  ToolBarList,
+  OptionsMenu
+} from "../components/MainBar";
+// import { ToolBar } from "../components/MainBar";
+import { setCarrentLang } from "../store/redusers/DataUI/DataUI";
+import { compose } from "redux";
+import { getAuthLogout } from "../store/redusers/Auth/Auth";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles(theme => ({
   navItems: {
@@ -94,7 +101,7 @@ const AppBarContainer = React.memo(props => {
                 />
               </>
             ) : (
-              <CustomizedMenus
+              <OptionsMenu
                 auth={authStatus}
                 user={user}
                 getAuthLogout={getAuthLogout}

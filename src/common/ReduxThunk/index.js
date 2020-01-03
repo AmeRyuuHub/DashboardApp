@@ -1,0 +1,1 @@
+export {default as getDeviceInfo} from './getDeviceInfoWithToken'

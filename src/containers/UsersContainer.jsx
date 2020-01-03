@@ -1,13 +1,34 @@
-import React, {useEffect} from "react";
-import Users from "../components/ContentPages/Users/UsersList";
-import { getUsersListItems,getAddNewUser,getDelNewUser,getChangeNewUser} from "../store/redusers/Users/UsersList";
-import { connect } from 'react-redux';
-import { withAuthRole, withMainDiv } from '../components/common/HOC/';
-import { compose } from 'redux';
-import { getUsersList, getUsersListRequest, getUsersListRequestFailed, getUsersListFetching, getDelRequest, getDelRequestFailed, getDelFetching, getChangeRequest, getChangeRequestFailed, getChangeFetching } from '../store/selectors/UsersListSelectors';
-import AddUser from "../components/ContentPages/Users/AddUser";
-import { Card, CardHeader, CardContent, Container, Grid} from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect } from "react";
+import {
+  getUsersListItems,
+  getAddNewUser,
+  getDelNewUser,
+  getChangeNewUser
+} from "../store/redusers/Users/UsersList";
+import { connect } from "react-redux";
+import { withAuthRole, withMainDiv } from "../common/HOC/";
+import { compose } from "redux";
+import {
+  getUsersList,
+  getUsersListRequest,
+  getUsersListRequestFailed,
+  getUsersListFetching,
+  getDelRequest,
+  getDelRequestFailed,
+  getDelFetching,
+  getChangeRequest,
+  getChangeRequestFailed,
+  getChangeFetching
+} from "../store/selectors/UsersListSelectors";
+import { AddUser, Users } from "../components/Users";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  Container,
+  Grid
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { Accessible } from "@material-ui/icons";
 
 

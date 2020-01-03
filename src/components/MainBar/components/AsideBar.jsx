@@ -3,7 +3,7 @@ import React from 'react';
 import {Menu as MenuIcon} from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import RoutsContent from './RoutsContent';
-import { StyledDrawer } from '../../common/styled';
+import { StyledDrawer } from '../../../common/styled';
 
 
 
