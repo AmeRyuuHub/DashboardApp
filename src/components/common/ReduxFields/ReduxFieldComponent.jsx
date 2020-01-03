@@ -19,16 +19,17 @@ export const renderTextField = ({
   meta: { touched, invalid, error },
   ...custom
 }) => (
+  
   <TextField
     required
     label={label}
     placeholder={label}
-    error={touched && invalid}
+    error={touched && (invalid || error)}
     helperText={touched && error ? error : " "}
     {...input}
     {...custom}
   />
-);
+); 
 
 export const renderTextwithoutLine = ({
   label,

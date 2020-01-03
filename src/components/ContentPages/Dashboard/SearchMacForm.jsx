@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Field, reduxForm} from "redux-form";
+import { Field, reduxForm, SubmissionError} from "redux-form";
 import { makeStyles} from "@material-ui/core/styles";
 import {Button, InputAdornment,MenuItem, SvgIcon, } from "@material-ui/core";
 import { checkHexidecimal} from "../../common/ReduxValidators";
@@ -28,10 +28,34 @@ const useStyles = makeStyles(theme => ({
 const SearchMacForm = props => {
   const classes = useStyles();
   const { handleSubmit, pristine, submitting, error, valid } = props;
-
+  const startSearch = ({ macInput, deviceType }) => {
+    switch (deviceType) {
+      case "stb":
+        if (!macInput || macInput.length !== 12) {
+          throw new SubmissionError({
+            macInput: "Must be 12 symbols",
+            _error: "MAC failed!"
+          });
+        } else {
+          return props.getStbStatusByMac(macInput);
+        }
+      case "mob":
+        if (!macInput || macInput.length !== 16) {
+          throw new SubmissionError({
+            macInput: "Must be 16 symbols",
+            _error: "MAC failed!"
+          });
+        } else {
+          return props.getStbStatusByMac(macInput);
+        }
+  
+      default:
+        break;
+    }
+  };
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(startSearch)}>
         <Field
           fullWidth
           name="macInput"

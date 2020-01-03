@@ -11,7 +11,7 @@ import SearchMacForm from '../components/ContentPages/Dashboard/SearchMacForm';
 import {  Grid, Container, Divider, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { getUILang } from '../store/selectors/dataUISelectors';
-import { SubmissionError } from 'redux-form';
+// import { SubmissionError } from 'redux-form';
 
 
 
@@ -24,31 +24,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DashboardContainer = props => {
-  const startSearch = ({ macInput, deviceType }, dispatch) => {
-    switch (deviceType) {
-      case "stb":
-        if (!macInput || macInput.length !== 12) {
-          throw new SubmissionError({
-            macInput: "Must be 12 symbols",
-            _error: "MAC failed!"
-          });
-        } else {
-          return props.getStbStatusByMac(macInput);
-        }
-      case "mob":
-        if (!macInput || macInput.length !== 16) {
-          throw new SubmissionError({
-            macInput: "Must be 16 symbols",
-            _error: "MAC failed!"
-          });
-        } else {
-          return dispatch(props.getStbStatusByMac(macInput));
-        }
-
-      default:
-        break;
-    }
-  };
+  
 
   const getPingByMac = () => {
     props.getPingInfoByMac(props.macValue);
@@ -64,10 +40,8 @@ const DashboardContainer = props => {
     getPingInfoByMac,
     searchStatus,
     isFetching,
-
     ...rest
   } = props;
-
   return (
     <div className={classes.root}>
      
@@ -75,7 +49,7 @@ const DashboardContainer = props => {
       <Container maxWidth="lg">
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} md={6} lg={5} xl={4}>
-          <SearchMacForm onSubmit={startSearch} />
+          <SearchMacForm getStbStatusByMac={props.getStbStatusByMac} />
         </Grid>
       </Grid>
       <Box color="text.secondary">
@@ -86,7 +60,7 @@ const DashboardContainer = props => {
       </Box>
       
       </Container>
-      {!isFetching && searchStatus && props.boxType && (
+     {!isFetching && searchStatus && props.boxType && (
          <Container maxWidth="lg">
           <Dashboard
             {...rest}
@@ -95,7 +69,7 @@ const DashboardContainer = props => {
           />
         </Container>
       
-      
+       
       )}
     
     </div>

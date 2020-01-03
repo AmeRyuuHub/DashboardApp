@@ -1,33 +1,32 @@
 
 import * as axios from 'axios';
 
-const options = () =>{
-  console.log("get Storage");
-  return ({ headers: {'Authorization': `Bearer ${localStorage.getItem('jssid')}`}})
- 
-}
+const options = () => {
+  return {
+    headers: { Authorization: `Bearer ${localStorage.getItem("jssid")}` }
+  };
+};
 
 let instance = axios.create({
   baseURL:process.env.REACT_APP_API_URL,
- 
   withCredentials: true,
   
 })
 export const API = {
   getInfoByMac(MAC){
-    return instance.get(`status/${MAC}`, options())
+    return instance.get(`dashboard/${MAC}`, options())
     
     .then(response=>{return response.data})
    
   },
  
 getPing(MAC){
-  return instance.get(`status/${MAC}/ping`, options())
+  return instance.get(`dashboard/${MAC}/ping`, options())
   .then(response=>{return response.data})
  
 },
 getDvbcInfo(MAC){
-  return instance.get(`status/${MAC}/dvbc`, options())
+  return instance.get(`dashboard/${MAC}/dvbc`, options())
   .then(response=>{return response.data})
  
 },

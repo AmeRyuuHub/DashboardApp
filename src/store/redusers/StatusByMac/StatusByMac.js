@@ -19,7 +19,7 @@ export default function StatusByMac(state = initialState, action) {
       return {
         ...state,
         searchMacValue: action.payload,
-        isFetching:true,
+        
         requestFailed: false,
         searchResult:null,
       };
@@ -43,7 +43,6 @@ export  function setInfoByMac(boxinfo){
     return { type:C.SET_STATUS_BY_MAC, payload: boxinfo}
 }
 
-
 export  function setStartSearch(mac){
     return { type:C.SET_STATUS_SEARCH_START, payload: mac }
 }
@@ -56,7 +55,6 @@ export  function setFetching(status){
     return { type:C.SET_STATUS_FETCHING, payload: status }
 }
 
-
 export  function setInfoFailed(status){
   return {
       type:C.SET_STATUS_BY_MAC_FAILED,
@@ -68,19 +66,60 @@ export const getStbStatusByMac = MAC => {
   return dispatch => {
     dispatch(startSubmit("editMac"));
     dispatch(setStartSearch(MAC));
-    API.getInfoByMac(MAC)
+    getDeviceInfo(API.getInfoByMac, MAC)
       .then(data => {
-        dispatch(setFetching(false));
-        dispatch(stopSubmit("editMac",(!data.status) && {macInput:"This MAC is not found"}));
-        dispatch(setSearchResult(data.status));
-        data.status && dispatch(setInfoByMac(data.results[0]));
+        dispatch(setInfoByMac(data.status));
+        dispatch(setSearchResult(true));
+        dispatch(stopSubmit("editMac"));
       })
-      .catch(() => {
-        dispatch(setFetching(false));
-        dispatch(stopSubmit("editMac",{macInput:"Something wrong, try latter..."}));
+      .catch(error => {
         dispatch(setSearchResult(false));
+        dispatch(
+          stopSubmit(
+            "editMac",
+            error.response.status === 404
+              ? { macInput: "Device not found." }
+              : { macInput: "Something wrong, try latter..." }
+          )
+        );
         dispatch(setInfoFailed(true));
       });
   };
 };
 
+
+const getDeviceInfo = async (rout, MAC) => {
+  try {
+    const data = await rout(MAC);
+    return data;
+  } catch (error) {
+    if (error.response.status === 498) {
+      let { token } = await API.getToken();
+      localStorage.setItem("jssid", token);
+      return getDeviceInfo(rout, MAC);
+    }
+    throw error;
+  }
+};
+
+//old version of thunk
+
+// export const getStbStatusByMac = MAC => {
+//   return dispatch => {
+//     dispatch(startSubmit("editMac"));
+//     dispatch(setStartSearch(MAC));
+//     API.getInfoByMac(MAC)
+//       .then(data => {
+//         dispatch(setFetching(false));
+//         dispatch(stopSubmit("editMac",(!data.status) && {macInput:"This MAC is not found"}));
+//         dispatch(setSearchResult(data.status));
+//         data.status && dispatch(setInfoByMac(data.results[0]));
+//       })
+//       .catch(() => {
+//         dispatch(setFetching(false));
+//         dispatch(stopSubmit("editMac",{macInput:"Something wrong, try latter..."}));
+//         dispatch(setSearchResult(false));
+//         dispatch(setInfoFailed(true));
+//       });
+//   };
+// };

@@ -30,9 +30,10 @@ export  function setInitializeSuccess(status){
             dispatch(setInitializeSuccess(true));
  
         })
-        .catch(() => {
+        .catch((error) => {         
+            console.log(error.response.status);
           dispatch(setInitializeSuccess(true));
-          ;
+          
         }) 
     };
   };

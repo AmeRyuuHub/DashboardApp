@@ -6,7 +6,12 @@ import { initialState } from './initialState';
 export default function PingByMac(state = initialState, action) {
   switch (action.type) {
     case C.SET_PING_BY_MAC:
-      return { ...state, mac: action.payload.mac, router:action.payload.router,platform:action.payload.platform };
+      return {
+        ...state,
+        mac: action.payload.mac,
+        router: action.payload.status.filter(rout => rout.platform === 0),
+        platform: action.payload.status.filter(rout => rout.platform === 1),
+      };
 
     case C.SET_PING_INFO_SEARCH_START:
       return { ...state, requestStatus: null, requestFailed: false };
@@ -61,34 +66,26 @@ export  function setPingFailed(status){
 
 
 // ThunkCreators
-export const getPingInfoByMac =(MAC)=> {
+export const getPingInfoByMac = MAC => {
+  return dispatch => {
+    dispatch(setPingFailed(false));
+    dispatch(setPingFetching(true));
 
-    return (dispatch)=>{
-        dispatch(setPingFailed(false)); 
-        dispatch(setPingFetching(true));
-        
-        API.getPing(MAC)
-        .then(data=>{
-            dispatch(setPingFetching(false));
-            
-            if (data.status){
-                dispatch(setPingRequestStatus(true));   
-                dispatch(setPingByMac(data.response));
-                } else {
-                dispatch(setPingRequestStatus(false)) 
-                
-                } 
-        }
-            )
-            .catch((error)=>{
-                dispatch(setPingRequestStatus(false)); 
-                dispatch(setPingFetching(false));
-                dispatch(setPingFailed(true));
-              console.log(error);})  
-    
-    }
-    
-    }
+    API.getPing(MAC)
+      .then(data => {
+        dispatch(setPingFetching(false));
+
+        dispatch(setPingRequestStatus(true));
+        dispatch(setPingByMac(data));
+      })
+      .catch(error => {
+        dispatch(setPingRequestStatus(false));
+        dispatch(setPingFetching(false));
+        dispatch(setPingFailed(true));
+        console.log(error);
+      });
+  };
+};
 
    
         
