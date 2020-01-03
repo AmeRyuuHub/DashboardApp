@@ -2,6 +2,7 @@
 import {C} from '../ActionsNameList'
 import {API} from '../../../API/Apis';
 import { initialState } from './initialState';
+import { getDeviceInfo } from '../../../common/ReduxThunk';
 
 export default function PingByMac(state = initialState, action) {
   switch (action.type) {
@@ -70,11 +71,10 @@ export const getPingInfoByMac = MAC => {
   return dispatch => {
     dispatch(setPingFailed(false));
     dispatch(setPingFetching(true));
-
-    API.getPing(MAC)
+    getDeviceInfo(API.getPing, MAC,API.getToken)
+    
       .then(data => {
         dispatch(setPingFetching(false));
-
         dispatch(setPingRequestStatus(true));
         dispatch(setPingByMac(data));
       })
@@ -82,10 +82,9 @@ export const getPingInfoByMac = MAC => {
         dispatch(setPingRequestStatus(false));
         dispatch(setPingFetching(false));
         dispatch(setPingFailed(true));
-        console.log(error);
+        
       });
   };
 };
 
    
-        
