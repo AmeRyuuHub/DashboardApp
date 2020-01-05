@@ -175,7 +175,6 @@ export const getUsersListItems = () => {
 export const getAddNewUser = (userData) => {
   return dispatch => {
     dispatch(startSubmit("AddUserForm"));
-    console.log(userData);
     getDeviceInfo(API.postNewUser, userData,API.getToken)
       .then(() => {
         dispatch(stopSubmit("AddUserForm"));
@@ -201,8 +200,8 @@ export const getAddNewUser = (userData) => {
 export const getDelNewUser = (userData) => {
   return dispatch => {
     dispatch(setDelUserRequestStart());
-    API.getUsersDel(userData)
-      .then(data => {
+    getDeviceInfo(API.deleteUser, userData,API.getToken)
+      .then(() => {
           dispatch(setDelUserRequestStatus(true));
           dispatch(getUsersListItems()); 
           dispatch(setDelUserFetching(false));

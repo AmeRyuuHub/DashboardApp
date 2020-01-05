@@ -67,7 +67,7 @@ const AddUserForm =(props) =>{
       <Field
         name="login"
         component={renderTextField}
-        label="Username"
+        label="Login"
         validate={[checkRequired, maxLength30]}
         fullWidth
         margin="dense"
@@ -77,7 +77,7 @@ const AddUserForm =(props) =>{
       <Field
         name="fullName"
         component={renderTextField}
-        label="Fullname"
+        label="Full Name"
         margin="dense"
         validate={[checkRequired, maxLength30]}
         fullWidth

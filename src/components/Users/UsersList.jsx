@@ -44,7 +44,7 @@ function Users(props) {
   };
   const handleSuccess = () => {
     setOpen(false);
-    props.getDelNewUser(rows[openID].ID);
+    props.getDelNewUser(rows[openID]._id);
     setOpenID(null);
   };
   
@@ -75,7 +75,7 @@ function Users(props) {
         </TableHead>
         <TableBody>
           {rows.map((row, index) => (
-            <TableRow key={row.ID}>
+            <TableRow key={row._id}>
              
               <TableCell component="th" scope="row">
                 {row.login}
