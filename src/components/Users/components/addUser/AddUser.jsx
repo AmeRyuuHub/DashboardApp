@@ -1,11 +1,11 @@
 import React from 'react';
 import { IconButton} from '@material-ui/core';
 import {PersonAdd} from '@material-ui/icons'
-import AddUserForm from './AddUserForm';
-import { DialogWithClose } from '../../common/Dialogs';
+import AddUserForm from './AddForm';
+import { DialogWithClose } from '../../../../common/Dialogs';
 
 
-export default function AddUser(props) {
+const AddUser = (props) => {
 
   const {getAddNewUser} = props;
   const [open, setOpen] = React.useState(false);
@@ -39,3 +39,4 @@ export default function AddUser(props) {
     </div>
   );
 }
+export default AddUser;

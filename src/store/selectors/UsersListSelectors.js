@@ -1,3 +1,5 @@
+import { createSelector } from "reselect";
+
 // import { v4 } from "uuid";
 // import { createSelector } from "reselect";
 
@@ -39,8 +41,23 @@ export const getUsersList = state => {
       return state.users.requestChangeFailed;
     };
 
+    export const getStatusDeleteDialog = state => {
+      return state.users.openDeleteDialog;
+    };
+    export const getValueDelDialog = state => {
+      return state.users.valueDeleteDialog;
+    };
 
-
-   
+    export const getValueDeleteDialog = createSelector(
+      getStatusDeleteDialog,
+      getValueDelDialog,
+      getUsersList,
+      (status, id, list) => {
+        if (status) {
+          let user = list.filter(item => item._id === id);
+          return user[0];
+        }
+      }
+    );
   
 

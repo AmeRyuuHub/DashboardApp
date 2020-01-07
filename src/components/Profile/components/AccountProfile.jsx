@@ -13,6 +13,7 @@ import {
   Button,
   LinearProgress
 } from '@material-ui/core';
+import { Person } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     marginLeft: 'auto',
-    height: 110,
+    height: 100,
     width: 100,
     flexShrink: 0,
     flexGrow: 0
@@ -40,11 +41,14 @@ const AccountProfile = props => {
   const classes = useStyles();
 
   const user = {
-    name: 'Shen Zhi',
-    city: 'Los Angeles',
-    country: 'USA',
-    timezone: 'GTM-7',
-    avatar: '/images/avatars/avatar_11.png'
+avatar:null || <Person/>,
+login:"testAdmin",
+fullName:"testAdministrator",
+email:"testadmin@gmail.com",
+role:"Administrator",
+
+createDate:"2019-12-24T17:41:53.671+00:00",
+
   };
 
   return (
@@ -59,27 +63,27 @@ const AccountProfile = props => {
               gutterBottom
               variant="h2"
             >
-              John Doe
+              {user.fullName}
             </Typography>
             <Typography
               className={classes.locationText}
               color="textSecondary"
               variant="body1"
             >
-              {user.city}, {user.country}
+              {user.role}
             </Typography>
             <Typography
               className={classes.dateText}
               color="textSecondary"
               variant="body1"
             >
-              
+              {user.email}
             </Typography>
           </div>
           <Avatar
             className={classes.avatar}
-            src={user.avatar}
-          />
+           
+          > {user.avatar}</Avatar>
         </div>
         <div className={classes.progress}>
           <Typography variant="body1">Profile Completeness: 70%</Typography>

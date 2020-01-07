@@ -9,7 +9,13 @@ import { getDeviceInfo } from '../../../common/ReduxThunk';
 export default function usersList(state = initialState, action) {
   switch (action.type) {
     case C.SET_USERS_LIST:
-      return { ...state, list: action.payload };
+      return {
+        ...state,
+        list: action.payload.map(item => ({
+          ...item,
+          role: state.statusRole[item.role]
+        }))
+      };
 
     case C.SET_USERS_LIST_REQUEST_START:
       return {
@@ -26,7 +32,6 @@ export default function usersList(state = initialState, action) {
 
     case C.SET_USERS_LIST_FAILED:
       return { ...state, requestFailed: action.payload };
-
 
     case C.SET_DEL_USER_REQUEST_START:
       return {
@@ -59,6 +64,14 @@ export default function usersList(state = initialState, action) {
 
     case C.SET_CHANGE_USER_FAILED:
       return { ...state, requestChangeFailed: action.payload };
+    case C.SET_OPEN_DELETE_DIALOG:
+      return {
+        ...state,
+        openDeleteDialog: true,
+        valueDeleteDialog: action.payload
+      };
+    case C.SET_CLOSE_DELETE_DIALOG:
+      return { ...state, openDeleteDialog: false, valueDeleteDialog: null };
 
     default:
       return state;
@@ -99,7 +112,6 @@ export  function setUserListFailed(status){
         payload: status
     }
 }
-
 
 
 
@@ -148,6 +160,19 @@ export  function setChangeUserFailed(status){
   return {
       type:C.SET_CHANGE_USER_FAILED,
       payload: status
+  }
+}
+
+export  function setOpenDeleteDialog(user){
+  return {
+      type:C.SET_OPEN_DELETE_DIALOG,
+      payload: user
+  }
+}
+
+export  function setCloseDeleteDialog(){
+  return {
+      type:C.SET_OPEN_DELETE_DIALOG,    
   }
 }
 
@@ -215,7 +240,7 @@ export const getDelNewUser = (userData) => {
   };
 };
         
-export const getChangeNewUser = (userData) => {
+export const getChangeUser = (userData) => {
   return dispatch => {
     dispatch(setChangeUserRequestStart());
     API.getUsersEdit(userData)

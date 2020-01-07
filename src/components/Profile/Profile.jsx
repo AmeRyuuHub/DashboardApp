@@ -10,7 +10,7 @@ import { compose } from 'redux';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(4)
+    padding: theme.spacing(2)
   }
 }));
 
@@ -25,9 +25,6 @@ const Account = () => {
       >
         <Grid
           item
-          lg={4}
-          md={6}
-          xl={4}
           xs={12}
         >
           <AccountProfile />
