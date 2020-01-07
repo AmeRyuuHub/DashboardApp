@@ -6,8 +6,8 @@ import { MoreVert } from '@material-ui/icons';
 
 
 const MobileUsersList = (props) => {
-    const { dataUsers, deleteUser, editUser } = props;
- 
+    const { dataUsers } = props;
+    // const { dataUsers, deleteUser, editUser } = props;
 
   return (
     <List >
@@ -42,7 +42,7 @@ const MobileUsersList = (props) => {
                  </IconButton>
                </ListItemSecondaryAction>
       </ListItem>
-       <Divider variant="inset" component="li" />
+      {(index!== array.length - 1) && <Divider variant="inset" component="li" />} 
      </> 
      )) 
    

@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 
 import  AccountProfile from './components/AccountProfile';
-import  AccountDetails  from './components/AccountDetails';
 import { withMainDiv,withAuthRole } from '../../common/HOC/';
 
 import { compose } from 'redux';
+import AccountDetailsForm from './components/AccountDetailsForm';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,7 +36,7 @@ const Account = () => {
           xl={8}
           xs={12}
         >
-          <AccountDetails />
+          <AccountDetailsForm initialValues={{fullName: "Angel"}} />
         </Grid>
       </Grid>
     </div>

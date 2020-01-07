@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-
+import 'moment-timezone';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
@@ -11,9 +11,13 @@ import {
   Typography,
   Divider,
   Button,
-  LinearProgress
+  
+  Icon,
+  Grid
 } from '@material-ui/core';
-import { Person } from '@material-ui/icons'
+import { dataUsersRoleIcons } from '../../../common/Icons';
+import Moment from 'react-moment';
+
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -41,7 +45,7 @@ const AccountProfile = props => {
   const classes = useStyles();
 
   const user = {
-avatar:null || <Person/>,
+avatar:null || dataUsersRoleIcons[1],
 login:"testAdmin",
 fullName:"testAdministrator",
 email:"testadmin@gmail.com",
@@ -57,44 +61,57 @@ createDate:"2019-12-24T17:41:53.671+00:00",
       className={clsx(classes.root, className)}
     >
       <CardContent>
-        <div className={classes.details}>
-          <div>
-            <Typography
-              gutterBottom
-              variant="h2"
+        <Grid container>
+          <Grid item xs={12} sm={8}>
+          <Typography
+              
+              variant="h3"
             >
               {user.fullName}
             </Typography>
             <Typography
               className={classes.locationText}
               color="textSecondary"
-              variant="body1"
+              variant="h5"
             >
               {user.role}
+            </Typography>
+            <Typography
+              className={classes.dateText}
+              color="textPrimary"
+              variant="body1"
+              gutterBottom
+            >
+              {user.email}
             </Typography>
             <Typography
               className={classes.dateText}
               color="textSecondary"
               variant="body1"
             >
-              {user.email}
+             {`Created on: `}
+   
+              <Moment format="YYYY-MM-DD HH:mm" date={user.createDate} />
+              
+         
+              
             </Typography>
-          </div>
+          </Grid>
+          <Grid item xs={12} sm={4}>
           <Avatar
             className={classes.avatar}
            
-          > {user.avatar}</Avatar>
-        </div>
-        <div className={classes.progress}>
-          <Typography variant="body1">Profile Completeness: 70%</Typography>
-          <LinearProgress
-            value={70}
-            variant="determinate"
-          />
-        </div>
+          > <Icon component={user.avatar} className={classes.avatar}/></Avatar>
+          </Grid>
+        </Grid>
+        
+       
       </CardContent>
       <Divider />
-      <CardActions>
+
+      {/* Upload avatar */}
+      
+      {/* <CardActions>
         <Button
           className={classes.uploadButton}
           color="primary"
@@ -103,7 +120,7 @@ createDate:"2019-12-24T17:41:53.671+00:00",
           Upload picture
         </Button>
         <Button variant="text">Remove picture</Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 };

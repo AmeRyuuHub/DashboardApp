@@ -6,13 +6,6 @@ import {
   CardHeader,
   CardContent,
   Container,
-  Grid,
-  Table,
-  TableRow,
-  TableCell,
-  TableBody,
-  TableHead,
-  
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Accessible } from "@material-ui/icons";
@@ -35,7 +28,7 @@ const useStyles = makeStyles(theme =>({
 const UsersPage = React.memo(props => {
   const classes = useStyles();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const {
     dataUsers,
     editUser,
@@ -45,9 +38,8 @@ const UsersPage = React.memo(props => {
     valueDeleteDialog,
     setCloseDeleteDialog,
     setOpenDeleteDialog,
-    getDelNewUser,
+    getDelNewUser
   } = props;
- 
 
   useEffect(() => {
     if (!dataUsers) {
@@ -57,9 +49,16 @@ const UsersPage = React.memo(props => {
 
   return (
     <Container maxWidth="lg" className={classes.root}>
-      {valueDeleteDialog && <DeleteUser user={valueDeleteDialog} open = {statusDeleteDialog} setClose ={setCloseDeleteDialog} getDelNewUser={getDelNewUser}/>}
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
+      {valueDeleteDialog && (
+        <DeleteUser
+          user={valueDeleteDialog}
+          open={statusDeleteDialog}
+          setClose={setCloseDeleteDialog}
+          getDelNewUser={getDelNewUser}
+        />
+      )}
+    
+       
           <Card>
             <CardHeader
               avatar={<Accessible fontSize="large" color="primary" />}
@@ -68,29 +67,29 @@ const UsersPage = React.memo(props => {
               titleTypographyProps={{ color: "primary", variant: "h5" }}
             />
 
-            <CardContent>
-{(matches)?  <UsersList
-                      dataUsers={dataUsers}
-                      deleteUser={setOpenDeleteDialog}
-                      editUser={editUser}
-
-                    /> : <MobileUsersList  dataUsers={dataUsers}
-                    deleteUser={setOpenDeleteDialog}
-                    editUser={editUser}/>}
-
-              
-            </CardContent>
+            {matches ? (
+              <CardContent>
+                <UsersList
+                  dataUsers={dataUsers}
+                  deleteUser={setOpenDeleteDialog}
+                  editUser={editUser}
+                />
+              </CardContent>
+            ) : (
+              <MobileUsersList
+                dataUsers={dataUsers}
+                deleteUser={setOpenDeleteDialog}
+                editUser={editUser}
+              />
+            )}
           </Card>
-        </Grid>
-      </Grid>
+        
+     
     </Container>
   );
 });
 
-
-
-
-export default (UsersPage);
+export default UsersPage;
 
 
 
