@@ -36,6 +36,8 @@ const useStyles = makeStyles(theme => ({
   }));
 
 
+
+
 const AccountDetailsForm =(props) =>{
     const classes = useStyles();
     const {
@@ -62,7 +64,7 @@ const AccountDetailsForm =(props) =>{
     <form onSubmit={handleSubmit(submit)} className={classes.form}>
     <CardHeader
           subheader="The information can be edited"
-          title="Profile"
+          title="Edit profile"
         />
         <Divider />
         <CardContent>
@@ -71,7 +73,7 @@ const AccountDetailsForm =(props) =>{
           {error}
         </Typography>
       )}
-      
+     
       <Field
         name="fullName"
         component={renderTextField}
@@ -80,10 +82,7 @@ const AccountDetailsForm =(props) =>{
         margin="dense"
         validate={[checkRequired, maxLength30]}
         fullWidth
-        defaultValue={props.fName}
-        value={props.fName}
-
-        // normalize={[loginCheck]}
+       
       />
     
       <Field
@@ -96,26 +95,9 @@ const AccountDetailsForm =(props) =>{
         fullWidth
         defaultValue={props.fName}
         value={props.fName}
-        // normalize={[loginCheck]}
+        
       />
      
-      <Field
-        name="password"
-        variant="outlined"
-        fullWidth
-        component={renderTextField}
-        label="Password"
-        validate={[checkRequired, maxLength30]}
-        margin="dense"
-      />
-      <Field
-        name="confirm_password"
-        fullWidth
-        component={renderTextField}
-        label="Confirm password"
-        validate={[checkRequired, maxLength30]}
-        margin="dense"
-      />
       </CardContent>
         <Divider />
         <CardActions>

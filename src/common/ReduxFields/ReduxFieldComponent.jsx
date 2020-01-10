@@ -31,6 +31,28 @@ export const renderTextField = ({
   />
 ); 
 
+export const renderTextFieldThin = ({
+  label,
+  input,
+  meta: { touched, invalid, error },
+  ...custom
+}) => (
+  
+  <TextField
+    required
+    label={label}
+    placeholder={label}
+    error={touched && (invalid || error)}
+    helperText={touched && error ? error : null}
+    {...input}
+    {...custom}
+  />
+); 
+
+
+
+
+
 export const renderTextwithoutLine = ({
   label,
   input,

@@ -3,12 +3,13 @@ import * as axios from 'axios';
 
 const options = () => {
   return {
-    headers: { Authorization: `Bearer ${localStorage.getItem("jssid")}` }
+    headers: { Authorization: `Bearer ${localStorage.getItem("jssid")}`}
   };
 };
 
 let instance = axios.create({
   baseURL:process.env.REACT_APP_API_URL,
+  //  headers:{ "Content-Type":"application/json", "Accept":"*/*"},
   withCredentials: true,
   
 })
@@ -54,7 +55,7 @@ getUsers(){
   .then(response=>{return response.data})
  
 },
-postNewUser({login, password, fullName,email,role}){
+postNewUser({login, password, fullName, email, role}){
   return instance.post(`users`,{login, password, fullName,email,role}, options())
   .then(response=>{return response.data})
   
@@ -69,6 +70,12 @@ deleteUser(ID){
   return instance.delete(`users/${ID}`, options())
   .then(response=>{return response.data})
   
+},
+
+getProfile(){
+  return instance.get(`profile`, options())
+  .then(response=>{return response.data})
+ 
 },
 }
 

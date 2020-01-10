@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getStbStatusByMac} from '../store/redusers/StatusByMac/StatusByMac';
-import {getPingInfoByMac} from '../store/redusers/PingByMac/PingByMac';
-import {getDvbcInfoByMac} from '../store/redusers/DvbcByMac/DvbcByMac';
+import { getStbStatusByMac} from '../store/redusers/statusByMac/StatusByMac';
+import {getPingInfoByMac} from '../store/redusers/pingByMac/PingByMac';
+import {getDvbcInfoByMac} from '../store/redusers/dvbcByMac/DvbcByMac';
 import {compose} from 'redux';
 import { withAuthRole, withMainDiv } from '../common/HOC'
-import { getStatusFetching, getStatusStbType, getStatusLastReport, getDetailsValue, getConnectValue, getStatusStbModel, getStatusSearchMac, getStatusSearchStatus, getStatusValueRow } from '../store/selectors/DashboardSelectors';
+import { getStatusFetching, getStatusStbType, getStatusLastReport, getDetailsValue, getConnectValue, getStatusStbModel, getStatusSearchMac, getStatusSearchStatus, getStatusValueRow } from '../store/selectors/dashboardSelectors';
 import Dashboard from '../components/Dashboard/Dashboard';
 import SearchMacForm from '../components/Dashboard/SearchMacForm';
 import {  Grid, Container, Divider, Box, Typography } from '@material-ui/core';

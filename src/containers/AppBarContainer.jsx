@@ -20,9 +20,9 @@ import {
   OptionsMenu
 } from "../components/MainBar";
 // import { ToolBar } from "../components/MainBar";
-import { setCarrentLang } from "../store/redusers/DataUI/DataUI";
+import { setCarrentLang } from "../store/redusers/dataUI/DataUI";
 import { compose } from "redux";
-import { getAuthLogout } from "../store/redusers/Auth/Auth";
+import { getAuthLogout } from "../store/redusers/auth/Auth";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 

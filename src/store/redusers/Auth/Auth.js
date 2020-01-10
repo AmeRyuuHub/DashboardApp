@@ -37,7 +37,7 @@ export default function authApp(state = initialState, action) {
     case C.SET_AUTH_FETCHING:
       return { ...state, isFetching: action.payload };
 
-    case C.SET_SET_AUTH_LOGIN_FAILED:
+    case C.SET_AUTH_LOGIN_FAILED:
       return { ...state, requestLoginFailed: action.payload };
     case C.SET_AUTH_LOGOUT_FAILED:
       return { ...state, requestLogoutFailed: action.payload };

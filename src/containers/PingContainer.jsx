@@ -1,9 +1,9 @@
 import React from "react";
 import {CloudDownload,FilterList} from "@material-ui/icons";
 import { Button, Card, CardHeader, FormControl, Select, CardContent, CircularProgress, MenuItem, Typography, InputAdornment} from "@material-ui/core";
-import { getDataPingRouter, getDataPingPlatform, getPingFetching, getPingRequestStatus, getPingRequestFailed } from "../store/selectors/DashboardSelectors";
+import { getDataPingRouter, getDataPingPlatform, getPingFetching, getPingRequestStatus, getPingRequestFailed } from "../store/selectors/dashboardSelectors";
 import { connect } from 'react-redux';
-import ChartUnit from "../components/Dashboard/DashboardItems/PingCharts/ChartUnit";
+import ChartUnit from "../components/Dashboard/components/PingCharts/ChartUnit";
 
 
 

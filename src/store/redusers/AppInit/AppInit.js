@@ -1,7 +1,7 @@
 
 import {C} from '../ActionsNameList'
 import {API} from '../../../API/Apis';
-import { setAuthLogin } from '../Auth/Auth';
+import { setAuthLogin } from '../auth/Auth';
 import { initialState } from './initialState';
 
 export default function appInit(state = initialState, action) {
@@ -30,8 +30,8 @@ export  function setInitializeSuccess(status){
             dispatch(setInitializeSuccess(true));
  
         })
-        .catch((error) => {         
-            console.log(error.response.status);
+        .catch((error) => {   
+         
           dispatch(setInitializeSuccess(true));
           
         }) 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid} from "@material-ui/core";
-import StatusCard from "./DashboardItems/StatusCard";
-import CardsWithoutStatus from "./DashboardItems/CardsWithoutStatus";
+import StatusCard from "./components/StatusCard";
+import CardsWithoutStatus from "./components/CardsWithoutStatus";
 import { makeStyles } from '@material-ui/core/styles';
 
 

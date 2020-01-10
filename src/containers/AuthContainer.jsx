@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { getAuthFetching, getAuthStatus} from '../store/selectors/dataUISelectors';
 import logo from '../pics/logo-main.svg'
 import {Redirect} from 'react-router-dom'
-import { getAuthLogin } from '../store/redusers/Auth/Auth';
+import { getAuthLogin } from '../store/redusers/auth/Auth';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Container, Box } from '@material-ui/core';
 import { MainLinearProgress } from '../common/ProgressLines';

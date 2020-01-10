@@ -56,7 +56,6 @@ export const getRoutsApp = createSelector(
 );
 
 
-
 export const getLangList = state => {
   return state.dataUI.langList;
 };

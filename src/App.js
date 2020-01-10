@@ -8,8 +8,8 @@ import Profile from './components/Profile/Profile'
 import { connect } from 'react-redux';
 import { MainLinearProgress } from './common/ProgressLines';
 import { compose } from 'redux';
-import { getInitialized } from './store/redusers/AppInit/AppInit';
-import { setCarrentLang} from './store/redusers/DataUI/DataUI';
+import { getInitialized } from './store/redusers/appInit/AppInit';
+import { setCarrentLang} from './store/redusers/dataUI/DataUI';
 import 'dotenv/config'
 
 //const Users = lazy(() => import('./components/ContentPages/Users/Users'));
