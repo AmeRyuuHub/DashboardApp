@@ -1,6 +1,6 @@
 import React from 'react';
 import {List,ListItem,Divider,ListItemText,ListItemAvatar,Avatar,Typography, Icon, ListItemSecondaryAction, IconButton} from '@material-ui/core';
-import {dataUsersRoleIcons} from '../../../../common/Icons';
+import {usersRole} from '../../../../content/icons';
 import { MoreVert } from '@material-ui/icons';
 
 
@@ -16,7 +16,7 @@ const MobileUsersList = (props) => {
 <ListItem  key ={row._id} alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt={row.login}  >
-              <Icon component={dataUsersRoleIcons[row.role]}/>
+              <Icon component={usersRole[row.role]}/>
               </Avatar>
         </ListItemAvatar>
         <ListItemText

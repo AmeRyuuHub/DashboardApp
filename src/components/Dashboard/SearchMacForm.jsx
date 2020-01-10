@@ -8,7 +8,7 @@ import { lower } from "../../common/ReduxNormalize";
 import { roundTextField, renderMenuSelectField } from "../../common/ReduxFields/ReduxFieldComponent";
 import { Search } from "@material-ui/icons";
 import {  MainLinearProgress } from "../../common/ProgressLines";
-import {dataStatusIcons} from '../../common/Icons'
+import {dashboardStatus} from '../../content/icons'
 
 
 
@@ -76,12 +76,12 @@ const SearchMacForm = props => {
                 >
                   <MenuItem value={"stb"}>
                     <SvgIcon color="disabled" viewBox="0 0 24 20">
-                      <path d={dataStatusIcons.model} />
+                      <path d={dashboardStatus.model} />
                     </SvgIcon>
                   </MenuItem>
                   <MenuItem value={"mob"}>
                     <SvgIcon color="disabled" viewBox="0 0 24 20">
-                      <path d={dataStatusIcons.mobile} />
+                      <path d={dashboardStatus.mobile} />
                     </SvgIcon>
                   </MenuItem>
                 </Field>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getAuthFetching, getAuthStatus} from '../store/selectors/dataUISelectors';
+import { getAuthFetching, getAuthStatus} from '../store/selectors/contentSelectors';
 import logo from '../pics/logo-main.svg'
 import {Redirect} from 'react-router-dom'
 import { getAuthLogin } from '../store/redusers/auth/Auth';

@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { MainLinearProgress } from './common/ProgressLines';
 import { compose } from 'redux';
 import { getInitialized } from './store/redusers/appInit/AppInit';
-import { setCarrentLang} from './store/redusers/dataUI/DataUI';
+import { setCarrentLang} from './store/redusers/lang/lang';
 import 'dotenv/config'
 
 //const Users = lazy(() => import('./components/ContentPages/Users/Users'));
@@ -63,7 +63,7 @@ const App = (props)=>{
 const mapStateToProps = (state) => {
   return {
     init: state.appInit.initialized,
-    lang: state.dataUI.lang
+    lang: state.lang.langUI
   };
 }
 

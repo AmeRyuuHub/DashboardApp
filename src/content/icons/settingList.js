@@ -10,7 +10,7 @@ import {
   Dns
 } from "@material-ui/icons";
 
-const dataListIcons = {
+const settingList = {
   cpu: Memory,
   loader: GetApp,
   minerva: ImportExport,
@@ -23,7 +23,7 @@ const dataListIcons = {
   DnsServer2: Dns
 };
 
-export default dataListIcons; 
+export default settingList; 
   
   
     

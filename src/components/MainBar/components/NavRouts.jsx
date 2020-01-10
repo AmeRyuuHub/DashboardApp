@@ -62,21 +62,6 @@ const NavRouts =(props) =>{
    
     
   </StyledTabs>
-
-    // <MenuList >
-    //   {routs &&
-    //     routs.map(rout => (
-    //       <MenuItem
-    //         key={rout.id}
-    //         selected={rout.endPoint===pathname}
-    //         component={Link}
-    //         to={rout.endPoint}
-    //         className={classes.link}
-    //       >
-    //         {rout.value}
-    //       </MenuItem>
-    //     ))}
-    // </MenuList>
   );
 }
 export default NavRouts;

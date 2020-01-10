@@ -3,9 +3,9 @@
   import ua from "./data/ua.png";
   import us from "./data/us.png";
 
-  const dataLangList = { ru: ru, ua: ua, eng: us };
+  const langIcons = { ru: ru, ua: ua, eng: us };
 
-  export default dataLangList;
+  export default langIcons;
   
   
     

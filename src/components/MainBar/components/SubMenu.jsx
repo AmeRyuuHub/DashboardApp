@@ -1,7 +1,7 @@
 
 
 import React from "react";
-import { dataUsersRoleIcons } from "../../../common/Icons";
+import { usersRole } from "../../../content/icons";
 import { Link } from "react-router-dom";
 import { Button, Icon, Avatar } from "@material-ui/core";
 
@@ -21,7 +21,7 @@ const SubMenu = ({ auth, user }) => {
         color="inherit"
         endIcon={
           <Avatar>
-            <Icon component={dataUsersRoleIcons[user.icon]} />
+            <Icon component={usersRole[user.icon]} />
           </Avatar>
         }
       >

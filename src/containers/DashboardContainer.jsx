@@ -10,7 +10,7 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import SearchMacForm from '../components/Dashboard/SearchMacForm';
 import {  Grid, Container, Divider, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { getUILang } from '../store/selectors/dataUISelectors';
+import { getUILang } from '../store/selectors/contentSelectors';
 // import { SubmissionError } from 'redux-form';
 
 

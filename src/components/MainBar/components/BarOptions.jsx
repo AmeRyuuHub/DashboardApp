@@ -12,7 +12,7 @@ import {
   Collapse,
   Button
 } from "@material-ui/core";
-import { dataUsersRoleIcons } from "../../../common/Icons";
+import { usersRole } from "../../../content/icons";
 
 import { MoreVert, AssignmentInd, MeetingRoom } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -57,7 +57,7 @@ const OptionsMenu = ({
         Log In
       </Button>
     );
-  };
+  }
   return (
     user && (
       <>
@@ -82,10 +82,7 @@ const OptionsMenu = ({
               <ListItemText primary={user && user.name} />
               <ListItemIcon style={{ justifyContent: "flex-end" }}>
                 <Avatar fontSize="small">
-                  <Icon
-                    fontSize="small"
-                    component={dataUsersRoleIcons[user.icon]}
-                  />
+                  <Icon fontSize="small" component={usersRole[user.icon]} />
                 </Avatar>
               </ListItemIcon>
             </StyledMenuItem>

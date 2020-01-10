@@ -9,7 +9,7 @@ import {
   getAuthStatus,
   getUserInfo,
   getRoutsApp
-} from "../store/selectors/dataUISelectors";
+} from "../store/selectors/contentSelectors";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import {
@@ -20,7 +20,7 @@ import {
   OptionsMenu
 } from "../components/MainBar";
 // import { ToolBar } from "../components/MainBar";
-import { setCarrentLang } from "../store/redusers/dataUI/DataUI";
+import { setCarrentLang } from "../store/redusers/lang/lang";
 import { compose } from "redux";
 import { getAuthLogout } from "../store/redusers/auth/Auth";
 import { useTheme } from "@material-ui/core/styles";

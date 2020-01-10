@@ -2,7 +2,7 @@
  import { makeStyles } from '@material-ui/core/styles';
  import {Icon, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton,  ListItemIcon, Card, CardContent, CardHeader, Divider, Slide} from '@material-ui/core';
  import {InfoOutlined} from '@material-ui/icons';
- import {dataListIcons} from '../../../common/Icons';
+ import {settingList} from '../../../content/icons';
 
 
 
@@ -43,7 +43,7 @@ const DetailsConnectRow= React.memo((props) => {
              <ListItem dense divider key={item.id}>
                <ListItemIcon>
                  
-                   <Icon component={dataListIcons[item.name]} />
+                   <Icon component={settingList[item.name]} />
                  
                </ListItemIcon>
                <ListItemText secondary={item.text} />

@@ -12,7 +12,7 @@ import {
   AssignmentInd
 } from "@material-ui/icons";
 
-const dataRoutsIcons = {
+const routs = {
   home: Home,
   dashboard: Dashboard,
   reports: BarChart,
@@ -26,7 +26,7 @@ const dataRoutsIcons = {
   settings: Settings
 };
   
-export default  dataRoutsIcons;
+export default  routs;
   
     
   

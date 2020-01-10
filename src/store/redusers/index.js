@@ -3,7 +3,7 @@ import { reducer as formReducer } from 'redux-form'
 import ping from './pingByMac/PingByMac';
 import stbInfo from './statusByMac/StatusByMac';
 import dvbc from './dvbcByMac/DvbcByMac'
-import dataUI from './dataUI/DataUI'
+import lang from './lang/lang'
 import authApp from './auth/Auth';
 import appInit from './appInit/AppInit';
 import users from './users/UsersList';
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     ping,
     stbInfo,
     dvbc,
-    dataUI,
+    lang,
     authApp,
     appInit,
     users,

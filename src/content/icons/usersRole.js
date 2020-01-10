@@ -4,7 +4,7 @@ import {
   LocalCafe
 } from "@material-ui/icons";
 
-const dataUsersRoleIcons = {
+const usersRole = {
   3: LocalCafe,
   2: SupervisedUserCircle,
   1: AccountCircle,
@@ -13,7 +13,7 @@ const dataUsersRoleIcons = {
   "Administrator":LocalCafe,
 };
   
-export default dataUsersRoleIcons;  
+export default usersRole;  
     
   
   

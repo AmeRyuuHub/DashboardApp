@@ -4,7 +4,7 @@ import {
   getMainContainerWithLang,
   getHowItWorkBlockWithLang,
   getOtherBlocksWithLang
-} from "../store/selectors/dataUISelectors";
+} from "../store/selectors/contentSelectors";
 import { connect } from "react-redux";
 import {OtherBlock, HowItWorksBlock, FirstBlock} from "../components/HomePage";
 import Footer from "../components/Footer/Footer";

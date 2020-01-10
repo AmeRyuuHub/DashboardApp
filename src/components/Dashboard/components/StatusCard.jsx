@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Typography, Slide, SvgIcon} from "@material-ui/core";
-import { dataStatusIcons } from "../../../common/Icons";
+import { dashboardStatus } from "../../../content/icons";
 
 
 const useStyles = makeStyles(theme => ({
@@ -56,8 +56,8 @@ const StatusCard = React.memo(({ data }) => {
               }
               d={
                 data.value === "mobile"
-                  ? dataStatusIcons.mobile
-                  : dataStatusIcons[data.name]
+                  ? dashboardStatus.mobile
+                  : dashboardStatus[data.name]
               }
             />
           </SvgIcon>

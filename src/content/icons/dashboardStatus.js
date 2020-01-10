@@ -7,7 +7,7 @@
     mdiCellphone
   } from "@mdi/js";
   
-    const dataStatusIcons = {
+    const dashboardStatus = {
       model: mdiTelevisionBox,
       online: mdiWan,
       power: mdiPowerSettings,
@@ -16,7 +16,7 @@
     };
   
   
-    export default dataStatusIcons; 
+    export default dashboardStatus; 
   
   
     

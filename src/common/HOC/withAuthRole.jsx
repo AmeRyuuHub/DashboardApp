@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getAuthStatus, getUserRole, getDataRouts } from '../../store/selectors/dataUISelectors';
+import { getAuthStatus, getUserRole, getDataRouts } from '../../store/selectors/contentSelectors';
 import {Redirect} from 'react-router-dom';
 
 let mapStateToProps = (state) =>({

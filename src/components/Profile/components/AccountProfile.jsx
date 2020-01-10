@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import "moment-timezone";
 import Moment from "react-moment";
-import { dataUsersRoleIcons } from "../../../common/Icons";
+import { usersRole } from "../../../content/icons";
 import { Edit, Close } from "@material-ui/icons";
 import { Field, reduxForm } from "redux-form";
 import {
@@ -24,7 +24,7 @@ import {
 import { renderTextFieldThin } from "../../../common/ReduxFields/ReduxFieldComponent";
 const maxLength30 = maxLengthCheck(30);
 const user = {
-  avatar: null || dataUsersRoleIcons[1],
+  avatar: null || usersRole[1],
   login: "testAdmin",
   fullName: "testAdministrator",
   email: "testadmin@gmail.com",
@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AccountProfile = React.memo((props) => {
-  const {profile} =props;
+  const {profile} = props;
   const [edit, setEdit] = useState(false);
 console.log("profile", profile);
   const handleEdit = () => {
