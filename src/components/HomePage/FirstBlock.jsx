@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     backgroundPosition: "center "
   },
   container: {
-    minHeight: "50vh",
+    minHeight: "70vh",
     color: "white"
   },
   img: {

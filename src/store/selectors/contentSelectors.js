@@ -51,7 +51,7 @@ export const getRoutsApp = createSelector(
 
 
 export const getAppTitle = () => {
-  return appInfo.title.toUpperCase();
+  return {...appInfo,title:appInfo.title.toUpperCase()};
 };
 
 

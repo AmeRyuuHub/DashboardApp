@@ -3,6 +3,7 @@ import {C} from '../ActionsNameList'
 import {API} from '../../../API/Apis';
 import { startSubmit, stopSubmit } from 'redux-form';
 import { initialState } from './initialState';
+import { getDeviceInfo } from '../../../common/ReduxThunk';
 
 export default function authApp(state = initialState, action) {
   switch (action.type) {
@@ -117,7 +118,7 @@ export const getAuthLogout = () => {
 
     if (token) {
       dispatch(setAuthFetching(true));
-      API.patchLogout()
+      getDeviceInfo(API.patchLogout, null, API.getToken)
         .then(() => {
           localStorage.removeItem("jssid");
           dispatch(setAuthLogout());
@@ -133,3 +134,4 @@ export const getAuthLogout = () => {
     }
   };
 };
+

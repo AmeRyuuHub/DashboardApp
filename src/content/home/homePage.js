@@ -41,7 +41,7 @@ export const homePage = [
         },
         ua: {
           firstTitle: "Як це працює?",
-          secondTitle: "Дуже просто",
+          secondTitle: "Дуже легко",
           steps: [
             { name: "1.", value: "Введіть MAC адрессу" },
             { name: "2.", value: 'Натисніть на "Пошук"' },

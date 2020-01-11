@@ -10,7 +10,6 @@ import {
   ListItem,
   List,
   Collapse,
-  Button
 } from "@material-ui/core";
 import { usersRole } from "../../../content/icons";
 
@@ -28,7 +27,6 @@ const OptionsMenu = ({
   options,
   lang,
   setCarrentLang,
-  auth,
   user,
   getAuthLogout
 }) => {
@@ -51,17 +49,11 @@ const OptionsMenu = ({
   const handleLangMenuItemClick = index => {
     setCarrentLang(options[index].name);
   };
-  if (!auth) {
-    return (
-      <Button variant="outlined" color="inherit" component={Link} to="/auth">
-        Log In
-      </Button>
-    );
-  }
+ 
   return (
     user && (
       <>
-        <div>
+        
           <IconButton
             aria-label="more"
             aria-controls="long-menu"
@@ -139,7 +131,7 @@ const OptionsMenu = ({
               <ListItemText primary="Log Out" />
             </StyledMenuItem>
           </StyledMenu>
-        </div>
+        
       </>
     )
   );

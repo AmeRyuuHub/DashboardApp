@@ -11,20 +11,19 @@ import {
   getRoutsApp
 } from "../store/selectors/contentSelectors";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import {
   AsideBar,
   LangMenu,
-  SubMenu,
-  ToolBarList,
+  SideBar,
   OptionsMenu
 } from "../components/MainBar";
-// import { ToolBar } from "../components/MainBar";
 import { setCarrentLang } from "../store/redusers/lang/lang";
 import { compose } from "redux";
 import { getAuthLogout } from "../store/redusers/auth/Auth";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   navItems: {
@@ -34,16 +33,20 @@ const useStyles = makeStyles(theme => ({
 
   toolBar: {
     justifyContent: "space-between",
+    alignItems:"center",
     [theme.breakpoints.up("md")]: {
       marginLeft: "240px"
     },
+    minHeight: "70px"
   },
   homeToolBar: {
     justifyContent: "space-between",
-    
+    minHeight: "70px"
   },
-  bar:{
-     boxShadow:'none', minHeight:'70px'}
+  bar: {
+    boxShadow: "none",
+    minHeight: "70px"
+  }
 }));
 
 const AppBarContainer = React.memo(props => {
@@ -67,11 +70,38 @@ const AppBarContainer = React.memo(props => {
 
   let homePage = pathname === "/" || pathname === "";
 
+  if (!authStatus)
+    return (
+      <div>
+        <AppBar position="fixed" className={classes.bar}>
+          <Toolbar
+            className={classes.homeToolBar}
+          >
+            <Typography variant="h6">{appInfo.title}</Typography>
+            <div className={classes.navItems}>
+              <LangMenu
+                options={langList}
+                setCarrentLang={setCarrentLang}
+                lang={lang}
+              />
+              <Button
+                variant="outlined"
+                color="inherit"
+                component={Link}
+                to="/auth"
+              >
+                Login
+              </Button>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
   return (
     <div>
       <AppBar position="fixed" className={classes.bar}>
         <Toolbar className={!homePage ? classes.toolBar : classes.homeToolBar}>
-          {!homePage && !hideMD && routsMenu && (
+          {(homePage || !hideMD) && routsMenu && (
             <AsideBar
               routs={routsMenu}
               logo={appInfo.logo}
@@ -84,22 +114,9 @@ const AppBarContainer = React.memo(props => {
           <Typography variant="h6">
             {!homePage ? pageName && pageName.value : appInfo.title}
           </Typography>
-          
+
           <div className={classes.navItems}>
-            {hideMD ? (
-              <>
-                <LangMenu
-                  options={langList}
-                  setCarrentLang={setCarrentLang}
-                  lang={lang}
-                />
-                <SubMenu
-                  auth={authStatus}
-                  user={user}
-                  getAuthLogout={getAuthLogout}
-                />
-              </>
-            ) : (
+            
               <OptionsMenu
                 auth={authStatus}
                 user={user}
@@ -108,12 +125,12 @@ const AppBarContainer = React.memo(props => {
                 setCarrentLang={setCarrentLang}
                 lang={lang}
               />
-            )}
+            
           </div>
         </Toolbar>
       </AppBar>
       {!homePage && hideMD && routsMenu && (
-        <ToolBarList
+        <SideBar
           routs={routsMenu}
           logo={appInfo.logo}
           title={appInfo.title}
@@ -133,17 +150,11 @@ function mapStateToProps(state) {
     langList: getLangList(state),
     authStatus: getAuthStatus(state),
     user: getUserInfo(state),
-    routsApp:getRoutsApp(state)
+    routsApp: getRoutsApp(state)
   };
 }
 
 export default compose(
-  connect(mapStateToProps, { setCarrentLang , getAuthLogout}),
+  connect(mapStateToProps, { setCarrentLang, getAuthLogout }),
   withRouter
 )(AppBarContainer);
-
-
-
-
-
-

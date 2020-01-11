@@ -32,7 +32,7 @@ let buttonPading={marginTop:'8px',marginRight: '8px'};
             <>
               {props.requestPingFailed && (
                 <Typography color="error" component="span" variant="body2">
-                  Something wrone, try again{" "}
+                  Something wrone, try again
                 </Typography>
               )}
               <Button style={buttonPading}
