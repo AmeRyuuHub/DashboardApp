@@ -1,7 +1,7 @@
 import { v4 } from "uuid";
 import { createSelector } from "reselect";
-import { routsMenu, routsApp } from "../../content/main/routs/routs";
-import { routs, langIcons } from "../../content/icons";
+import { routsMenu, routsAppOptions } from "../../content/main/routs/routs";
+import { routIcons,routsOptions, langIcons } from "../../content/icons";
 import { appInfo } from "../../content/main/app/appDetails";
 import { langList } from "../../content/main/lang/langList";
 import { homePage } from "../../content/home/homePage";
@@ -30,7 +30,7 @@ export const getRoutsMenu = createSelector(
   
   return role ? routsMenu.filter(item => (
     +(item.role)  <= role 
-     )).map(rout =>({...rout, value:rout.value[lang], icon:routs[rout.name] ,id: v4()})):null
+     )).map(rout =>({...rout, value:rout.value[lang], icon:routIcons[rout.name] ,id: v4()})):null
   
 }
 );
@@ -41,21 +41,17 @@ export const getRoutsApp = createSelector(
   getUserRole,
 (lang, role) => {
   
-  return role ? routsApp.filter(item => (
+  return role ? routsAppOptions.filter(item => (
     +(item.role)  <= role 
-     )).map(rout =>({...rout, value:rout.value[lang], icon:routs[rout.name], id: v4()})):null
+     )).map(rout =>({...rout, value:rout.value[lang], icon:routsOptions[rout.name], id: v4()})):null
   
 }
 );
 
 
-
 export const getAppTitle = () => {
   return {...appInfo,title:appInfo.title.toUpperCase()};
 };
-
-
-
 
 
 export const getLangList = () => {

@@ -12,7 +12,7 @@ import {
   AssignmentInd
 } from "@material-ui/icons";
 
-const routs = {
+export const routIcons = {
   home: Home,
   dashboard: Dashboard,
   reports: BarChart,
@@ -21,12 +21,16 @@ const routs = {
   users: PeopleAlt,
   auth: ExitToApp,
   contacts: EmojiEvents,
+  
+};
+export const routsOptions = {
+  
   profile: AssignmentInd,
   logout: MeetingRoom,
   settings: Settings
 };
   
-export default  routs;
+
   
     
   

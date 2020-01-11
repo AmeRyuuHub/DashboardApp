@@ -23,7 +23,7 @@ export const routsMenu = [
   },
 
   {
-    name: "userList",
+    name: "users",
     endPoint: "/users",
     value: { ru: "Пользователи", ua: "Користувачі", en: "Users" },
     role: "3"
@@ -35,7 +35,7 @@ export const routsMenu = [
     role: "1"
   }
 ];
-export const routsApp = [
+export const routsAppOptions = [
   {
     name: "profile",
     endPoint: "/profile",

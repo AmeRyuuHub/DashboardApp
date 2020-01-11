@@ -1,7 +1,4 @@
 export {default as AsideBar} from './AsideBar'
 export {default as SideBar} from './SideBar'
-export {default as OptionsMenu} from './components/BarOptions'
+export {default as OptionsMenu} from './OptionsMenu'
 export {default as LangMenu} from './components/LangMenu'
-export {default as RoutsContent} from './components/RoutsContent'
-export {default as SubMenu} from './components/SubMenu'
-// export {default as ToolBar} from './components/ToolBarList'

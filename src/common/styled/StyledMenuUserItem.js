@@ -2,7 +2,7 @@
 import { withStyles } from "@material-ui/core/styles";
 import { MenuItem } from "@material-ui/core";
 
-const StyledMenuItem = withStyles(theme => ({
+const StyledMenuUserItem = withStyles(theme => ({
   root: {
     "&:focus": {
       backgroundColor: theme.palette.primary.main,
@@ -11,9 +11,15 @@ const StyledMenuItem = withStyles(theme => ({
       }
     },
     "& .MuiListItemIcon-root": {
-      minWidth: "3rem"
+      minWidth: "3rem",
+      color: theme.palette.common.white
     },
+    "&.MuiListItem-root.Mui-disabled": {
+      backgroundColor: theme.palette.text.secondary,
+      color: theme.palette.common.white,
+      opacity: 1
+    }
   }
 }))(MenuItem);
 
-export default StyledMenuItem;
+export default StyledMenuUserItem;

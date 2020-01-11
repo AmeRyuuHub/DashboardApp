@@ -3,7 +3,7 @@ import React from "react";
 import { Drawer } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 const StyledDrawer = withStyles(theme => ({
   paper: {
     width: drawerWidth

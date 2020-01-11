@@ -23,7 +23,7 @@ import { compose } from "redux";
 import { getAuthLogout } from "../store/redusers/auth/Auth";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   navItems: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 
   toolBar: {
     justifyContent: "space-between",
-    alignItems:"center",
+    alignItems: "center",
     [theme.breakpoints.up("md")]: {
       marginLeft: "240px"
     },
@@ -74,9 +74,7 @@ const AppBarContainer = React.memo(props => {
     return (
       <div>
         <AppBar position="fixed" className={classes.bar}>
-          <Toolbar
-            className={classes.homeToolBar}
-          >
+          <Toolbar className={classes.homeToolBar}>
             <Typography variant="h6">{appInfo.title}</Typography>
             <div className={classes.navItems}>
               <LangMenu
@@ -115,18 +113,14 @@ const AppBarContainer = React.memo(props => {
             {!homePage ? pageName && pageName.value : appInfo.title}
           </Typography>
 
-          <div className={classes.navItems}>
-            
-              <OptionsMenu
-                auth={authStatus}
-                user={user}
-                getAuthLogout={getAuthLogout}
-                options={langList}
-                setCarrentLang={setCarrentLang}
-                lang={lang}
-              />
-            
-          </div>
+          <OptionsMenu
+            auth={authStatus}
+            user={user}
+            getAuthLogout={getAuthLogout}
+            langList={langList}
+            setCarrentLang={setCarrentLang}
+            lang={lang}
+          />
         </Toolbar>
       </AppBar>
       {!homePage && hideMD && routsMenu && (
