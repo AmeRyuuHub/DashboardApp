@@ -32,7 +32,7 @@ const FieldCreator = props => {
 
 const LoginForm = props => {
   const classes = useStyles();
-  const { handleSubmit, pristine, submitting, error, valid } = props;
+  const { handleSubmit, pristine, submitting, error, valid, login, password, button } = props;
 
   return (
     <>
@@ -46,13 +46,13 @@ const LoginForm = props => {
         </Typography>
         <FieldCreator
           name="login"
-          label="Login"
+          label={login}
           autoComplete="username"
           disabled={submitting}
         />
         <FieldCreator
           name="password"
-          label="Password"
+          label={password}
           type="password"
           autoComplete="current-password"
           disabled={submitting}
@@ -65,7 +65,7 @@ const LoginForm = props => {
           className={classes.submit}
           disabled={pristine || submitting || error !== undefined || !valid}
         >
-          Sign In
+          {button}
         </Button>
       </form>
     </>

@@ -2,7 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   getAuthFetching,
-  getAuthStatus
+  getAuthStatus,
+  getAuthPageTitleWithLang,
+  getAuthPageFormWithLang
 } from "../store/selectors/contentSelectors";
 
 import { Redirect } from "react-router-dom";
@@ -11,23 +13,22 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
   Container,
-  Box,
   Paper,
   Grid,
-  Icon
 } from "@material-ui/core";
 import { MainLinearProgress } from "../common/ProgressLines";
 import LoginForm from "../components/Auth/LoginForm";
 import { Copyright } from "../common/Copyright";
 import { LockOpen } from "@material-ui/icons";
 
-const logo = "/img/logo-dark.svg";
+
 const useStyles = makeStyles(theme => ({
   root: {
     height: "calc(100vh - 70px)"
   },
   paper: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    // borderColor:theme.palette.primary.main,
   },
   login: {
     fontSize: "2.5rem",
@@ -40,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 
 const AuthContainer = props => {
   const classes = useStyles();
-  const { isFetching, loginStatus } = props;
+  const { isFetching, loginStatus, pageTitle, formContent } = props;
   if (loginStatus) {
     return <Redirect to="/" />;
   }
@@ -66,17 +67,15 @@ const AuthContainer = props => {
           spacing={6}
         >
           <Grid item container justify="center" alignItems="center">
-            {/* <img src={logo} alt="" className={classes.avatar} /> */}
-
+          
             <LockOpen color="primary" className={classes.login} />
-
             <Typography component="span" variant="h4" color="primary">
-             Sign In
+             {pageTitle}
             </Typography>
           </Grid>
           <Grid item>
-            <Paper className={classes.paper}>
-              <LoginForm onSubmit={handleSubmitForm} />
+            <Paper className={classes.paper} variant="outlined">
+              <LoginForm onSubmit={handleSubmitForm} {...formContent}/>
             </Paper>
           </Grid>
         </Grid>
@@ -91,7 +90,9 @@ const AuthContainer = props => {
 function mapStateToProps(state) {
   return {
     isFetching: getAuthFetching(state),
-    loginStatus: getAuthStatus(state)
+    loginStatus: getAuthStatus(state),
+    pageTitle: getAuthPageTitleWithLang(state),
+    formContent:getAuthPageFormWithLang(state),
   };
 }
 
