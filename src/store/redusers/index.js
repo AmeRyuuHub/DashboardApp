@@ -8,6 +8,8 @@ import authApp from './auth/Auth';
 import appInit from './appInit/AppInit';
 import users from './users/UsersList';
 import profile from './profile/profile'
+import content from './content/content';
+
 
 const rootReducer = combineReducers({
     ping,
@@ -18,6 +20,7 @@ const rootReducer = combineReducers({
     appInit,
     users,
     profile,
+    content,
     form: formReducer,
 })
 

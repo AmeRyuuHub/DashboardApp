@@ -20,13 +20,10 @@ export const getStatusStbType = state => {
     : state.stbInfo.searchResult.type_m;
 };
 
-
-
 export const getStatusLastReport = state => {
   return !state.stbInfo.searchResult
     ? null
-    : new Date(+state.stbInfo.searchResult.last_report).toLocaleDateString("uk-UA",{day:'numeric',month:'numeric'}) +" "+
-    new Date(+state.stbInfo.searchResult.last_report).toLocaleTimeString("uk-UA",{hour:'numeric',minute:'numeric'})
+    : state.stbInfo.searchResult.last_report
 };
 
  const getStatusResult = state => {

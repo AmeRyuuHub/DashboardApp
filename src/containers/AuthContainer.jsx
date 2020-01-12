@@ -1,72 +1,99 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getAuthFetching, getAuthStatus} from '../store/selectors/contentSelectors';
-import logo from '../pics/logo-main.svg'
-import {Redirect} from 'react-router-dom'
-import { getAuthLogin } from '../store/redusers/auth/Auth';
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Box } from '@material-ui/core';
-import { MainLinearProgress } from '../common/ProgressLines';
-import LoginForm from '../components/Auth/LoginForm';
-import { Copyright } from '../common/Copyright';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  getAuthFetching,
+  getAuthStatus
+} from "../store/selectors/contentSelectors";
 
+import { Redirect } from "react-router-dom";
+import { getAuthLogin } from "../store/redusers/auth/Auth";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Typography,
+  Container,
+  Box,
+  Paper,
+  Grid,
+  Icon
+} from "@material-ui/core";
+import { MainLinearProgress } from "../common/ProgressLines";
+import LoginForm from "../components/Auth/LoginForm";
+import { Copyright } from "../common/Copyright";
+import { LockOpen } from "@material-ui/icons";
 
+const logo = "/img/logo-dark.svg";
 const useStyles = makeStyles(theme => ({
-    
-    paper: {
-      marginTop: theme.spacing(4),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      
-    },
-   
-  }));
+  root: {
+    height: "calc(100vh - 70px)"
+  },
+  paper: {
+    padding: theme.spacing(2)
+  },
+  login: {
+    fontSize: "2.5rem",
+    marginRight: theme.spacing(2)
+  },
+  avatar: {
+    margin: theme.spacing(1)
+  }
+}));
 
+const AuthContainer = props => {
+  const classes = useStyles();
+  const { isFetching, loginStatus } = props;
+  if (loginStatus) {
+    return <Redirect to="/" />;
+  }
+  const handleSubmitForm = ({ login, password }) =>
+    props.getAuthLogin(login, password);
 
-const AuthContainer = (props) => {
-    const classes = useStyles();
-    const {isFetching, loginStatus} = props;
-    if (loginStatus) {return <Redirect to="/"/>} 
-    const handleSubmitForm =({login,password})=> (props.getAuthLogin(login,password));
-   let appMinHeight = {minHeight:'85vh'};
-    return (
-        <div style={appMinHeight}>
+  return (
+    <Container maxWidth="xs">
+      <Grid
+        container
+        direction="column"
+        justify="space-around"
+        alignItems="center"
+        className={classes.root}
+      >
         {isFetching && <MainLinearProgress />}
-      <Container component="main" maxWidth="xs">
-      
-      <div className={classes.paper}>
-        
-          <img src={logo} alt="" className={classes.avatar}/>
-        
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <LoginForm onSubmit={handleSubmitForm}/>
-        <Box mt={8}>
-        <Copyright />
-      </Box>
-      </div>
+        <Grid
+          item
+          container
+          direction="column"
+          justify="space-around"
+          alignItems="center"
+          spacing={6}
+        >
+          <Grid item container justify="center" alignItems="center">
+            {/* <img src={logo} alt="" className={classes.avatar} /> */}
+
+            <LockOpen color="primary" className={classes.login} />
+
+            <Typography component="span" variant="h4" color="primary">
+             Sign In
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Paper className={classes.paper}>
+              <LoginForm onSubmit={handleSubmitForm} />
+            </Paper>
+          </Grid>
+        </Grid>
+        <Grid item>
+          <Copyright />
+        </Grid>
+      </Grid>
     </Container>
-    </div>
-    )
-  
+  );
 };
 
 function mapStateToProps(state) {
   return {
     isFetching: getAuthFetching(state),
-    loginStatus:getAuthStatus(state),
+    loginStatus: getAuthStatus(state)
   };
 }
 
 export default connect(mapStateToProps, { getAuthLogin })(AuthContainer);
-
-
-
-
-
 

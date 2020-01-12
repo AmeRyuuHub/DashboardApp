@@ -7,57 +7,34 @@ import { langList } from "../../content/main/lang/langList";
 import { homePage } from "../../content/home/homePage";
 
 
+// Getting autorization status, authorized or not
 
-// Get UI lang
-export const getUILang = state => {
-  return state.lang.langUI;
+export const getAuthStatus = state => {
+  return state.authApp.loginStatus;
 };
 
-// Get user role
+//If service is authorized, getting user's name
+export const getUser = state => {
+  return state.authApp.fullName;
+};
+
+// Getting user's role
 export const getUserRole = state => {
   return state.authApp.role;
 };
 
-export const getDataRouts = () => {
-  return routsMenu;
+// Getting UI current lang
+export const getUILang = state => {
+  return state.lang.langUI;
 };
 
-
-export const getRoutsMenu = createSelector(
-  getUILang,
-  getUserRole,
-(lang, role) => {
-  
-  return role ? routsMenu.filter(item => (
-    +(item.role)  <= role 
-     )).map(rout =>({...rout, value:rout.value[lang], icon:routIcons[rout.name] ,id: v4()})):null
-  
-}
-);
-
-
-export const getRoutsApp = createSelector(
-  getUILang,
-  getUserRole,
-(lang, role) => {
-  
-  return role ? routsAppOptions.filter(item => (
-    +(item.role)  <= role 
-     )).map(rout =>({...rout, value:rout.value[lang], icon:routsOptions[rout.name], id: v4()})):null
-  
-}
-);
-
-
-export const getAppTitle = () => {
-  return {...appInfo,title:appInfo.title.toUpperCase()};
-};
-
+//Getting  list of languages 
 
 export const getLangList = () => {
   return langList.map(lang =>({...lang, img:langIcons[lang.name]}));
 };
 
+// Getting info about current language
 export const getCurrentLang = createSelector(
   getUILang,
   getLangList,
@@ -68,13 +45,61 @@ export const getCurrentLang = createSelector(
 );
 
 
-export const getAuthStatus = state => {
-  return state.authApp.loginStatus;
+
+
+// Getting all menu routs for AppBar
+
+export const getDataRouts = (state) => {
+  return state.content.routs.menu;
 };
 
-export const getUser = state => {
-  return state.authApp.fullName;
+// Selecting routs by user's role
+
+export const getRoutsMenu = createSelector(
+  getUILang,
+  getUserRole,
+  getDataRouts,
+(lang, role, routs) => {
+  
+  return role ? routs.filter(item => (
+    +(item.role)  <= role 
+     )).map(rout =>({...rout, value:rout.value[lang], icon:routIcons[rout.name] ,id: v4()})):null
+  
+}
+);
+
+// Getting all routs for option menu button
+
+export const getOptionsRouts = (state) => {
+  return state.content.routs.options;
 };
+
+export const getRoutsApp = createSelector(
+  getUILang,
+  getUserRole,
+  getOptionsRouts,
+(lang, role,routs) => {
+  
+  return role ? routs.filter(item => (
+    +(item.role)  <= role 
+     )).map(rout =>({...rout, value:rout.value[lang], icon:routsOptions[rout.name], id: v4()})):null
+  
+}
+);
+
+// Getting main info about service
+
+//Getting title (servise name)
+
+export const getAppTitle = () => {
+  return {...appInfo,title:appInfo.title.toUpperCase()};
+};
+
+
+
+
+
+
 // export const getSessionId = state => {
 //   return state.authApp.session_id;
 // };
@@ -89,53 +114,57 @@ export const getUserInfo = createSelector(
   }
 );
 
+
 export const getAuthFetching = state => {
   return state.authApp.isFetching;
 };
 
 
+// Getting HOME PAGE content
+
 export const getMainContainerData= state => {
-  return homePage;
+  return state.content.pages.home.main;
 };   
   
 export const getMainContainerWithLang = createSelector(
   getUILang,
   getMainContainerData,
   (lang, data) => {
-    let langData = data.filter(item => item.name === "main").map(item => ({
-      link:item.buttonLink,
-      imgUrl: item.imgUrl,
-      ...item.value[lang]
-    }));
-    return langData[0];
+    
+    return ({buttonLink:data.buttonLink,imgUrl:data.imgUrl, ...data.value[lang]});
   }
 );
+
+export const getSecondContainerData= state => {
+  return state.content.pages.home.howItWorks;
+}; 
+
 export const getHowItWorkBlockWithLang = createSelector(
   getUILang,
-  getMainContainerData,
+  getSecondContainerData,
   (lang, data) => {
-    let langData = data.filter(item => item.name === "howItWorks").map(item => ({
-    
-      imgUrl: item.imgUrl,
-      ...item.value[lang]
-    }));
-    
-    return langData[0];
+   
+   return ({imgUrl:data.imgUrl, ...data.value[lang]});;
     
      
   }
 );
+
+export const getOtherContainersData= state => {
+  return state.content.pages.home.other;
+}; 
+
 export const getOtherBlocksWithLang = createSelector(
   getUILang,
-  getMainContainerData,
+  getOtherContainersData,
   (lang, data) => {
-    let langData = data.filter(item => item.name === "other").map(item => ({
-      link:item.buttonLink,
+    let langData = data.map(item => ({
+      buttonLink:item.buttonLink,
       imgUrl: item.imgUrl,
-      value:item.value[lang]
+      ...item.value[lang]
     }));
     
     
-    return langData[0]
+    return langData
   }
 );

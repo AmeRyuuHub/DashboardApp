@@ -11,7 +11,13 @@ import {
   getRoutsApp
 } from "../store/selectors/contentSelectors";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton
+} from "@material-ui/core";
 import {
   AsideBar,
   LangMenu,
@@ -24,6 +30,7 @@ import { getAuthLogout } from "../store/redusers/auth/Auth";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Link } from "react-router-dom";
+import { ArrowBack } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   navItems: {
@@ -69,27 +76,36 @@ const AppBarContainer = React.memo(props => {
     routsMenu && routsMenu.filter(rout => rout.endPoint === pathname)[0];
 
   let homePage = pathname === "/" || pathname === "";
-
+  let authPage = pathname === "/auth";
   if (!authStatus)
     return (
       <div>
         <AppBar position="fixed" className={classes.bar}>
           <Toolbar className={classes.homeToolBar}>
+            {authPage && (
+              <IconButton color="inherit" component={Link} to="/">
+                <ArrowBack />
+              </IconButton>
+            )}
+
             <Typography variant="h6">{appInfo.title}</Typography>
+
             <div className={classes.navItems}>
               <LangMenu
                 options={langList}
                 setCarrentLang={setCarrentLang}
                 lang={lang}
               />
-              <Button
-                variant="outlined"
-                color="inherit"
-                component={Link}
-                to="/auth"
-              >
-                Login
-              </Button>
+              {!authPage && (
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  component={Link}
+                  to="/auth"
+                >
+                  Sing In
+                </Button>
+              )}
             </div>
           </Toolbar>
         </AppBar>
