@@ -1,5 +1,21 @@
 import { v4 } from "uuid";
 import { createSelector } from "reselect";
+import { getUILang } from "./contentSelectors";
+
+
+
+// SEACH FORM content
+ const getSearchForm = state => {
+  return state.content.pages.dashboard.searchBlock;
+};
+
+export const getSearchFormWithLang = createSelector(
+  getUILang,
+  getSearchForm,
+  (lang, data) => {
+    return data[lang];
+  }
+);
 
 // status 
 export const getStatusFetching = state => {

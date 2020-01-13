@@ -68,11 +68,36 @@ export const initialState = {
              disabled: false
            }
          },
-
          pages: {
            dashboard: {
-             title: {},
-             searchBlock: {},
+             title: "Dashboard",
+             searchBlock: {
+               ru:{
+                formErrors:{
+                  lengthMobile:"Должно быть 16 симовлов",
+                  lengthSTB:"Должно быть 12 симовлов",
+                  common:"Ошибка!"
+                },
+                placeholder:"Поиск по MAC адресу",
+               },
+               ua:{
+                formErrors:{
+                  lengthMobile:"Повинно бути 16 символів",
+                  lengthSTB:"Повинно бути 12 символів",
+                  common:"Помилка!"
+                },
+                placeholder:"Пошук за MAC адресою",
+               },
+               en:{
+                formErrors:{
+                  lengthMobile:"Must be 16 symbols",
+                  lengthSTB:"Must be 12 symbols",
+                  common:"MAC failed!"
+                },
+                placeholder:"Search by MAC",
+               },
+               
+             },
              status: {
                title: {},
                content: [
@@ -182,7 +207,7 @@ export const initialState = {
                      ua: "Внутрішній IP",
                      en: "Internal IP"
                    },
-                   text: "Internal IP",
+                  
                    good: "",
                    bad: "",
                    status: ""

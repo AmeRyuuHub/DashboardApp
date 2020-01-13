@@ -1,40 +1,46 @@
-
 import React from "react";
-import { Field, reduxForm, SubmissionError} from "redux-form";
-import { makeStyles} from "@material-ui/core/styles";
-import {Button, InputAdornment,MenuItem, SvgIcon, } from "@material-ui/core";
-import { checkHexidecimal} from "../../common/ReduxValidators";
+import { Field, reduxForm, SubmissionError } from "redux-form";
+import { makeStyles } from "@material-ui/core/styles";
+import { Button, InputAdornment, MenuItem, SvgIcon } from "@material-ui/core";
 import { lower } from "../../common/ReduxNormalize";
-import { roundTextField, renderMenuSelectField } from "../../common/ReduxFields/ReduxFieldComponent";
+import {
+  roundTextField,
+  renderMenuSelectField
+} from "../../common/ReduxFields/ReduxFieldComponent";
 import { Search } from "@material-ui/icons";
-import {  MainLinearProgress } from "../../common/ProgressLines";
-import {dashboardStatus} from '../../content/icons'
-
-
-
+import { MainLinearProgress } from "../../common/ProgressLines";
+import { dashboardStatus } from "../../content/icons";
 
 const useStyles = makeStyles(theme => ({
-
   button: {
-    minWidth: '32px',
-    borderRadius: '0px 20px 20px 0px',
-    boxShadow:'none',
-    marginRight: '-0.9rem',
-    height: '2.5rem'
-      },
+    minWidth: "32px",
+    borderRadius: "0px 20px 20px 0px",
+    boxShadow: "none",
+    marginRight: "-0.9rem",
+    height: "2.5rem"
+  }
 }));
-
 
 const SearchMacForm = props => {
   const classes = useStyles();
-  const { handleSubmit, pristine, submitting, error, valid } = props;
+  const {
+    handleSubmit,
+    pristine,
+    submitting,
+    error,
+    valid,
+    formErrors,
+    placeholder,
+    checkHex
+  } = props;
+
   const startSearch = ({ macInput, deviceType }) => {
     switch (deviceType) {
       case "stb":
         if (!macInput || macInput.length !== 12) {
           throw new SubmissionError({
-            macInput: "Must be 12 symbols",
-            _error: "MAC failed!"
+            macInput: formErrors.lengthSTB,
+            _error: formErrors.common
           });
         } else {
           return props.getStbStatusByMac(macInput);
@@ -42,29 +48,32 @@ const SearchMacForm = props => {
       case "mob":
         if (!macInput || macInput.length !== 16) {
           throw new SubmissionError({
-            macInput: "Must be 16 symbols",
-            _error: "MAC failed!"
+            macInput: formErrors.lengthMobile,
+            _error: formErrors.common
           });
         } else {
           return props.getStbStatusByMac(macInput);
         }
-  
+
       default:
         break;
     }
   };
+
   return (
     <>
       <form onSubmit={handleSubmit(startSearch)}>
         <Field
           fullWidth
+          label={error}
           name="macInput"
           component={roundTextField}
-          placeholder="Search by MAC"
-          validate={[ checkHexidecimal]}
+          placeholder={placeholder}
+          validate={[checkHex]}
           normalize={lower}
           variant="outlined"
           margin="dense"
+          disabled={submitting}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -103,11 +112,9 @@ const SearchMacForm = props => {
               </InputAdornment>
             )
           }}
-          
         />
       </form>
       {submitting && <MainLinearProgress />}
-      
     </>
   );
 };

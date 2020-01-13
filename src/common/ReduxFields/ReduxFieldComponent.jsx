@@ -17,6 +17,7 @@ export const renderTextField = ({
   label,
   input,
   meta: { touched, invalid, error },
+  lang,
   ...custom
 }) => (
   
@@ -25,7 +26,7 @@ export const renderTextField = ({
     label={label}
     placeholder={label}
     error={touched && (invalid || error)}
-    helperText={touched && error ? error : " "}
+    helperText={(touched && error) ? error : " "}
     {...input}
     {...custom}
   />

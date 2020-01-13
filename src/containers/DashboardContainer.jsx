@@ -5,12 +5,13 @@ import {getPingInfoByMac} from '../store/redusers/pingByMac/PingByMac';
 import {getDvbcInfoByMac} from '../store/redusers/dvbcByMac/DvbcByMac';
 import {compose} from 'redux';
 import { withAuthRole, withMainDiv } from '../common/HOC'
-import { getStatusFetching, getStatusStbType, getStatusLastReport, getDetailsValue, getConnectValue, getStatusStbModel, getStatusSearchMac, getStatusSearchStatus, getStatusValueRow } from '../store/selectors/dashboardSelectors';
+import { getStatusFetching, getStatusStbType, getStatusLastReport, getDetailsValue, getConnectValue, getStatusStbModel, getStatusSearchMac, getStatusSearchStatus, getStatusValueRow, getSearchFormWithLang } from '../store/selectors/dashboardSelectors';
 import Dashboard from '../components/Dashboard/Dashboard';
 import SearchMacForm from '../components/Dashboard/SearchMacForm';
 import {  Grid, Container, Divider, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { getUILang } from '../store/selectors/contentSelectors';
+import { checkHexWithLang } from '../common/ReduxValidators';
 // import { SubmissionError } from 'redux-form';
 
 
@@ -40,8 +41,11 @@ const DashboardContainer = props => {
     getPingInfoByMac,
     searchStatus,
     isFetching,
+    searchFormContent,
+    lang,
     ...rest
   } = props;
+  const checkHex = checkHexWithLang(lang);
   return (
     <div className={classes.root}>
      
@@ -49,7 +53,7 @@ const DashboardContainer = props => {
       <Container maxWidth="lg">
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} md={6} lg={5} xl={4}>
-          <SearchMacForm getStbStatusByMac={props.getStbStatusByMac} />
+          <SearchMacForm getStbStatusByMac={props.getStbStatusByMac} {...searchFormContent} checkHex={checkHex} />
         </Grid>
       </Grid>
       <Box color="text.secondary">
@@ -88,6 +92,7 @@ function mapStateToProps(state) {
     dataConnectRow: getConnectValue(state),
     boxModel: getStatusStbModel(state),
     lang: getUILang(state),
+    searchFormContent:getSearchFormWithLang(state),
     
     
     
