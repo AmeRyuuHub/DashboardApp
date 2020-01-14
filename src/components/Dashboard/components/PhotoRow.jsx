@@ -29,9 +29,9 @@ import { autoPlay } from "react-swipeable-views-utils";
 
 const PhotoRow=React.memo((props) =>{
    let stbImgs = [
-     `img/boxs/${props.boxModel}_front.png`,
-     `img/boxs/${props.boxModel}_pers.png`,
-     `img/boxs/${props.boxModel}_back.png`
+     `/img/boxs/${props.boxModel}_front.png`,
+     `/img/boxs/${props.boxModel}_pers.png`,
+     `/img/boxs/${props.boxModel}_back.png`
    ];
 
    const classes = useStyles();

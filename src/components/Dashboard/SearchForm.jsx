@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SearchMacForm = props => {
+const SearchForm = props => {
   const classes = useStyles();
   const {
     handleSubmit,
@@ -122,4 +122,4 @@ const SearchMacForm = props => {
 export default reduxForm({
   form: "editMac", // a unique identifier for this form
   initialValues: { deviceType: "stb" }
-})(SearchMacForm);
+})(SearchForm);

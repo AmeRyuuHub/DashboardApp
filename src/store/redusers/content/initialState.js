@@ -1,4 +1,9 @@
 export const initialState = {
+  languages : [
+    { name: "ru", value: "Руc" },
+    { name: "ua", value: "Укр" },
+    { name: "en", value: "Eng" }
+  ],
          routs: {
            menu: [
              {
@@ -12,7 +17,27 @@ export const initialState = {
                name: "dashboard",
                endPoint: "/dashboard",
                value: { ru: "Dashboard", ua: "Dashboard", en: "Dashboard" },
-               role: "1"
+               role: "1",
+               subLinks: [
+                 {
+                   name: "status",
+                   endPoint: "/dashboard/status",
+                   value: { ru: "Статус", ua: "Статус", en: "Status" },
+                   role: "1"
+                 },
+                 {
+                   name: "ping",
+                   endPoint: "/dashboard/ping",
+                   value: { ru: "Пинг", ua: "Пінг", en: "Ping" },
+                   role: "1"
+                 },
+                 {
+                   name: "dvbc",
+                   endPoint: "/dashboard/dvbc",
+                   value: { ru: "DVB-C", ua: "DVB-C", en: "DVB-C" },
+                   role: "1"
+                 }
+               ]
              },
 
              {
@@ -70,36 +95,129 @@ export const initialState = {
          },
          pages: {
            dashboard: {
-             title: "Dashboard",
-             searchBlock: {
-               ru:{
-                formErrors:{
-                  lengthMobile:"Должно быть 16 симовлов",
-                  lengthSTB:"Должно быть 12 симовлов",
-                  common:"Ошибка!"
+             main: {
+               header:{ru: {
+                title: "Элементы панели",
+                subTitle: "Выберите нужный вам вариант."
+              },
+              ua: {
+                title: "Елементи панелі",
+                subTitle: "Виберіть потрібний варіант"
+              },
+              en: {
+                title: "Dashboard items.",
+                subTitle: "Choose the option you need."
+              }},
+              options:[
+                {
+                 link: "/dashboard/status",
+                 imgUrl:"/img/dashboard/dashboard_status.svg",
+                 langValues:{
+                 ru:{
+                  title:"Статус устройства",
+                  access:"Для всех устройств.",
+                  about:"Получите последние сведения о состоянии устройства, настройках и показателях.",
+                 },
+                 ua:{
+                  title:"Статус пристрою",
+                  access:"Для усіх пристроїв.",
+                  about:"Отримайте найновіший стан пристрою, налаштування та показники.",
+                 },
+                 en:{
+                  title:"Device Status",
+                  access:"For all devices.",
+                  about:"Get the latest device status, settings, and metrics.",
+                 }
                 },
-                placeholder:"Поиск по MAC адресу",
-               },
-               ua:{
-                formErrors:{
-                  lengthMobile:"Повинно бути 16 символів",
-                  lengthSTB:"Повинно бути 12 символів",
-                  common:"Помилка!"
                 },
-                placeholder:"Пошук за MAC адресою",
-               },
-               en:{
-                formErrors:{
-                  lengthMobile:"Must be 16 symbols",
-                  lengthSTB:"Must be 12 symbols",
-                  common:"MAC failed!"
+                {
+                  link: "/dashboard/ping",
+                  imgUrl:"/img/dashboard/dashboard_ping.svg",
+                  langValues:{
+                  ru:{
+                   title:"Ping",
+                   access:"Только для тюнеров.",
+                   about:"Получите данные проверки связи с платформой и маршрутизатором за последние 7 дней.",
+                  },
+                  ua:{
+                   title:"Ping",
+                   access:"Лише для тюнерів",
+                   about:"Отримайте дані про ping до платформи та маршрутизатору за останні 7 днів.",
+                  },
+                  en:{
+                   title:"Ping",
+                   access:"Set-Top-Boxes only.",
+                   about:"Get ping data to platform and router for last 7 days.",
+                  }
                 },
-                placeholder:"Search by MAC",
-               },
+                 },
+                 {
+                  link: "/dashboard/dvbc",
+                  imgUrl:"/img/dashboard/dashboard_dvbc.svg",
+                  langValues:{ ru:{
+                    title:"DVB-C",
+                    access:"Только гибридные устройства.",
+                    about:"Получить данные о состоянии сигналов DVB-C за последние 7 дней.",
+                   },
+                   ua:{
+                    title:"DVB-C",
+                    access:"Тільки гібридні пристрої.",
+                    about:"Отримайте дані про стан сигналів dvb-c за останні 7 днів.",
+                   },
+                   en:{
+                    title:"DVB-C",
+                    access:"Hybrid devices only.",
+                    about:"Get the latest device status, settings, and metrics.",
+                   }
+                  },
+
+                 
+                 },
+              ]
                
+             },
+             searchBlock: {
+               ru: {
+                 formErrors: {
+                   lengthMobile: "Должно быть 16 симовлов",
+                   lengthSTB: "Должно быть 12 симовлов",
+                   common: "Ошибка!"
+                 },
+                 placeholder: "Поиск по MAC адресу"
+               },
+               ua: {
+                 formErrors: {
+                   lengthMobile: "Повинно бути 16 символів",
+                   lengthSTB: "Повинно бути 12 символів",
+                   common: "Помилка!"
+                 },
+                 placeholder: "Пошук за MAC адресою"
+               },
+               en: {
+                 formErrors: {
+                   lengthMobile: "Must be 16 symbols",
+                   lengthSTB: "Must be 12 symbols",
+                   common: "MAC failed!"
+                 },
+                 placeholder: "Search by MAC"
+               }
              },
              status: {
                title: {},
+               main: {
+                ru: {
+                  title: "Отчёт устройства:",
+                  date: "на"
+                },
+                ua: {
+                  title: "Звіт пристрою:",
+                  date: "за"
+                },
+                en: {
+                  title: "Report from device:",
+                  date: "updated:"
+                }
+              },
                content: [
                  {
                    name: "model",
@@ -207,7 +325,7 @@ export const initialState = {
                      ua: "Внутрішній IP",
                      en: "Internal IP"
                    },
-                  
+
                    good: "",
                    bad: "",
                    status: ""
@@ -261,7 +379,7 @@ export const initialState = {
            },
            home: {
              main: {
-               imgUrl: "/img/main_img.svg",
+               imgUrl: "/img/home/main_img.svg",
                buttonLink: "/dashboard",
                value: {
                  ru: {
@@ -288,7 +406,7 @@ export const initialState = {
                }
              },
              howItWorks: {
-               imgUrl: ["/img/step1.svg", "/img/step2.svg", "/img/step3.svg"],
+               imgUrl: ["/img/home/hiw/step1.svg", "/img/home/hiw/step2.svg", "/img/home/hiw/step3.svg"],
                value: {
                  ru: {
                    firstTitle: "Как это работает?",
@@ -321,7 +439,7 @@ export const initialState = {
              },
              other: [
                {
-                 imgUrl: "/img/reports.svg",
+                 imgUrl: "/img/home/reports.svg",
                  buttonLink: "/reports",
                  value: {
                    ru: {
@@ -347,7 +465,7 @@ export const initialState = {
                  }
                },
                {
-                 imgUrl: "/img/users.svg",
+                 imgUrl: "/img/home/users.svg",
                  buttonLink: "/users",
                  value: {
                    ru: {
@@ -371,7 +489,7 @@ export const initialState = {
                  }
                },
                {
-                 imgUrl: "/img/about.svg",
+                 imgUrl: "/img/home/about.svg",
                  buttonLink: "/about",
                  value: {
                    ru: {

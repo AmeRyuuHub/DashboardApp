@@ -1,9 +1,9 @@
 import { withStyles } from "@material-ui/core/styles";
 import { ListItem } from "@material-ui/core";
 
-const StyledListItem = withStyles(theme => ({
+const StyledListSubItem = withStyles(theme => ({
   root: {
-
+    paddingLeft: theme.spacing(4),
     "&.Mui-selected": {
       fontWeight: "bold",
       backgroundColor: theme.palette.primary.main,
@@ -14,8 +14,9 @@ const StyledListItem = withStyles(theme => ({
     },
     "&.Mui-selected svg": {
       color: theme.palette.common.white
-    }
+    },
+    
   }
 }))(ListItem);
 
-export default StyledListItem;
+export default StyledListSubItem;

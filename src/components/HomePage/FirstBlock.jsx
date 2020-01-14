@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles(theme => ({
   root: {
     minHeight: "50vh",
-    backgroundImage: "url('/img/homeBackgroung.svg')",
+    backgroundImage: "url('/img/home/homeBackgroung.svg')",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center "
   },

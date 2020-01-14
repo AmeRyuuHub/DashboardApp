@@ -3,3 +3,4 @@ export { default as StyledMenuItem } from './StyledMenuItem';
 export { default as StyledMenuUserItem } from './StyledMenuUserItem';
 export { default as StyledMenu } from './StyledMenu';
 export { default as StyledDrawer } from './StyledDrawer';
+export {default as StyledListSubItem } from './StyledListSubItem'

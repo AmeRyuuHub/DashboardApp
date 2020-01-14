@@ -16,14 +16,16 @@ import {
   Toolbar,
   Typography,
   Button,
-  IconButton
+  IconButton,
+  Box
 } from "@material-ui/core";
 import {
   AsideBar,
   LangMenu,
   SideBar,
-  OptionsMenu
-} from "../components/MainBar";
+  OptionsMenu,
+  OptionsList
+} from "../components/AppBar";
 import { setCarrentLang } from "../store/redusers/lang/lang";
 import { compose } from "redux";
 import { getAuthLogout } from "../store/redusers/auth/Auth";
@@ -31,18 +33,14 @@ import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Link } from "react-router-dom";
 import { ArrowBack } from "@material-ui/icons";
+import { getRoutPathName } from "../common";
 
 const useStyles = makeStyles(theme => ({
-  navItems: {
-    display: "flex",
-    alignItems: "center"
-  },
-
   toolBar: {
     justifyContent: "space-between",
     alignItems: "center",
     [theme.breakpoints.up("md")]: {
-      marginLeft: "240px"
+      marginLeft: "250px"
     },
     minHeight: "70px"
   },
@@ -53,7 +51,23 @@ const useStyles = makeStyles(theme => ({
   bar: {
     boxShadow: "none",
     minHeight: "70px"
-  }
+  },
+  loginButton: {
+    whiteSpace: "nowrap"
+  },
+
+  optionsLeft: {
+    "& > *": {
+      marginLeft: theme.spacing(1)
+    }
+  },
+  
+  optionsRight: {
+    "& > *": {
+      marginRight: theme.spacing(1)
+    }
+  },
+
 }));
 
 const AppBarContainer = React.memo(props => {
@@ -72,49 +86,54 @@ const AppBarContainer = React.memo(props => {
   const classes = useStyles();
   const theme = useTheme();
   const hideMD = useMediaQuery(theme.breakpoints.up("md"));
-  let pageName =
-    routsMenu && routsMenu.filter(rout => rout.endPoint === pathname)[0];
+  let pageName = routsMenu && getRoutPathName(pathname, routsMenu);
 
   let homePage = pathname === "/" || pathname === "";
   let authPage = pathname === "/auth";
+  if (pathname === "/profile") {
+    pageName = { value: "Profile" };
+  }
   if (!authStatus)
     return (
-      <div>
-        <AppBar position="fixed" className={classes.bar}>
-          <Toolbar className={classes.homeToolBar}>
-            {authPage && (
-              <IconButton color="inherit" component={Link} to="/">
-                <ArrowBack />
-              </IconButton>
+      <AppBar position="fixed" className={classes.bar}>
+        <Toolbar className={classes.homeToolBar}>
+        <Box display="flex" alignItems="center" className={classes.optionsRight}>
+          {authPage && (
+            <IconButton color="inherit" component={Link} to="/">
+              <ArrowBack />
+            </IconButton>
+          )}
+
+          <Typography variant="h6" noWrap>
+            {appInfo.title}
+          </Typography>
+</Box>
+          <Box display="flex" alignItems="center">
+            <LangMenu
+              options={langList}
+              setCarrentLang={setCarrentLang}
+              lang={lang}
+            />
+            {!authPage && (
+              <Button
+                variant="outlined"
+                color="inherit"
+                component={Link}
+                to="/auth"
+                className={classes.loginButton}
+              >
+                Sing In
+              </Button>
             )}
-
-            <Typography variant="h6">{appInfo.title}</Typography>
-
-            <div className={classes.navItems}>
-              <LangMenu
-                options={langList}
-                setCarrentLang={setCarrentLang}
-                lang={lang}
-              />
-              {!authPage && (
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  component={Link}
-                  to="/auth"
-                >
-                  Sing In
-                </Button>
-              )}
-            </div>
-          </Toolbar>
-        </AppBar>
-      </div>
+          </Box>
+        </Toolbar>
+      </AppBar>
     );
   return (
-    <div>
+    <>
       <AppBar position="fixed" className={classes.bar}>
         <Toolbar className={!homePage ? classes.toolBar : classes.homeToolBar}>
+        <Box display="flex" alignItems="center" className={classes.optionsRight}>
           {(homePage || !hideMD) && routsMenu && (
             <AsideBar
               routs={routsMenu}
@@ -125,18 +144,28 @@ const AppBarContainer = React.memo(props => {
             />
           )}
 
-          <Typography variant="h6">
+          <Typography variant="h6" noWrap>
             {!homePage ? pageName && pageName.value : appInfo.title}
           </Typography>
-
-          <OptionsMenu
-            auth={authStatus}
-            user={user}
-            getAuthLogout={getAuthLogout}
-            langList={langList}
-            setCarrentLang={setCarrentLang}
-            lang={lang}
-          />
+          </Box>
+          {!hideMD ? (
+            <OptionsMenu
+              user={user}
+              getAuthLogout={getAuthLogout}
+              langList={langList}
+              setCarrentLang={setCarrentLang}
+              lang={lang}
+            />
+          ) : (
+            <Box display="flex" alignItems="center" className={classes.optionsLeft}>
+              <LangMenu
+                options={langList}
+                setCarrentLang={setCarrentLang}
+                lang={lang}
+              />
+              <OptionsList user={user} getAuthLogout={getAuthLogout} />
+            </Box>
+          )}
         </Toolbar>
       </AppBar>
       {!homePage && hideMD && routsMenu && (
@@ -148,7 +177,7 @@ const AppBarContainer = React.memo(props => {
           routsApp={routsApp}
         />
       )}
-    </div>
+    </>
   );
 });
 

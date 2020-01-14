@@ -1,8 +1,59 @@
 import { v4 } from "uuid";
 import { createSelector } from "reselect";
 import { getUILang } from "./contentSelectors";
+import moment from 'moment';
+
+// TITLE content
 
 
+
+const getDashMainHeader = state => {
+  return state.content.pages.dashboard.main.header;
+};
+
+const getDashMainOptions = state => {
+  return state.content.pages.dashboard.main.options;
+};
+
+export const getDashMainHeaderWithLang = createSelector(
+  getUILang,
+  getDashMainHeader,
+  (lang, data) => {
+    return data[lang];
+  }
+);
+
+
+export const getDashMainOptionsWithLang = createSelector(
+  getUILang,
+  getDashMainOptions,
+  (lang, data) => {
+    let langData = data.map(item => ({
+      id:v4(),
+      link: item.link,
+      imgUrl: item.imgUrl,
+      ...item.langValues[lang]
+    }));
+
+    return langData;
+  }
+);
+
+
+const getStatusMain = state => {
+  return state.content.pages.dashboard.status.main;
+};
+
+
+
+
+export const getStatusMainWithLang = createSelector(
+  getUILang,
+  getStatusMain,
+  (lang, data) => {
+    return data[lang];
+  }
+);
 
 // SEACH FORM content
  const getSearchForm = state => {
@@ -17,7 +68,29 @@ export const getSearchFormWithLang = createSelector(
   }
 );
 
-// status 
+
+// Getting content/pattern for Dashboard report
+
+const getStatusPattern = state => {
+  return state.stbInfo.statusPattern;
+};
+
+
+const getDetailsPattern = state => {
+  return state.stbInfo.detailsPattern;
+};
+
+const getConnectPattern = state => {
+  return state.stbInfo.connectPattern;
+};
+
+
+
+
+
+
+// Getting report's status 
+
 export const getStatusFetching = state => {
   return state.stbInfo.isFetching;
 };
@@ -30,6 +103,7 @@ export const getStatusSearchStatus = state => {
   return state.stbInfo.searchStatus;
 };
 
+// Getting type of device
 export const getStatusStbType = state => {
   return !state.stbInfo.searchResult
     ? null
@@ -39,25 +113,14 @@ export const getStatusStbType = state => {
 export const getStatusLastReport = state => {
   return !state.stbInfo.searchResult
     ? null
-    : state.stbInfo.searchResult.last_report
+    : moment(+state.stbInfo.searchResult.last_report).format('DD.MM.YYYY HH:mm')
 };
 
  const getStatusResult = state => {
    return state.stbInfo.searchResult;
  };
 
- const getStatusPattern = state => {
-   return state.stbInfo.statusPattern;
- };
 
-
- const getDetailsPattern = state => {
-   return state.stbInfo.detailsPattern;
- };
-
- const getConnectPattern = state => {
-   return state.stbInfo.connectPattern;
- };
 
  export const getStatusStbModel = state => {
    return !state.stbInfo.searchResult ? null : state.stbInfo.searchResult.model;

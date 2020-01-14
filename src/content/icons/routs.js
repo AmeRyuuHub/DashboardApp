@@ -1,6 +1,5 @@
 import {
   Dashboard,
-  BarChart,
   AccountTree,
   ExitToApp,
   EmojiEvents,
@@ -9,14 +8,21 @@ import {
   Settings,
   Home,
   MeetingRoom,
-  AssignmentInd
+  AssignmentInd,
+  LiveTv,
+  SwapHorizontalCircle,
+  Assignment,
+  Assessment
 } from "@material-ui/icons";
 
 export const routIcons = {
   home: Home,
-  dashboard: Dashboard,
-  reports: BarChart,
+  dashboard:Dashboard ,
+  reports: Assignment,
   about: AccountTree,
+  status:Assessment,
+  ping:SwapHorizontalCircle,
+  dvbc:LiveTv,
   old: Accessible,
   users: PeopleAlt,
   auth: ExitToApp,

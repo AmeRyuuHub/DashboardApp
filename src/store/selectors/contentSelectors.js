@@ -1,10 +1,8 @@
 import { v4 } from "uuid";
 import { createSelector } from "reselect";
-import { routsMenu, routsAppOptions } from "../../content/main/routs/routs";
 import { routIcons, routsOptions, langIcons } from "../../content/icons";
 import { appInfo } from "../../content/main/app/appDetails";
-import { langList } from "../../content/main/lang/langList";
-import { homePage } from "../../content/home/homePage";
+
 
 // Getting autorization status, authorized or not
 
@@ -29,8 +27,8 @@ export const getUILang = state => {
 
 //Getting  list of languages
 
-export const getLangList = () => {
-  return langList.map(lang => ({ ...lang, img: langIcons[lang.name] }));
+export const getLangList = (state) => {
+  return state.content.languages.map(lang => ({ ...lang, img: langIcons[lang.name] }));
 };
 
 // Getting info about current language
@@ -63,7 +61,15 @@ export const getRoutsMenu = createSelector(
             ...rout,
             value: rout.value[lang],
             icon: routIcons[rout.name],
-            id: v4()
+            id: v4(),
+            subLinks: (!rout.subLinks)
+              ? null
+              : rout.subLinks.map(subLink => ({
+                  ...subLink,
+                  value: subLink.value[lang],
+                  icon: routIcons[subLink.name],
+                  id: v4()
+                }))
           }))
       : null;
   }

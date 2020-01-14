@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.up("md")]: {
-      marginLeft: "240px"
+      marginLeft: "250px"
     }
   }
 }));
