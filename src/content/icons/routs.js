@@ -1,3 +1,4 @@
+
 import {
   Dashboard,
   AccountTree,
@@ -7,13 +8,16 @@ import {
   PeopleAlt,
   Settings,
   Home,
-  MeetingRoom,
   AssignmentInd,
   LiveTv,
   SwapHorizontalCircle,
   Assignment,
   Assessment
 } from "@material-ui/icons";
+import { mdiLogoutVariant } from '@mdi/js'; 
+
+
+
 
 export const routIcons = {
   home: Home,
@@ -32,7 +36,7 @@ export const routIcons = {
 export const routsOptions = {
   
   profile: AssignmentInd,
-  logout: MeetingRoom,
+  logout: mdiLogoutVariant,
   settings: Settings
 };
   

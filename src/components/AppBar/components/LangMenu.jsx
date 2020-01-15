@@ -4,15 +4,23 @@ import { ExpandMore } from '@material-ui/icons';
 import { MenuItem, Menu,  List, ListItem, ListItemIcon, ListItemText, } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
+  root:{
+    paddingLeft:'5px',
+    paddingRight:'5px',
+  },
+  navRootIcons:{
+    minWidth: "25px",
+  },
+
   navItemIcons: {
-    minWidth: "32px"
+    minWidth: "32px",
   }
 }));
 
 const LangMenu = props => {
   const classes = useStyles();
   const [anchorLang, setAnchorLang] = React.useState(null);
-  const { options, lang, setCarrentLang } = props;
+  const { options, lang, setCarrentLang, hideMD } = props;
   const handleLangClick = event => {
     setAnchorLang(event.currentTarget);
   };
@@ -36,12 +44,13 @@ const LangMenu = props => {
             aria-controls="language-menu"
             aria-label="used language"
             onClick={handleLangClick}
+            className={classes.root}
           >
-            <ListItemIcon className={classes.navItemIcons}>
+            <ListItemIcon className={classes.navRootIcons}>
               <img src={lang.img} alt={lang.value} />
             </ListItemIcon>
-            <ListItemText primary={lang.value} />
-            <ExpandMore />
+           {hideMD && <ListItemText primary={lang.value} />}
+            <ExpandMore fontSize="small"/>
           </ListItem>
         </List>
       )}

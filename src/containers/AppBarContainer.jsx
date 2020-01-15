@@ -155,28 +155,23 @@ const AppBarContainer = React.memo(props => {
               {!homePage ? pageName && pageName.value : appInfo.title}
             </Typography>
           </Box>
-          {!hideMD ? (
-            <OptionsMenu
-              user={user}
-              getAuthLogout={getAuthLogout}
-              langList={langList}
+          <Box
+            display="flex"
+            alignItems="center"
+            className={hideMD ? classes.optionsLeft : null}
+          >
+            <LangMenu
+              options={langList}
               setCarrentLang={setCarrentLang}
               lang={lang}
+              hideMD={hideMD}
             />
-          ) : (
-            <Box
-              display="flex"
-              alignItems="center"
-              className={classes.optionsLeft}
-            >
-              <LangMenu
-                options={langList}
-                setCarrentLang={setCarrentLang}
-                lang={lang}
-              />
-              <OptionsList user={user} getAuthLogout={getAuthLogout} />
-            </Box>
-          )}
+            {!hideMD ? (
+              <OptionsMenu user={user} getAuthLogout={getAuthLogout} routsApp={routsApp} />
+            ) : (
+              <OptionsList user={user} getAuthLogout={getAuthLogout} routsApp={routsApp} />
+            )}
+          </Box>
         </Toolbar>
       </AppBar>
       {!homePage && hideMD && routsMenu && (

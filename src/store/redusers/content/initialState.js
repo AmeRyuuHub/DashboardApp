@@ -69,13 +69,13 @@ export const initialState = {
                disabled: false
              },
 
-             //  {
-             //    name: "settings",
-             //    endPoint: "/settings",
-             //    value: { ru: "Настройки", ua: "Налаштування", en: "Settings" },
-             //    role: "1",
-             //    disabled: true
-             //  },
+              {
+                name: "settings",
+                endPoint: "/settings",
+                value: { ru: "Настройки", ua: "Налаштування", en: "Settings" },
+                role: "1",
+                disabled: true
+              },
 
              {
                name: "logout",
