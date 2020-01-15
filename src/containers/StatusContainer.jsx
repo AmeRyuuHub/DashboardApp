@@ -16,8 +16,7 @@ import {
   getSearchFormWithLang,
   getStatusMainWithLang
 } from "../store/selectors/dashboardSelectors";
-import Dashboard from "../components/Dashboard/Dashboard";
-import SearchForm from "../components/Dashboard/SearchForm";
+import {Status, SearchForm} from "../components/Dashboard";
 import { Grid, Container, Divider, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { getUILang } from "../store/selectors/contentSelectors";
@@ -43,7 +42,7 @@ const StatusContainer = props => {
   } = props;
   const checkHex = checkHexWithLang(lang);
   return (
-    <>
+   
       <Container maxWidth="lg">
         <Grid container className={classes.root}>
           <Grid item xs={12} sm={6} md={6} lg={5} xl={4}>
@@ -68,13 +67,13 @@ const StatusContainer = props => {
           )}
           <Divider />
         </Box>
-      </Container>
+     
       {!isFetching && searchStatus && props.boxType && (
-        <Container maxWidth="lg">
-          <Dashboard {...rest} />
-        </Container>
+        
+          <Status {...rest} />
+      
       )}
-    </>
+   </Container>
   );
 };
 
@@ -83,7 +82,7 @@ function mapStateToProps(state) {
     searchStatus: getStatusSearchStatus(state),
     isFetching: getStatusFetching(state),
     macValue: getStatusSearchMac(state),
-    dataStatusCards: getStatusValueRow(state),
+    
     boxType: getStatusStbType(state),
     lastReport: getStatusLastReport(state),
     dataDetailsRow: getDetailsValue(state),
@@ -91,7 +90,8 @@ function mapStateToProps(state) {
     boxModel: getStatusStbModel(state),
     lang: getUILang(state),
     searchFormContent: getSearchFormWithLang(state),
-    mainContent: getStatusMainWithLang(state)
+    mainContent: getStatusMainWithLang(state),
+    dataStatusCards: getStatusValueRow(state),
   };
 }
 

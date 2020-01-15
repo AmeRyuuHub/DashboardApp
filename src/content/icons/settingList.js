@@ -2,7 +2,7 @@ import {
   Language,
   Memory,
   GetApp,
-  ImportExport,
+  CloudDone,
   FiberPin,
   Input,
   Router,
@@ -13,7 +13,7 @@ import {
 const settingList = {
   cpu: Memory,
   loader: GetApp,
-  minerva: ImportExport,
+  minerva: CloudDone,
   pin: FiberPin,
   hdmi: Input,
   ExternalIP: Language,

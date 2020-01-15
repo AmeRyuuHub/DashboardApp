@@ -1,13 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Typography, Slide, SvgIcon} from "@material-ui/core";
+import { Paper, Typography, SvgIcon } from "@material-ui/core";
 import { dashboardStatus } from "../../../content/icons";
-
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: "100%",
-    
+    height: "100%"
   },
 
   title: {
@@ -21,8 +19,7 @@ const useStyles = makeStyles(theme => ({
   divIcon: {
     display: "flex",
     justifyContent: "space-between",
-    padding: theme.spacing(2),
-  
+    padding: theme.spacing(2)
   }
 }));
 
@@ -30,40 +27,38 @@ const StatusCard = React.memo(({ data }) => {
   const classes = useStyles();
 
   return (
-    <Slide direction="up" in={true} mountOnEnter unmountOnExit timeout={300}>
-      <Paper className={classes.root}>
-        <div className={classes.divIcon}>
-          <div>
-            <Typography
-               className={classes.title}
-              color="textSecondary"
-              gutterBottom
-              variant="button"
-            >
-              {data.text}
-            </Typography>
-            <Typography variant="h6">{data.value}</Typography>
-          </div>
-
-          <SvgIcon className={classes.icon}>
-            <path
-              fill={
-                data.status === "success"
-                  ? "#28a745"
-                  : data.status === "danger"
-                  ? "#dc3545"
-                  : "#c8c8c8"
-              }
-              d={
-                data.value === "mobile"
-                  ? dashboardStatus.mobile
-                  : dashboardStatus[data.name]
-              }
-            />
-          </SvgIcon>
+    <Paper className={classes.root}>
+      <div className={classes.divIcon}>
+        <div>
+          <Typography
+            className={classes.title}
+            color="textSecondary"
+            gutterBottom
+            variant="button"
+          >
+            {data.text}
+          </Typography>
+          <Typography variant="h6">{data.value}</Typography>
         </div>
-      </Paper>
-    </Slide>
+
+        <SvgIcon className={classes.icon}>
+          <path
+            fill={
+              data.status === "success"
+                ? "#28a745"
+                : data.status === "danger"
+                ? "#dc3545"
+                : "#c8c8c8"
+            }
+            d={
+              data.value === "mobile"
+                ? dashboardStatus.mobile
+                : dashboardStatus[data.name]
+            }
+          />
+        </SvgIcon>
+      </div>
+    </Paper>
   );
 });
 

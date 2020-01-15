@@ -1,11 +1,9 @@
 import { v4 } from "uuid";
 import { createSelector } from "reselect";
 import { getUILang } from "./contentSelectors";
-import moment from 'moment';
+import moment from "moment";
 
 // TITLE content
-
-
 
 const getDashMainHeader = state => {
   return state.content.pages.dashboard.main.header;
@@ -23,13 +21,12 @@ export const getDashMainHeaderWithLang = createSelector(
   }
 );
 
-
 export const getDashMainOptionsWithLang = createSelector(
   getUILang,
   getDashMainOptions,
   (lang, data) => {
     let langData = data.map(item => ({
-      id:v4(),
+      id: v4(),
       link: item.link,
       imgUrl: item.imgUrl,
       ...item.langValues[lang]
@@ -39,13 +36,9 @@ export const getDashMainOptionsWithLang = createSelector(
   }
 );
 
-
 const getStatusMain = state => {
   return state.content.pages.dashboard.status.main;
 };
-
-
-
 
 export const getStatusMainWithLang = createSelector(
   getUILang,
@@ -56,7 +49,7 @@ export const getStatusMainWithLang = createSelector(
 );
 
 // SEACH FORM content
- const getSearchForm = state => {
+const getSearchForm = state => {
   return state.content.pages.dashboard.searchBlock;
 };
 
@@ -68,28 +61,21 @@ export const getSearchFormWithLang = createSelector(
   }
 );
 
-
 // Getting content/pattern for Dashboard report
 
 const getStatusPattern = state => {
-  return state.stbInfo.statusPattern;
+  return state.content.pages.dashboard.status.langValues;
 };
 
-
 const getDetailsPattern = state => {
-  return state.stbInfo.detailsPattern;
+  return state.content.pages.dashboard.details.langValues;
 };
 
 const getConnectPattern = state => {
-  return state.stbInfo.connectPattern;
+  return state.content.pages.dashboard.connect.langValues;
 };
 
-
-
-
-
-
-// Getting report's status 
+// Getting report's status
 
 export const getStatusFetching = state => {
   return state.stbInfo.isFetching;
@@ -105,35 +91,35 @@ export const getStatusSearchStatus = state => {
 
 // Getting type of device
 export const getStatusStbType = state => {
-  return !state.stbInfo.searchResult
-    ? null
-    : state.stbInfo.searchResult.type_m;
+  return !state.stbInfo.searchResult ? null : state.stbInfo.searchResult.type_m;
 };
 
 export const getStatusLastReport = state => {
   return !state.stbInfo.searchResult
     ? null
-    : moment(+state.stbInfo.searchResult.last_report).format('DD.MM.YYYY HH:mm')
+    : moment(+state.stbInfo.searchResult.last_report).format(
+        "DD.MM.YYYY HH:mm"
+      );
 };
 
- const getStatusResult = state => {
-   return state.stbInfo.searchResult;
- };
+const getStatusResult = state => {
+  return state.stbInfo.searchResult;
+};
 
-
-
- export const getStatusStbModel = state => {
-   return !state.stbInfo.searchResult ? null : state.stbInfo.searchResult.model;
- };
+export const getStatusStbModel = state => {
+  return !state.stbInfo.searchResult ? null : state.stbInfo.searchResult.model;
+};
 
 export const getStatusValueRow = createSelector(
   getStatusPattern,
   getStatusResult,
   getStatusStbType,
-  (pattern, result, type) => {
+  getUILang,
+  (pattern, result, type,lang) => {
     return result
       ? pattern.map(item => ({
           ...item,
+          text: item.text[lang],
           value:
             item.name === "model" && type !== "MOBILE"
               ? ` ${type} ${result[item.name]}`
@@ -152,37 +138,37 @@ export const getStatusValueRow = createSelector(
   }
 );
 
-
 export const getDetailsValue = createSelector(
   getDetailsPattern,
   getStatusResult,
   getStatusStbType,
-  (pattern, result, type) => {
+  getUILang,
+  (pattern, result, type,lang) => {
     return result
       ? pattern.map(item => ({
           ...item,
-          value: ((item.name === "cpu" || item.name === "hdmi") && type==="MOBILE")? "":result[item.name],
-        
-            id:v4(),
+          text: item.text[lang],
+          value:(item.good.value )? (item.good.value===result[item.name])? item.startWith +item.good.text+item.endWith :item.startWith +item.good.bad+item.endWith :item.startWith +result[item.name]+item.endWith,
+
+          id: v4()
         }))
       : null;
   }
 );
 
-
-
-
 export const getConnectValue = createSelector(
   getConnectPattern,
   getStatusResult,
   getStatusStbType,
-  (pattern, result, type) => {
+  getUILang,
+  (pattern, result, type,lang) => {
     return result
       ? pattern.map(item => ({
           ...item,
-          value: ((item.name === "cpu" || item.name === "hdmi") && type==="MOBILE")? "":result[item.name],
-          
-            id:v4(),
+          text: item.text[lang],
+          value: result[item.name],
+
+          id: v4()
         }))
       : null;
   }
@@ -206,10 +192,12 @@ export const getPingRequestStatus = createSelector(
   getStatusSearchMac,
   getPingSearchMac,
   getPingRequest,
-  (searchMac, ownMac,status) => {
-if (searchMac !== ownMac) {return null}
+  (searchMac, ownMac, status) => {
+    if (searchMac !== ownMac) {
+      return null;
+    }
 
-  return status;
+    return status;
   }
 );
 
@@ -227,13 +215,19 @@ export const getDataPingRouter = createSelector(
   getStatusSearchMac,
   getPingSearchMac,
   getPingRouter,
-  (searchMac, ownMac,router) => {
-if (searchMac !== ownMac) {return null}
-let timeZone = new Date().getTimezoneOffset() * 60000;
-  return router
-      ? router.sort((a, b) => {
-        return +a.ts - +b.ts;
-      }).map(item =>{ return [+item.ts+timeZone,+item.rtt/1000]})
+  (searchMac, ownMac, router) => {
+    if (searchMac !== ownMac) {
+      return null;
+    }
+    let timeZone = new Date().getTimezoneOffset() * 60000;
+    return router
+      ? router
+          .sort((a, b) => {
+            return +a.ts - +b.ts;
+          })
+          .map(item => {
+            return [+item.ts + timeZone, +item.rtt / 1000];
+          })
       : null;
   }
 );
@@ -242,19 +236,22 @@ export const getDataPingPlatform = createSelector(
   getStatusSearchMac,
   getPingSearchMac,
   getPingPlatform,
-  (searchMac, ownMac,platform) => {
-if (searchMac !== ownMac) {return null}
-let timeZone = new Date().getTimezoneOffset() * 60000;
-  return platform
-      ? platform.sort((a, b) => {
-        return +a.ts - +b.ts;
-      }).map(item =>{ return [+item.ts+timeZone,+item.rtt/1000]})
+  (searchMac, ownMac, platform) => {
+    if (searchMac !== ownMac) {
+      return null;
+    }
+    let timeZone = new Date().getTimezoneOffset() * 60000;
+    return platform
+      ? platform
+          .sort((a, b) => {
+            return +a.ts - +b.ts;
+          })
+          .map(item => {
+            return [+item.ts + timeZone, +item.rtt / 1000];
+          })
       : null;
   }
 );
-
-   
-  
 
 // DVBC
 
@@ -274,9 +271,11 @@ export const getDvbcRequestStatus = createSelector(
   getStatusSearchMac,
   getDvbcSearchMac,
   getDvbcRequest,
-  (searchMac, ownMac,status) => {
-if (searchMac !== ownMac) {return null}
-  return status;
+  (searchMac, ownMac, status) => {
+    if (searchMac !== ownMac) {
+      return null;
+    }
+    return status;
   }
 );
 
@@ -297,24 +296,26 @@ export const getDataDvbcFreq = createSelector(
   getDvbcSearchMac,
   getDvbcFreqList,
   getDvbc,
-  (searchMac, ownMac,list,data) => {
-if (searchMac !== ownMac) {return null}
+  (searchMac, ownMac, list, data) => {
+    if (searchMac !== ownMac) {
+      return null;
+    }
 
-let newArray = data
-  ? list.map(item => {
-      let newItem = data
-        .filter(items => item === items.frequency)
-        .sort((a, b) => {
-          return +b.ts - +a.ts;
-        });
-      return { level: newItem[0].level, snr: newItem[0].snr, timeList:newItem};
-    })
-  : null;
- 
-return newArray
-});
+    let newArray = data
+      ? list.map(item => {
+          let newItem = data
+            .filter(items => item === items.frequency)
+            .sort((a, b) => {
+              return +b.ts - +a.ts;
+            });
+          return {
+            level: newItem[0].level,
+            snr: newItem[0].snr,
+            timeList: newItem
+          };
+        })
+      : null;
 
- 
-
-
-   
+    return newArray;
+  }
+);

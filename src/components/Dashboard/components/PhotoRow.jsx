@@ -1,10 +1,10 @@
 import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@material-ui/icons";
-import { Card, Hidden, Grid, MobileStepper, Button,  CardContent, Slide} from "@material-ui/core";
+import { Card,  Grid, MobileStepper, Button,  CardContent } from "@material-ui/core";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
-
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
  const useStyles = makeStyles(theme => ({
    root: {
@@ -50,24 +50,25 @@ const PhotoRow=React.memo((props) =>{
      setActiveStep(step);
    };
   
+   const hideMD = useMediaQuery(theme.breakpoints.up("md"));
+
    return (
      
    
-    <Slide direction="up" in={true} mountOnEnter unmountOnExit timeout={500}>
+    
     <Card >
     
   <CardContent>
-       <Hidden smDown>
-         <Grid container spacing={2}>
+      {hideMD ? <Grid container spacing={2}>
            {stbImgs.map(step => (
              <Grid item  xs={4} key={step}>
                <img className={classes.img} src={step} alt={props.boxModel} />
              </Grid>
            ))}
-         </Grid>
-       </Hidden>
-       <Hidden mdUp>
-         <AutoPlaySwipeableViews
+         </Grid>:
+         <>
+
+<AutoPlaySwipeableViews
            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
            index={activeStep}
            onChangeIndex={handleStepChange}
@@ -117,10 +118,15 @@ const PhotoRow=React.memo((props) =>{
              </Button>
            }
          />
-       </Hidden>
+
+         </>
+         }
+         
+     
+       
       </CardContent>
      </Card>
-     </Slide>
+    
      
    );
  })

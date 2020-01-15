@@ -61,13 +61,12 @@ const useStyles = makeStyles(theme => ({
       marginLeft: theme.spacing(1)
     }
   },
-  
+
   optionsRight: {
     "& > *": {
       marginRight: theme.spacing(1)
     }
-  },
-
+  }
 }));
 
 const AppBarContainer = React.memo(props => {
@@ -97,17 +96,21 @@ const AppBarContainer = React.memo(props => {
     return (
       <AppBar position="fixed" className={classes.bar}>
         <Toolbar className={classes.homeToolBar}>
-        <Box display="flex" alignItems="center" className={classes.optionsRight}>
-          {authPage && (
-            <IconButton color="inherit" component={Link} to="/">
-              <ArrowBack />
-            </IconButton>
-          )}
+          <Box
+            display="flex"
+            alignItems="center"
+            className={classes.optionsRight}
+          >
+            {authPage && (
+              <IconButton color="inherit" component={Link} to="/">
+                <ArrowBack />
+              </IconButton>
+            )}
 
-          <Typography variant="h6" noWrap>
-            {appInfo.title}
-          </Typography>
-</Box>
+            <Typography variant="h6" noWrap>
+              {appInfo.title}
+            </Typography>
+          </Box>
           <Box display="flex" alignItems="center">
             <LangMenu
               options={langList}
@@ -133,20 +136,24 @@ const AppBarContainer = React.memo(props => {
     <>
       <AppBar position="fixed" className={classes.bar}>
         <Toolbar className={!homePage ? classes.toolBar : classes.homeToolBar}>
-        <Box display="flex" alignItems="center" className={classes.optionsRight}>
-          {(homePage || !hideMD) && routsMenu && (
-            <AsideBar
-              routs={routsMenu}
-              logo={appInfo.logo}
-              title={appInfo.title}
-              pathname={pathname}
-              routsApp={routsApp}
-            />
-          )}
+          <Box
+            display="flex"
+            alignItems="center"
+            className={classes.optionsRight}
+          >
+            {(homePage || !hideMD) && routsMenu && (
+              <AsideBar
+                routs={routsMenu}
+                logo={appInfo.logo}
+                title={appInfo.title}
+                pathname={pathname}
+                routsApp={routsApp}
+              />
+            )}
 
-          <Typography variant="h6" noWrap>
-            {!homePage ? pageName && pageName.value : appInfo.title}
-          </Typography>
+            <Typography variant="h6" noWrap>
+              {!homePage ? pageName && pageName.value : appInfo.title}
+            </Typography>
           </Box>
           {!hideMD ? (
             <OptionsMenu
@@ -157,7 +164,11 @@ const AppBarContainer = React.memo(props => {
               lang={lang}
             />
           ) : (
-            <Box display="flex" alignItems="center" className={classes.optionsLeft}>
+            <Box
+              display="flex"
+              alignItems="center"
+              className={classes.optionsLeft}
+            >
               <LangMenu
                 options={langList}
                 setCarrentLang={setCarrentLang}

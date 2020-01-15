@@ -1,9 +1,9 @@
 export const initialState = {
-  languages : [
-    { name: "ru", value: "Руc" },
-    { name: "ua", value: "Укр" },
-    { name: "en", value: "Eng" }
-  ],
+         languages: [
+           { name: "ru", value: "Руc" },
+           { name: "ua", value: "Укр" },
+           { name: "en", value: "Eng" }
+         ],
          routs: {
            menu: [
              {
@@ -69,13 +69,13 @@ export const initialState = {
                disabled: false
              },
 
-             {
-               name: "settings",
-               endPoint: "/settings",
-               value: { ru: "Настройки", ua: "Налаштування", en: "Settings" },
-               role: "1",
-               disabled: true
-             },
+             //  {
+             //    name: "settings",
+             //    endPoint: "/settings",
+             //    value: { ru: "Настройки", ua: "Налаштування", en: "Settings" },
+             //    role: "1",
+             //    disabled: true
+             //  },
 
              {
                name: "logout",
@@ -96,85 +96,94 @@ export const initialState = {
          pages: {
            dashboard: {
              main: {
-               header:{ru: {
-                title: "Элементы панели",
-                subTitle: "Выберите нужный вам вариант."
-              },
-              ua: {
-                title: "Елементи панелі",
-                subTitle: "Виберіть потрібний варіант"
-              },
-              en: {
-                title: "Dashboard items.",
-                subTitle: "Choose the option you need."
-              }},
-              options:[
-                {
-                 link: "/dashboard/status",
-                 imgUrl:"/img/dashboard/dashboard_status.svg",
-                 langValues:{
-                 ru:{
-                  title:"Статус устройства",
-                  access:"Для всех устройств.",
-                  about:"Получите последние сведения о состоянии устройства, настройках и показателях.",
+               header: {
+                 ru: {
+                   title: "Элементы панели",
+                   subTitle: "Выберите нужный вам вариант."
                  },
-                 ua:{
-                  title:"Статус пристрою",
-                  access:"Для усіх пристроїв.",
-                  about:"Отримайте найновіший стан пристрою, налаштування та показники.",
+                 ua: {
+                   title: "Елементи панелі",
+                   subTitle: "Виберіть потрібний варіант"
                  },
-                 en:{
-                  title:"Device Status",
-                  access:"For all devices.",
-                  about:"Get the latest device status, settings, and metrics.",
+                 en: {
+                   title: "Dashboard items.",
+                   subTitle: "Choose the option you need."
                  }
-                },
-                },
-                {
-                  link: "/dashboard/ping",
-                  imgUrl:"/img/dashboard/dashboard_ping.svg",
-                  langValues:{
-                  ru:{
-                   title:"Ping",
-                   access:"Только для тюнеров.",
-                   about:"Получите данные проверки связи с платформой и маршрутизатором за последние 7 дней.",
-                  },
-                  ua:{
-                   title:"Ping",
-                   access:"Лише для тюнерів",
-                   about:"Отримайте дані про ping до платформи та маршрутизатору за останні 7 днів.",
-                  },
-                  en:{
-                   title:"Ping",
-                   access:"Set-Top-Boxes only.",
-                   about:"Get ping data to platform and router for last 7 days.",
-                  }
-                },
+               },
+               options: [
+                 {
+                   link: "/dashboard/status",
+                   imgUrl: "/img/dashboard/dashboard_status.svg",
+                   langValues: {
+                     ru: {
+                       title: "Статус устройства",
+                       access: "Для всех устройств.",
+                       about:
+                         "Получите последние сведения о состоянии устройства, настройках и показателях."
+                     },
+                     ua: {
+                       title: "Статус пристрою",
+                       access: "Для усіх пристроїв.",
+                       about:
+                         "Отримайте найновіший стан пристрою, налаштування та показники."
+                     },
+                     en: {
+                       title: "Device Status",
+                       access: "For all devices.",
+                       about:
+                         "Get the latest device status, settings, and metrics."
+                     }
+                   }
                  },
                  {
-                  link: "/dashboard/dvbc",
-                  imgUrl:"/img/dashboard/dashboard_dvbc.svg",
-                  langValues:{ ru:{
-                    title:"DVB-C",
-                    access:"Только гибридные устройства.",
-                    about:"Получить данные о состоянии сигналов DVB-C за последние 7 дней.",
-                   },
-                   ua:{
-                    title:"DVB-C",
-                    access:"Тільки гібридні пристрої.",
-                    about:"Отримайте дані про стан сигналів dvb-c за останні 7 днів.",
-                   },
-                   en:{
-                    title:"DVB-C",
-                    access:"Hybrid devices only.",
-                    about:"Get the latest device status, settings, and metrics.",
+                   link: "/dashboard/ping",
+                   imgUrl: "/img/dashboard/dashboard_ping.svg",
+                   langValues: {
+                     ru: {
+                       title: "Ping",
+                       access: "Только для тюнеров.",
+                       about:
+                         "Получите данные проверки связи с платформой и маршрутизатором за последние 7 дней."
+                     },
+                     ua: {
+                       title: "Ping",
+                       access: "Лише для тюнерів",
+                       about:
+                         "Отримайте дані про ping до платформи та маршрутизатору за останні 7 днів."
+                     },
+                     en: {
+                       title: "Ping",
+                       access: "Set-Top-Boxes only.",
+                       about:
+                         "Get ping data to platform and router for last 7 days."
+                     }
                    }
-                  },
-
-                 
                  },
-              ]
-               
+                 {
+                   link: "/dashboard/dvbc",
+                   imgUrl: "/img/dashboard/dashboard_dvbc.svg",
+                   langValues: {
+                     ru: {
+                       title: "DVB-C",
+                       access: "Только гибридные устройства.",
+                       about:
+                         "Получить данные о состоянии сигналов DVB-C за последние 7 дней."
+                     },
+                     ua: {
+                       title: "DVB-C",
+                       access: "Тільки гібридні пристрої.",
+                       about:
+                         "Отримайте дані про стан сигналів dvb-c за останні 7 днів."
+                     },
+                     en: {
+                       title: "DVB-C",
+                       access: "Hybrid devices only.",
+                       about:
+                         "Get the latest device status, settings, and metrics."
+                     }
+                   }
+                 }
+               ]
              },
              searchBlock: {
                ru: {
@@ -205,20 +214,20 @@ export const initialState = {
              status: {
                title: {},
                main: {
-                ru: {
-                  title: "Отчёт устройства:",
-                  date: "на"
-                },
-                ua: {
-                  title: "Звіт пристрою:",
-                  date: "за"
-                },
-                en: {
-                  title: "Report from device:",
-                  date: "updated:"
-                }
-              },
-               content: [
+                 ru: {
+                   title: "Отчёт устройства:",
+                   date: "на"
+                 },
+                 ua: {
+                   title: "Звіт пристрою:",
+                   date: "за"
+                 },
+                 en: {
+                   title: "Report from device:",
+                   date: "updated:"
+                 }
+               },
+               langValues: [
                  {
                    name: "model",
                    value: "",
@@ -255,56 +264,70 @@ export const initialState = {
              },
              photo: {
                title: {},
-               content: []
+               langValues: []
              },
              details: {
                title: {},
-               content: [
+               langValues: [
                  {
                    name: "cpu",
                    value: "",
                    text: { ru: "ЦПУ", ua: "ЦП", en: "CPU" },
-                   good: "",
-                   bad: "",
-                   status: ""
+                   good: { value: null, text: null },
+                   bad: { value: null, text: null },
+                   status: "",
+                   startWith: "",
+                   endWith: "%"
                  },
                  {
                    name: "loader",
                    value: "",
                    text: { ru: "Загрузчик", ua: "Завантажувач", en: "Loader" },
-                   good: "",
-                   bad: "",
-                   status: ""
+                   good: { value: null, text: null },
+                   bad: { value: null, text: null },
+                   status: "",
+                   startWith: "v",
+                   endWith: ""
                  },
                  {
                    name: "minerva",
                    value: "",
                    text: { ru: "Платформа", ua: "Платформа", en: "Platform" },
-                   good: "",
-                   bad: "",
-                   status: ""
+                   good: { value: "got services", text: "OK" },
+                   bad: { value: null, text: "Error" },
+                   status: "",
+                   startWith: "",
+                   endWith: ""
                  },
                  {
                    name: "pin",
                    value: "",
                    text: { ru: "ПИН", ua: "ПІН", en: "PIN" },
-                   good: "",
-                   bad: "",
-                   status: ""
+                   good: { value: null, text: null },
+                   bad: { value:null, text: null },
+                   status: "",
+                   startWith: "",
+                   endWith: ""
                  },
                  {
                    name: "hdmi",
                    value: "",
-                   text: { ru: "HDMI", ua: "HDMI", en: "HDMI" },
-                   good: "",
-                   bad: "",
-                   status: ""
+                   text: {
+                     ru: "TV Connection",
+                     ua: "ТВ Підключення",
+                     en: "TВ Подключение"
+                   },
+                   good: { value: "connected", text: "HD" },
+                   bad: { value: "", text: "RCA" },
+                   status: "",
+                   startWith: "",
+                   endWith: ""
                  }
                ]
              },
              connect: {
                title: {},
-               content: [
+               langValues: [
                  {
                    name: "ExternalIP",
                    value: "",
@@ -406,7 +429,11 @@ export const initialState = {
                }
              },
              howItWorks: {
-               imgUrl: ["/img/home/hiw/step1.svg", "/img/home/hiw/step2.svg", "/img/home/hiw/step3.svg"],
+               imgUrl: [
+                 "/img/home/hiw/step1.svg",
+                 "/img/home/hiw/step2.svg",
+                 "/img/home/hiw/step3.svg"
+               ],
                value: {
                  ru: {
                    firstTitle: "Как это работает?",

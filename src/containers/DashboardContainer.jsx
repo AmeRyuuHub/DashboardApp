@@ -1,9 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import { compose } from "redux";
 import { withAuthRole, withMainDiv } from "../common/HOC";
-
 import {
   Grid,
   Container,
@@ -17,23 +15,28 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { getUILang } from "../store/selectors/contentSelectors";
-import { Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { getDashMainHeaderWithLang, getDashMainOptionsWithLang } from "../store/selectors/dashboardSelectors";
+import { Link } from "react-router-dom";
+import {
+  getDashMainHeaderWithLang,
+  getDashMainOptionsWithLang
+} from "../store/selectors/dashboardSelectors";
 
 const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(2)
   },
-  card: {
+  cardContent: {
     display: "flex",
     flexDirection: "column",
     textAlign: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   media: {
     maxWidth: "12rem"
     // minHeight: 140,
+  },
+  card: {
+    height: "100%"
   }
 }));
 
@@ -42,77 +45,67 @@ const DashboardContainer = props => {
   const { headerContent, mainContent } = props;
 
   return (
-    
-      <Container maxWidth="lg">
-        <Box py={4}>
-          <Typography variant="h2" align="center" gutterBottom color="primary">
-            {headerContent.title}
-          </Typography>
-          <Typography
-            variant="h5"
-            align="center"
-            gutterBottom
-            color="textSecondary"
-          >
-            {headerContent.subTitle}
-          </Typography>
-        </Box>
-        <Divider />
-        <Grid
-          container
-          className={classes.root}
-          spacing={4}
-          
+    <Container maxWidth="lg">
+      <Box py={4}>
+        <Typography variant="h2" align="center" gutterBottom color="primary">
+          {headerContent.title}
+        </Typography>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          color="textSecondary"
         >
-         
-         {mainContent && mainContent.map(block =>(
+          {headerContent.subTitle}
+        </Typography>
+      </Box>
+      <Divider />
+      <Grid container className={classes.root} spacing={4}>
+        {mainContent &&
+          mainContent.map(block => (
             <Grid item xs={12} sm={4} md={4} key={block.id}>
-          <Card >
-              <CardActionArea component={Link} to={block.link}>
-              <CardContent className={classes.card} >
-                <CardMedia
-                  component="img"
-                  className={classes.media}
-                  image={block.imgUrl}
-                  title={block.title}
-                />
-                
-                  <Typography gutterBottom variant="h5">
-                  {block.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                   {block.access}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                   {block.about}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+              <Card className={classes.card}>
+                <CardActionArea component={Link} to={block.link}>
+                  <CardContent className={classes.cardContent}>
+                    <CardMedia
+                      component="img"
+                      className={classes.media}
+                      image={block.imgUrl}
+                      title={block.title}
+                    />
+
+                    <Typography gutterBottom variant="h5">
+                      {block.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {block.access}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {block.about}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
             </Grid>
-         ))} 
-            
-         
-
-        </Grid>
-      </Container>
-
+          ))}
+      </Grid>
+    </Container>
   );
 };
 
 function mapStateToProps(state) {
   return {
     lang: getUILang(state),
-    headerContent:getDashMainHeaderWithLang(state),
-    mainContent:getDashMainOptionsWithLang(state),
+    headerContent: getDashMainHeaderWithLang(state),
+    mainContent: getDashMainOptionsWithLang(state)
   };
 }
 

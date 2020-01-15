@@ -1,6 +1,6 @@
  import React from 'react';
  import { makeStyles } from '@material-ui/core/styles';
- import {Icon, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton,  ListItemIcon, Card, CardContent, CardHeader, Divider, Slide} from '@material-ui/core';
+ import {Icon, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton,  ListItemIcon, Card, CardContent, CardHeader, Divider} from '@material-ui/core';
  import {InfoOutlined} from '@material-ui/icons';
  import {settingList} from '../../../content/icons';
 
@@ -8,15 +8,18 @@
 
  const useStyles = makeStyles(theme => ({
    root: {
-     width: '100%',
+    //  width: '100%',
   //  padding:theme.spacing(1),
      backgroundColor: theme.palette.background.paper,
     //  paddingTop:'0'
+    
    },
    listPrimaryText:{
      textAlign:'right'
    },
-   
+   listIcons:{
+    minWidth:'40px'
+  },
    
  }));
  
@@ -25,7 +28,6 @@ const DetailsConnectRow= React.memo((props) => {
    const {data} = props;
 
    return (
-    <Slide direction="up" in={true} mountOnEnter unmountOnExit timeout={700}>
     
      <Card >
         <CardHeader
@@ -33,15 +35,16 @@ const DetailsConnectRow= React.memo((props) => {
        subheader={props.cardName}
       />
       <Divider />
-      <CardContent>
+     
       <List
       
          className={classes.root}
        >
          {data &&
            data.map(item => (
-             <ListItem dense divider key={item.id}>
-               <ListItemIcon>
+             <>
+             <ListItem dense  key={item.id}>
+               <ListItemIcon className={classes.listIcons}>
                  
                    <Icon component={settingList[item.name]} />
                  
@@ -56,13 +59,15 @@ const DetailsConnectRow= React.memo((props) => {
                    <InfoOutlined />
                  </IconButton>
                </ListItemSecondaryAction>
+               
              </ListItem>
+             <Divider variant="middle"  />
+             </>
            ))}
        </List>
-      </CardContent>
+     
        
      </Card>
-     </Slide>
    )
  });
  export default  DetailsConnectRow;

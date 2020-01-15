@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { ExpandMore } from '@material-ui/icons';
-import { MenuItem, Menu,  List, ListItem, ListItemIcon, } from '@material-ui/core';
+import { MenuItem, Menu,  List, ListItem, ListItemIcon, ListItemText, } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   navItemIcons: {
@@ -40,7 +40,7 @@ const LangMenu = props => {
             <ListItemIcon className={classes.navItemIcons}>
               <img src={lang.img} alt={lang.value} />
             </ListItemIcon>
-            {/* <ListItemText primary={lang.value} /> */}
+            <ListItemText primary={lang.value} />
             <ExpandMore />
           </ListItem>
         </List>
