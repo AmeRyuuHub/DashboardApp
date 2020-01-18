@@ -1,30 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import {
-  getRoutsMenu,
-  getAppTitle,
-  getCurrentLang,
-  getLangList,
-  getAuthStatus,
-  getUserInfo,
-  getRoutsApp
-} from "../store/selectors/contentSelectors";
+
 import { makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
   Toolbar,
   Typography,
-  Button,
   IconButton,
-  Box
+  Box,
+  Icon
 } from "@material-ui/core";
 import {
   AsideBar,
   LangMenu,
   SideBar,
   OptionsMenu,
-  OptionsList
 } from "../components/AppBar";
 import { setCarrentLang } from "../store/redusers/lang/lang";
 import { compose } from "redux";
@@ -34,6 +25,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Link } from "react-router-dom";
 import { ArrowBack } from "@material-ui/icons";
 import { getRoutPathName } from "../common";
+import { getLangList, getRoutsMenu, getAppTitle, getCurrentLang, getUserInfo, getRoutsApp, getRoutAuth } from '../store/selectors/appBar/appBarSelectors';
+import { getAuthStatus } from "../store/selectors/appInit/initSelectors";
 
 const useStyles = makeStyles(theme => ({
   toolBar: {
@@ -66,6 +59,9 @@ const useStyles = makeStyles(theme => ({
     "& > *": {
       marginRight: theme.spacing(1)
     }
+  },
+  back:{
+    padding:'12px 12px 12px 0px',
   }
 }));
 
@@ -80,7 +76,8 @@ const AppBarContainer = React.memo(props => {
     user,
     location: { pathname },
     getAuthLogout,
-    routsApp
+    routsApp,
+    routAuth
   } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -94,15 +91,15 @@ const AppBarContainer = React.memo(props => {
   }
   if (!authStatus)
     return (
-      <AppBar position="fixed" className={classes.bar}>
-        <Toolbar className={classes.homeToolBar}>
+      <AppBar position="static" className={classes.bar}>
+        <Toolbar className={classes.homeToolBar} >
           <Box
             display="flex"
             alignItems="center"
             className={classes.optionsRight}
           >
             {authPage && (
-              <IconButton color="inherit" component={Link} to="/">
+              <IconButton color="inherit" component={Link} to="/" className={classes.back}>
                 <ArrowBack />
               </IconButton>
             )}
@@ -118,15 +115,14 @@ const AppBarContainer = React.memo(props => {
               lang={lang}
             />
             {!authPage && (
-              <Button
-                variant="outlined"
+              <IconButton
                 color="inherit"
                 component={Link}
-                to="/auth"
+                to={routAuth.endPoint}
                 className={classes.loginButton}
               >
-                Sing In
-              </Button>
+               <Icon component={routAuth.icon} />
+              </IconButton>
             )}
           </Box>
         </Toolbar>
@@ -134,8 +130,8 @@ const AppBarContainer = React.memo(props => {
     );
   return (
     <>
-      <AppBar position="fixed" className={classes.bar}>
-        <Toolbar className={!homePage ? classes.toolBar : classes.homeToolBar}>
+      <AppBar position="static" className={classes.bar}>
+        <Toolbar className={!homePage ? classes.toolBar : classes.homeToolBar} >
           <Box
             display="flex"
             alignItems="center"
@@ -166,11 +162,10 @@ const AppBarContainer = React.memo(props => {
               lang={lang}
               hideMD={hideMD}
             />
-            {!hideMD ? (
-              <OptionsMenu user={user} getAuthLogout={getAuthLogout} routsApp={routsApp} />
-            ) : (
-              <OptionsList user={user} getAuthLogout={getAuthLogout} routsApp={routsApp} />
-            )}
+           
+              <OptionsMenu user={user} getAuthLogout={getAuthLogout} routsApp={routsApp}  hideMD={hideMD}/>
+          
+           
           </Box>
         </Toolbar>
       </AppBar>
@@ -195,7 +190,8 @@ function mapStateToProps(state) {
     langList: getLangList(state),
     authStatus: getAuthStatus(state),
     user: getUserInfo(state),
-    routsApp: getRoutsApp(state)
+    routsApp: getRoutsApp(state),
+    routAuth: getRoutAuth(state),
   };
 }
 

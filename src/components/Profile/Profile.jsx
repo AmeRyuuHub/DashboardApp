@@ -8,10 +8,10 @@ import { withMainDiv,withAuthRole } from '../../common/HOC/';
 import { compose } from 'redux';
 import AccountDetailsForm from './components/AccountDetailsForm';
 import AccountSessions from './components/AccountSessions';
-import { getProfile, getProfileFetching } from '../../store/selectors/profileSelectors';
 import { getDataProfile } from '../../store/redusers/profile/profile';
 import { connect } from 'react-redux';
 import { MainLinearProgress } from '../../common/ProgressLines';
+import { getProfile, getProfileFetching } from '../../store/selectors/profile/profileSelectors';
 
 
 const useStyles = makeStyles(theme => ({

@@ -2,10 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   getAuthFetching,
-  getAuthStatus,
   getAuthPageTitleWithLang,
   getAuthPageFormWithLang
-} from "../store/selectors/contentSelectors";
+} from "../store/selectors/auth/authSelectors";
 
 import { Redirect } from "react-router-dom";
 import { getAuthLogin } from "../store/redusers/auth/Auth";
@@ -20,6 +19,7 @@ import { MainLinearProgress } from "../common/ProgressLines";
 import LoginForm from "../components/Auth/LoginForm";
 import { Copyright } from "../common/Copyright";
 import { LockOpen } from "@material-ui/icons";
+import { getAuthStatus } from "../store/selectors/appInit/initSelectors";
 
 
 const useStyles = makeStyles(theme => ({

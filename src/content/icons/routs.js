@@ -1,7 +1,7 @@
 
 import {
   Dashboard,
-  AccountTree,
+  MenuBook,
   ExitToApp,
   EmojiEvents,
   Accessible,
@@ -23,7 +23,7 @@ export const routIcons = {
   home: Home,
   dashboard:Dashboard ,
   reports: Assignment,
-  about: AccountTree,
+  about: MenuBook,
   status:Assessment,
   ping:SwapHorizontalCircle,
   dvbc:LiveTv,

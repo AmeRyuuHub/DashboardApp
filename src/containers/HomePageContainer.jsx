@@ -1,10 +1,9 @@
 import React from "react";
 import {
-  getRoutsMenu,
   getMainContainerWithLang,
   getHowItWorkBlockWithLang,
   getOtherBlocksWithLang
-} from "../store/selectors/contentSelectors";
+} from "../store/selectors/home/homeSelector";
 import { connect } from "react-redux";
 import {
   OtherBlock,
@@ -12,6 +11,7 @@ import {
   FirstBlock
 } from "../components/HomePage";
 import Footer from "../components/Footer/Footer";
+import { getRoutsMenu } from "../store/selectors/appBar/appBarSelectors";
 
 const HomePageContainer = props => {
   const { mainBlock, secondBlock, otherBlocks } = props;

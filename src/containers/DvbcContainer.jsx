@@ -1,7 +1,7 @@
 import React from "react";
 import {CloudDownload} from "@material-ui/icons";
 import {  Button, Card, CardHeader, CardContent, CircularProgress, Typography, } from "@material-ui/core";
-import {  getDvbcRequestStatus, getDvbcRequestFailed, getDvbcFetching, getDataDvbcFreq, getDvbcFreqList } from "../store/selectors/dashboardSelectors";
+import {  getDvbcRequestStatus, getDvbcRequestFailed, getDvbcFetching, getDataDvbcFreq, getDvbcFreqList } from "../store/selectors/dashboard/dvbc/dvbcSelectors";
 import { connect } from 'react-redux';
 import DvbcChart from "../components/Dashboard/components/DvbcCharts/DvbcChart";
 import DvbcTimeChart from "../components/Dashboard/components/DvbcCharts/DvbcTimeChart";

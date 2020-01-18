@@ -5,13 +5,12 @@ import {
   ListItemText,
   Avatar,
   Icon,
-  Divider,
-  Typography,
-  SvgIcon
+  SvgIcon,
+  Button
 } from "@material-ui/core";
 import { usersRole } from "../../content/icons";
 
-import {  AssignmentInd,SettingsApplications, ExitToApp } from "@material-ui/icons";
+
 import { Link } from "react-router-dom";
 import {
   StyledMenu,
@@ -23,7 +22,8 @@ import {
 const OptionsMenu = ({
   routsApp,
   user,
-  getAuthLogout
+  getAuthLogout,
+  hideMD,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = event => {
@@ -37,7 +37,7 @@ const OptionsMenu = ({
   return (
     user && (
       <>
-        <IconButton
+       {!hideMD ? <IconButton
           aria-label="more"
           aria-controls="long-menu"
           aria-haspopup="true"
@@ -47,7 +47,20 @@ const OptionsMenu = ({
           <Avatar fontSize="small">
             <Icon fontSize="small" component={usersRole[user.icon]} />
           </Avatar>
-        </IconButton>
+        </IconButton> : <Button
+          aria-label="profile"
+          aria-controls="profile-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+          color="inherit"
+         
+          endIcon={ <Avatar >
+          <Icon  component={usersRole[user.icon]} />
+        </Avatar>}
+        >
+          {user.name}
+        </Button>} 
+        
         <StyledMenu
           id="customized-menu"
           anchorEl={anchorEl}
@@ -55,16 +68,17 @@ const OptionsMenu = ({
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <Typography
-            variant="h6"
+         {/* { !hideMD && <><Typography
+            variant="subtitle2"
             color="textSecondary"
             align="center"
             noWrap
             gutterBottom
           >
-            {user && user.name}
+            {user.name}
           </Typography>
           <Divider variant="middle" />
+          </>} */}
 
           {routsApp &&
             routsApp.map(rout => (

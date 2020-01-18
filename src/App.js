@@ -7,7 +7,9 @@ import {
   DashboardContainer,
   AuthContainer,
   UsersContainer,
-  StatusContainer
+  StatusContainer,
+  PingChartContainer,
+  DvbcContainer
 } from "./containers";
 import About from "./components/About/About";
 //import {Footer} from './components/Footer/Footer';
@@ -50,6 +52,8 @@ const App = props => {
       <Switch>
         <Route path="/" exact component={HomePageContainer} />
         <Route path="/dashboard/status" component={StatusContainer} />
+        <Route path="/dashboard/ping" component={PingChartContainer} />
+        <Route path="/dashboard/dvbc" component={DvbcContainer} />
         <Route path="/auth" component={AuthContainer} />
         <Route path="/dashboard" component={DashboardContainer} />
         <Route path="/about" component={About} />

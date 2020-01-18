@@ -14,12 +14,12 @@ import {
   CardContent
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { getUILang } from "../store/selectors/contentSelectors";
+import { getUILang } from "../store/selectors/appInit/initSelectors";
 import { Link } from "react-router-dom";
 import {
   getDashMainHeaderWithLang,
   getDashMainOptionsWithLang
-} from "../store/selectors/dashboardSelectors";
+} from "../store/selectors/dashboard/dashboardSelectors";
 
 const useStyles = makeStyles(theme => ({
   root: {

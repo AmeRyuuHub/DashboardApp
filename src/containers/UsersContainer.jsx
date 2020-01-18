@@ -6,7 +6,7 @@ import {
   getChangeUser,
   setOpenDeleteDialog,
     setCloseDeleteDialog
-} from "../store/redusers/users/UsersList";
+} from "../store/redusers/users/users";
 import { connect } from "react-redux";
 import { withAuthRole, withMainDiv } from "../common/HOC/";
 import { compose } from "redux";
@@ -23,7 +23,7 @@ import {
   getChangeFetching,
   getStatusDeleteDialog,
   getValueDeleteDialog
-} from "../store/selectors/usersListSelectors";
+} from "../store/selectors/users/usersListSelectors";
 
 import { UsersPage } from "../components/Users";
 

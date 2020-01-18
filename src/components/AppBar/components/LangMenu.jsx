@@ -9,11 +9,11 @@ const useStyles = makeStyles(theme => ({
     paddingRight:'5px',
   },
   navRootIcons:{
-    minWidth: "25px",
+    minWidth: "28px",
   },
 
   navItemIcons: {
-    minWidth: "32px",
+    minWidth: "40px",
   }
 }));
 

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    minHeight: "50vh",
+    // minHeight: "50vh",
     backgroundImage: "url('/img/home/homeBackgroung.svg')",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center "
@@ -35,9 +35,9 @@ const FirstBlock = ({
 
   return (
     <div className={classes.root}>
-      <Container className={classes.container} maxWidth="lg">
-        <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} sm={6} md={6} lg={6}>
+      <Container maxWidth="lg">
+        <Grid container spacing={4} alignItems="center"   className={classes.container}>
+          <Grid item container xs={12} sm={6} md={6} lg={6} direction="column" justify="space-between">
             <Typography variant="h3" paragraph gutterBottom>
               {firstTitle}
             </Typography>

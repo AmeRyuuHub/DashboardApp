@@ -23,7 +23,7 @@ const AsideBar = props => {
     <>
       <IconButton
         button="true"
-        edge="start"
+        
         color="inherit"
         aria-label="menu"
         onClick={toggleDrawer(true)}

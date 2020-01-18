@@ -1,4 +1,5 @@
 export const initialState = {
+  app:{title:"tv monitoring", logo:"/img/logo-dark.svg"},
          languages: [
            { name: "ru", value: "Руc" },
            { name: "ua", value: "Укр" },

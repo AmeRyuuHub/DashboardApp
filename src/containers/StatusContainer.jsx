@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getStbStatusByMac } from "../store/redusers/statusByMac/StatusByMac";
+import { getStbStatusByMac } from "../store/redusers/dashboard/status/status";
 import { compose } from "redux";
 import { withAuthRole, withMainDiv } from "../common/HOC";
 import {
@@ -14,23 +14,14 @@ import {
   getStatusSearchStatus,
   getStatusValueRow,
   getSearchFormWithLang,
-  getStatusMainWithLang
-} from "../store/selectors/dashboardSelectors";
-import {Status, SearchForm} from "../components/Dashboard";
-import { Grid, Container, Divider, Box, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import { getUILang } from "../store/selectors/contentSelectors";
+} from "../store/selectors/dashboard/status/statusSelectors.js";
+import { Status, SubAppBar } from "../components/Dashboard";
+import { Container } from "@material-ui/core";
+import { getUILang } from "../store/selectors/appInit/initSelectors";
 import { checkHexWithLang } from "../common/ReduxValidators";
-
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    paddingTop: theme.spacing(2)
-  }
-}));
+import { getStatusMainWithLang } from "../store/selectors/dashboard/dashboardSelectors";
 
 const StatusContainer = props => {
-  const classes = useStyles();
   const {
     getStbStatusByMac,
     searchStatus,
@@ -42,18 +33,14 @@ const StatusContainer = props => {
   } = props;
   const checkHex = checkHexWithLang(lang);
   return (
-   
+    <>
+      <SubAppBar
+        getStbStatusByMac={props.getStbStatusByMac}
+        searchFormContent={searchFormContent}
+        checkHex={checkHex}
+      />
       <Container maxWidth="lg">
-        <Grid container className={classes.root}>
-          <Grid item xs={12} sm={6} md={6} lg={5} xl={4}>
-            <SearchForm
-              getStbStatusByMac={props.getStbStatusByMac}
-              {...searchFormContent}
-              checkHex={checkHex}
-            />
-          </Grid>
-        </Grid>
-        <Box color="text.secondary">
+        {/* <Box color="text.secondary">
           <Typography variant="h6" component="span">
             {mainContent.title}
           </Typography>
@@ -66,14 +53,11 @@ const StatusContainer = props => {
             </Typography>
           )}
           <Divider />
-        </Box>
-     
-      {!isFetching && searchStatus && props.boxType && (
-        
-          <Status {...rest} />
-      
-      )}
-   </Container>
+        </Box> */}
+
+        {!isFetching && searchStatus && props.boxType && <Status {...rest} />}
+      </Container>
+    </>
   );
 };
 
@@ -82,7 +66,7 @@ function mapStateToProps(state) {
     searchStatus: getStatusSearchStatus(state),
     isFetching: getStatusFetching(state),
     macValue: getStatusSearchMac(state),
-    
+
     boxType: getStatusStbType(state),
     lastReport: getStatusLastReport(state),
     dataDetailsRow: getDetailsValue(state),
@@ -91,7 +75,7 @@ function mapStateToProps(state) {
     lang: getUILang(state),
     searchFormContent: getSearchFormWithLang(state),
     mainContent: getStatusMainWithLang(state),
-    dataStatusCards: getStatusValueRow(state),
+    dataStatusCards: getStatusValueRow(state)
   };
 }
 
