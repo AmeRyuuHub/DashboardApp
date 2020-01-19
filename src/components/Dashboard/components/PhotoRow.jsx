@@ -9,7 +9,7 @@ import SwipeableViews from "react-swipeable-views";
 
  const useStyles = makeStyles(theme => ({
    root: {
-     flexGrow: 1
+     position:'relative'
    },
    header: {
      display: "flex",
@@ -23,6 +23,23 @@ import SwipeableViews from "react-swipeable-views";
      overflow: "hidden",
      display: "block",
    margin:'auto'
+   },
+   buttonNext:{
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+   },
+   buttonBack:{
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+   },
+   stepper:{
+    justifyContent: 'center',
+  
+    bottom:0,
    }
  }));
 
@@ -54,10 +71,8 @@ const PhotoRow=React.memo((props) =>{
    const hideMD = useMediaQuery(theme.breakpoints.up("md"));
 
    return (
-     
-   
     
-    <Card >
+    <Card className={classes.root}>
     
   <CardContent>
       {hideMD ? <Grid container spacing={2}>
@@ -74,7 +89,7 @@ const PhotoRow=React.memo((props) =>{
            index={activeStep}
            onChangeIndex={handleStepChange}
            enableMouseEvents
-           interval={7000}
+           interval={15000}
          >
            {stbImgs.map((step, index) => (
              <div key={step}>
@@ -86,6 +101,7 @@ const PhotoRow=React.memo((props) =>{
          </AutoPlaySwipeableViews>
 
          <MobileStepper
+         className={classes.stepper}
            steps={maxSteps}
            position="static"
            variant="dots"
@@ -95,6 +111,7 @@ const PhotoRow=React.memo((props) =>{
                size="small"
                onClick={handleNext}
                disabled={activeStep === maxSteps - 1}
+               className={classes.buttonNext}
              >
                
                {theme.direction === "rtl" ? (
@@ -109,6 +126,7 @@ const PhotoRow=React.memo((props) =>{
                size="small"
                onClick={handleBack}
                disabled={activeStep === 0}
+               className={classes.buttonBack}
              >
                {theme.direction === "rtl" ? (
                  <KeyboardArrowRight />

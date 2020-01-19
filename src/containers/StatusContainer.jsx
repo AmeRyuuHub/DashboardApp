@@ -13,14 +13,17 @@ import {
   getStatusSearchMac,
   getStatusSearchStatus,
   getStatusValueRow,
-  getSearchFormWithLang,
+  getSearchFormWithLang
 } from "../store/selectors/dashboard/status/statusSelectors.js";
-import { Status,  } from "../components/Dashboard";
-import { Container, Box,
+import { Status, Ping, Dvbc } from "../components/Dashboard";
+import {
+  Container,
+  Box,
   AppBar,
   Toolbar,
   Button,
-  IconButton, } from "@material-ui/core";
+  IconButton
+} from "@material-ui/core";
 import { getUILang } from "../store/selectors/appInit/initSelectors";
 import { checkHexWithLang } from "../common/ReduxValidators";
 import { getStatusMainWithLang } from "../store/selectors/dashboard/dashboardSelectors";
@@ -29,7 +32,8 @@ import { Redirect } from "react-router";
 import { makeStyles } from "@material-ui/core/styles";
 // import { Link } from 'react-router-dom';
 import { ArrowBack } from "@material-ui/icons";
-import { SearchForm } from "../components/Dashboard/components";
+import { SearchForm, SubMenuButtons } from "../components/Dashboard/components";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -40,9 +44,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-
 const StatusContainer = props => {
+  const classes = useStyles();
   const {
     getDeviceStatusByMac,
     searchStatus,
@@ -52,90 +55,128 @@ const StatusContainer = props => {
     boxType,
     mainContent,
     match,
-    location:{pathname},
     ...rest
-   
   } = props;
-  const urlMac=match.params.mac;
-  useEffect(()=>{
-    if (urlMac) {getDeviceStatusByMac(urlMac)}
-    },[urlMac,getDeviceStatusByMac]);
+  const urlMac = match.params.mac;
+  useEffect(() => {
+    if (urlMac) {
+      getDeviceStatusByMac(urlMac);
+    }
+  }, [urlMac, getDeviceStatusByMac]);
 
-  const classes = useStyles()
-const buttonRedirect = (value) => {return props.history.push(`/dashboard/status/${value}`)};
- 
-  if (pathname !== match.url ) { return <Redirect to={match.url} />}
-     
+
+  const buttonRedirect = value => {
+    return props.history.push(`/dashboard/status/${value}`);
+  };
+  let pingAvailable =boxType && urlMac && urlMac.length === 12;
+  let dvbcAvailable = boxType && boxType === "HYBRID";
+
+
+if (match.params.tab && (match.params.tab ==="dvbc"|| match.params.tab ==="ping") && !dvbcAvailable && !boxType ) {
+  return <Redirect to={`/dashboard/status/${match.params.mac}`}/>
+}
 
   const checkHex = checkHexWithLang(lang);
 
-let pingAvailable = urlMac && urlMac.length === 12;
-console.log(boxType);
-let dvbcAvailable = boxType && boxType==='HYBRID';
+
 
   return (
     <>
       <AppBar position="static" color="inherit" className={classes.toolbar}>
-      <Toolbar disableGutters>
-        <Container maxWidth="lg">
-          <Box width="100%" display="flex" flexDirection="column">
-            <Box
-              display="flex"
-              flexDirection="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <IconButton
-                edge="start"
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="back"
+        <Toolbar disableGutters>
+          <Container maxWidth="lg">
+            <Box width="100%" display="flex" flexDirection="column">
+              <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
               >
-                <ArrowBack />
-              </IconButton>
-              <Box>
-                <Button
-                  aria-label="display DVB-C"
-                  size="small"
+                <IconButton
+                  edge="start"
+                  className={classes.menuButton}
                   color="inherit"
-                  disabled={!dvbcAvailable}
+                  aria-label="back"
                 >
-                  DVB-C
-                </Button>
-                <Button
-                  aria-label="display PING"
-                  size="small"
-                  color="inherit"
-                  disabled={!pingAvailable}
-                >
-                  Ping
-                </Button>
-                <Button
-                  aria-label="display Status"
-                  size="small"
-                  variant="contained"
-                  color="primary"
-                >
-                  Status
-                </Button>
+                  <ArrowBack />
+                </IconButton>
+                <Box>
+                  <SubMenuButtons active={match.params.tab} mac={match.params.mac} dvbcAvailable={dvbcAvailable} pingAvailable={pingAvailable} />
+                  {/* <Button
+                    aria-label="display DVB-C"
+                    size="small"
+                    variant={
+                      match.params.tab && match.params.tab === "dvbc"
+                        ? "contained"
+                        : "text"
+                    }
+                    color={
+                      match.params.tab && match.params.tab === "dvbc"
+                        ? "primary"
+                        : "inherit"
+                    }
+                    disabled={!dvbcAvailable}
+                    component={NavLink}
+                    to={`/dashboard/status/${match.params.mac}/dvbc`}
+                  >
+                    <b>DVB-C</b>
+                  </Button>
+                  <Button
+                    aria-label="display PING"
+                    size="small"
+                    variant={
+                      match.params.tab && match.params.tab === "ping"
+                        ? "contained"
+                        : "text"
+                    }
+                    color={
+                      match.params.tab && match.params.tab === "ping"
+                        ? "primary"
+                        : "inherit"
+                    }
+                    disabled={!pingAvailable}
+                    component={NavLink}
+                    to={`/dashboard/status/${match.params.mac}/ping`}
+                  >
+                    <strong>Ping</strong>
+                  </Button>
+                  <Button
+                    aria-label="display Status"
+                    size="small"
+                    variant={!match.params.tab ? "contained" : "text"}
+                    color={!match.params.tab ? "primary" : "inherit"}
+                    component={NavLink}
+                    to={`/dashboard/status/${match.params.mac}`}
+                  >
+                   <b>Status</b>
+                  </Button> */}
+                </Box>
+              </Box>
+              <Box className={classes.searchForm}>
+                <SearchForm
+                  getStbStatusByMac={getDeviceStatusByMac}
+                  {...searchFormContent}
+                  checkHex={checkHex}
+                  buttonRedirect={buttonRedirect}
+                  initialValues={urlMac ? { macInput: urlMac } : null}
+                />
               </Box>
             </Box>
-            <Box className={classes.searchForm}>
-              <SearchForm
-                getStbStatusByMac={getDeviceStatusByMac}
-                {...searchFormContent}
-                checkHex={checkHex}
-                buttonRedirect={buttonRedirect}
-                initialValues={(urlMac)?{macInput: urlMac}:null}
-              />
-            </Box>
-          </Box>
-        </Container>
-      </Toolbar>
-    </AppBar>
+          </Container>
+        </Toolbar>
+      </AppBar>
       <Container maxWidth="lg">
-
-        {!isFetching && searchStatus && props.boxType ? <Status {...rest}  photoAvailable={pingAvailable}/> :""}
+        {!isFetching && searchStatus && props.boxType ? (
+          match.params.tab && match.params.tab === "ping" ? (
+            <Ping />
+          ) : match.params.tab && match.params.tab === "dvbc" ? (
+            <Dvbc />
+          ) : (
+            <Status {...rest} photoAvailable={pingAvailable} />
+          )
+        ) : (
+          ""
+        )}
       </Container>
     </>
   );
@@ -166,7 +207,3 @@ export default compose(
     getDeviceStatusByMac
   })
 )(StatusContainer);
-
-
-
-    

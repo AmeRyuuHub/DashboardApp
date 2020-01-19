@@ -83,7 +83,6 @@ const AppBarContainer = React.memo(props => {
   const theme = useTheme();
   const hideMD = useMediaQuery(theme.breakpoints.up("md"));
   let pageName = routsMenu && getRoutPathName(pathname, routsMenu);
-debugger;
   let homePage = pathname === "/" || pathname === "";
   let authPage = pathname === "/auth";
   if (pathname === "/profile") {

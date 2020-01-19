@@ -1,5 +1,5 @@
 export const initialState = {
-  app:{title:"tv monitoring", logo:"/img/logo-dark.svg"},
+         app: { title: "tv monitoring", logo: "/img/logo-dark.svg" },
          languages: [
            { name: "ru", value: "Руc" },
            { name: "ua", value: "Укр" },
@@ -70,13 +70,13 @@ export const initialState = {
                disabled: false
              },
 
-              {
-                name: "settings",
-                endPoint: "/settings",
-                value: { ru: "Настройки", ua: "Налаштування", en: "Settings" },
-                role: "1",
-                disabled: true
-              },
+             {
+               name: "settings",
+               endPoint: "/settings",
+               value: { ru: "Настройки", ua: "Налаштування", en: "Settings" },
+               role: "1",
+               disabled: true
+             },
 
              {
                name: "logout",
@@ -213,7 +213,57 @@ export const initialState = {
                }
              },
              status: {
-               title: {},
+               title: [
+                 {
+                   name: "dvbc",
+                   label: "DVB-C",
+                  
+                   langValue: {
+                     ru: {
+                       text: "DVB-C"
+                     },
+                     ua: {
+                       text: "DVB-C"
+                     },
+                     en: {
+                       text: "DVB-C"
+                     }
+                   }
+                 },
+                 {
+                   name: "ping",
+                   label: "PING",
+                   
+                   langValue: {
+                     ru: {
+                       text: " PING"
+                     },
+                     ua: {
+                       text: " PING"
+                     },
+                     en: {
+                       text: " PING"
+                     }
+                   }
+                 },
+                 {
+                   name: "status",
+                   label: "Status",
+                 
+                   langValue: {
+                     ru: {
+                       text: "Статус"
+                     },
+                     ua: {
+                       text: " Статус"
+                     },
+                     en: {
+                       text: " Status"
+                     }
+                   }
+                 }
+               ],
+
                main: {
                  ru: {
                    title: "Отчёт устройства:",
@@ -305,7 +355,7 @@ export const initialState = {
                    value: "",
                    text: { ru: "ПИН", ua: "ПІН", en: "PIN" },
                    good: { value: null, text: null },
-                   bad: { value:null, text: null },
+                   bad: { value: null, text: null },
                    status: "",
                    startWith: "",
                    endWith: ""
