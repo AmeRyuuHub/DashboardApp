@@ -48,8 +48,7 @@ const SearchForm = props => {
   const startSearch = ({ macInput }) => {
     if (!macInput || (macInput.length !== 12 && macInput.length !== 16)) {
       throw new SubmissionError({
-        macInput:
-          macInput.length < 12 ? formErrors.lengthSTB : formErrors.lengthMobile,
+        macInput: formErrors.error,
         _error: formErrors.common
       });
     } else {

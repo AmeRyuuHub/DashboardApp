@@ -189,24 +189,21 @@ export const initialState = {
              searchBlock: {
                ru: {
                  formErrors: {
-                   lengthMobile: "Должно быть 16 симовлов",
-                   lengthSTB: "Должно быть 12 симовлов",
+                   error: "Должно быть 12 или 16 симовлов",
                    common: "Ошибка!"
                  },
                  placeholder: "Поиск по MAC адресу"
                },
                ua: {
                  formErrors: {
-                   lengthMobile: "Повинно бути 16 символів",
-                   lengthSTB: "Повинно бути 12 символів",
+                  error: "Повинно бути 12 або 16 символів",
                    common: "Помилка!"
                  },
                  placeholder: "Пошук за MAC адресою"
                },
                en: {
                  formErrors: {
-                   lengthMobile: "Must be 16 symbols",
-                   lengthSTB: "Must be 12 symbols",
+                   error: "Must be 12 or 16 symbols",
                    common: "MAC failed!"
                  },
                  placeholder: "Search by MAC"

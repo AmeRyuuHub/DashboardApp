@@ -8,10 +8,11 @@ import { getDeviceInfo } from "../../../../common/ReduxThunk";
 export default function status(state = initialState, action) {
   switch (action.type) {
     case C.SET_STATUS_BY_MAC:
-      if ((!state.searchResult)|| state.searchResult.last_report!==action.payload.last_report || state.searchResult.mac!==action.payload.mac){
+      if ((!state.searchResult)|| state.searchResult.last_report!==action.payload.last_report || state.mac!==action.payload.mac){
       return {
         ...state,
-          searchResult: action.payload
+          searchResult: action.payload.status,
+          mac: action.payload.mac
       
       };
     } else { return state};
@@ -92,7 +93,7 @@ export const getDeviceStatusByMac = MAC => {
     dispatch(setStartSearch(MAC));
     getDeviceInfo(API.getInfoByMac, MAC,API.getToken)
       .then(data => {
-        dispatch(setInfoByMac(data.status));
+        dispatch(setInfoByMac(data));
         dispatch(setSearchResult(true));
         dispatch(stopSubmit("editMac"));
         

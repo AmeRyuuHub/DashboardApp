@@ -1,4 +1,5 @@
 export const initialState = {
+  mac:null,
   searchResult: null,
   searchMacValue: null,
   searchStatus: null,
