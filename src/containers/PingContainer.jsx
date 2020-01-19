@@ -20,7 +20,7 @@ import { Grid, Container, Divider, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { getUILang } from "../store/selectors/appInit/initSelectors";
 import { checkHexWithLang } from "../common/ReduxValidators";
-import { getPingInfoByMac } from "../store/redusers/dashboard/ping/ping";
+// import { getPingInfoByMac } from "../store/redusers/dashboard/ping/ping";
 import { getStatusMainWithLang } from "../store/selectors/dashboard/dashboardSelectors";
 
 const useStyles = makeStyles(theme => ({
@@ -31,13 +31,11 @@ const useStyles = makeStyles(theme => ({
 
 const PingChartContainer = React.memo(props => {
   const {
-    getPingInfoByMac,
     searchStatus,
     isFetching,
     searchFormContent,
     lang,
     mainContent,
-    ...rest
   } = props;
 
   const classes = useStyles();
@@ -199,7 +197,7 @@ function mapStateToProps(state) {
 export default compose(
   withMainDiv,
   withAuthRole,
-  connect(mapStateToProps,getPingInfoByMac)
+  connect(mapStateToProps,null)
 )(PingChartContainer);
 
 

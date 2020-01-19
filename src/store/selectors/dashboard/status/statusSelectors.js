@@ -1,7 +1,7 @@
 import { getUILang } from "../../appInit/initSelectors";
 import { createSelector } from 'reselect';
 import { v4 } from 'uuid';
-import { moment } from 'moment';
+import  moment  from 'moment';
 
 // Selecting Status data
 
@@ -100,9 +100,9 @@ export const getStatusFetching = state => {
   export const getDetailsValue = createSelector(
     getDetailsPattern,
     getStatusResult,
-    getStatusStbType,
+    // getStatusStbType,
     getUILang,
-    (pattern, result, type,lang) => {
+    (pattern, result,lang) => {
       return result
         ? pattern.map(item => ({
             ...item,
@@ -118,9 +118,9 @@ export const getStatusFetching = state => {
   export const getConnectValue = createSelector(
     getConnectPattern,
     getStatusResult,
-    getStatusStbType,
+    // getStatusStbType,
     getUILang,
-    (pattern, result, type,lang) => {
+    (pattern, result,lang) => {
       return result
         ? pattern.map(item => ({
             ...item,

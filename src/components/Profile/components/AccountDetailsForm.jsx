@@ -43,7 +43,7 @@ const AccountDetailsForm =(props) =>{
     const {
       getAddNewUser
     } = props;
-  const { handleSubmit, pristine, submitting, submitSucceeded, error, valid } = props;
+  const { handleSubmit, pristine, submitting, error, valid } = props;
 
 
   const submit = ({login,fullName,email,role, password, confirm_password } /*, dispatch */) => {

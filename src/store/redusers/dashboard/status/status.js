@@ -56,14 +56,37 @@ export  function setFetching(status){
     return { type:C.SET_STATUS_FETCHING, payload: status }
 }
 
-export  function setInfoFailed(status){
+export  function setStatusFailed(status){
   return {
       type:C.SET_STATUS_BY_MAC_FAILED,
       payload: status
   }
 }
 
-export const getStbStatusByMac = MAC => {
+
+export  function setStatusPing(boxinfo){
+  return { type:C.SET_STATUS_PING, payload: boxinfo}
+}
+
+
+
+export  function setStatusPingSearchResult(status){
+  return { type:C.SET_STATUS_SEARCH_RESULT, payload: status }
+}
+
+export  function setStatusPingFetching(status){
+  return { type:C.SET_STATUS_PING_FETCHING, payload: status }
+}
+
+export  function setStatusPingFailed(status){
+return {
+    type:C.SET_STATUS_PING_FAILED,
+    payload: status
+}
+}
+
+
+export const getDeviceStatusByMac = MAC => {
   return dispatch => {
     dispatch(startSubmit("editMac"));
     dispatch(setStartSearch(MAC));
@@ -72,6 +95,7 @@ export const getStbStatusByMac = MAC => {
         dispatch(setInfoByMac(data.status));
         dispatch(setSearchResult(true));
         dispatch(stopSubmit("editMac"));
+        
       })
       .catch(error => {
         dispatch(setSearchResult(false));
@@ -83,7 +107,7 @@ export const getStbStatusByMac = MAC => {
               : { macInput: "Something wrong, try latter..." }
           )
         );
-        dispatch(setInfoFailed(true));
+        dispatch(setStatusFailed(true));
       });
   };
 };
@@ -91,24 +115,56 @@ export const getStbStatusByMac = MAC => {
 
 
 
-//old version of thunk
+// export  function setPingByMac(status){
+//   return {
+//       type:C.SET_PING_BY_MAC,
+//       payload: status
+//   }
+// }
 
-// export const getStbStatusByMac = MAC => {
-//   return dispatch => {
-//     dispatch(startSubmit("editMac"));
-//     dispatch(setStartSearch(MAC));
-//     API.getInfoByMac(MAC)
-//       .then(data => {
-//         dispatch(setFetching(false));
-//         dispatch(stopSubmit("editMac",(!data.status) && {macInput:"This MAC is not found"}));
-//         dispatch(setSearchResult(data.status));
-//         data.status && dispatch(setInfoByMac(data.results[0]));
-//       })
-//       .catch(() => {
-//         dispatch(setFetching(false));
-//         dispatch(stopSubmit("editMac",{macInput:"Something wrong, try latter..."}));
-//         dispatch(setSearchResult(false));
-//         dispatch(setInfoFailed(true));
-//       });
-//   };
+// export  function setPingFetching(status){
+//   return {
+//       type:C.SET_PING_FETCHING,
+//       payload: status
+//   }
+// }
+// export  function setPingRequestStatus(status){
+//   return {
+//       type:C.SET_PING_REQUEST_RESULT,
+//       payload: status
+//   }
+// }
+// export  function setPingButtonStatus(status){
+//   return {
+//       type:C.SET_PING_TOGGLE_BUTTON,
+//       payload: status
+//   }
+// }
+// export  function setPingFailed(status){
+//   return {
+//       type:C.SET_PING_BY_MAC_FAILED,
+//       payload: status
+//   }
+// }
+
+
+// // ThunkCreators
+// export const getPingInfoByMac = MAC => {
+// return dispatch => {
+//   dispatch(setPingFailed(false));
+//   dispatch(setPingFetching(true));
+//   getDeviceInfo(API.getPing, MAC,API.getToken)
+  
+//     .then(data => {
+//       dispatch(setPingFetching(false));
+//       dispatch(setPingRequestStatus(true));
+//       dispatch(setPingByMac(data));
+//     })
+//     .catch(error => {
+//       dispatch(setPingRequestStatus(false));
+//       dispatch(setPingFetching(false));
+//       dispatch(setPingFailed(true));
+      
+//     });
+// };
 // };

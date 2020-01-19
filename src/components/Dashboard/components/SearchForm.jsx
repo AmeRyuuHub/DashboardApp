@@ -1,15 +1,19 @@
 import React from "react";
-import { Field, reduxForm, SubmissionError } from "redux-form";
-import { makeStyles } from "@material-ui/core/styles";
-import { Button, InputAdornment, MenuItem, SvgIcon } from "@material-ui/core";
-import { lower } from "../../../common/ReduxNormalize";
 import {
-  roundTextField,
-  renderMenuSelectField
-} from "../../../common/ReduxFields/ReduxFieldComponent";
+  Field,
+  reduxForm,
+  SubmissionError,
+  formValueSelector
+} from "redux-form";
+import { makeStyles } from "@material-ui/core/styles";
+import { Button, InputAdornment, SvgIcon } from "@material-ui/core";
+import { lower } from "../../../common/ReduxNormalize";
+import { roundTextField } from "../../../common/ReduxFields/ReduxFieldComponent";
 import { Search } from "@material-ui/icons";
 import { MainLinearProgress } from "../../../common/ProgressLines";
 import { dashboardStatus } from "../../../content/icons";
+import { connect } from "react-redux";
+import { compose } from "redux";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -31,38 +35,33 @@ const SearchForm = props => {
     valid,
     formErrors,
     placeholder,
-    checkHex
+    checkHex,
+    mac
   } = props;
+  let inputIcon =
+    mac && mac.length === 12
+      ? dashboardStatus.model
+      : mac && mac.length === 16
+      ? dashboardStatus.mobile
+      : dashboardStatus.unknown;
 
-  const startSearch = ({ macInput, deviceType }) => {
-    switch (deviceType) {
-      case "stb":
-        if (!macInput || macInput.length !== 12) {
-          throw new SubmissionError({
-            macInput: formErrors.lengthSTB,
-            _error: formErrors.common
-          });
-        } else {
-          return props.getStbStatusByMac(macInput);
-        }
-      case "mob":
-        if (!macInput || macInput.length !== 16) {
-          throw new SubmissionError({
-            macInput: formErrors.lengthMobile,
-            _error: formErrors.common
-          });
-        } else {
-          return props.getStbStatusByMac(macInput);
-        }
-
-      default:
-        break;
+  const startSearch = ({ macInput }) => {
+    if (!macInput || (macInput.length !== 12 && macInput.length !== 16)) {
+      throw new SubmissionError({
+        macInput:
+          macInput.length < 12 ? formErrors.lengthSTB : formErrors.lengthMobile,
+        _error: formErrors.common
+      });
+    } else {
+        console.log("buttonRedirect=",props.buttonRedirect);
+        const submitOK = (value)  => {props.buttonRedirect(value); props.getStbStatusByMac(value);  }
+      return submitOK(macInput);
     }
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(startSearch)}>
+      <form onSubmit={handleSubmit(startSearch)} >
         <Field
           fullWidth
           label={error}
@@ -77,23 +76,9 @@ const SearchForm = props => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <Field
-                  name="deviceType"
-                  component={renderMenuSelectField}
-                  label="Type"
-                  className={classes.select}
-                >
-                  <MenuItem value={"stb"}>
-                    <SvgIcon color="disabled" viewBox="0 0 24 20">
-                      <path d={dashboardStatus.model} />
-                    </SvgIcon>
-                  </MenuItem>
-                  <MenuItem value={"mob"}>
-                    <SvgIcon color="disabled" viewBox="0 0 24 20">
-                      <path d={dashboardStatus.mobile} />
-                    </SvgIcon>
-                  </MenuItem>
-                </Field>
+                <SvgIcon color="disabled">
+                  <path d={inputIcon} />
+                </SvgIcon>
               </InputAdornment>
             ),
             endAdornment: (
@@ -119,7 +104,11 @@ const SearchForm = props => {
   );
 };
 
-export default reduxForm({
-  form: "editMac", // a unique identifier for this form
-  initialValues: { deviceType: "stb" }
-})(SearchForm);
+export default compose(
+  reduxForm({
+    form: "statusEditMac" 
+  }),
+  connect(state => ({
+    mac: formValueSelector("statusEditMac")(state, "macInput")
+  }))
+)(SearchForm);

@@ -35,15 +35,15 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       marginLeft: "250px"
     },
-    minHeight: "70px"
+   
   },
   homeToolBar: {
     justifyContent: "space-between",
-    minHeight: "70px"
+   
   },
   bar: {
     boxShadow: "none",
-    minHeight: "70px"
+ 
   },
   loginButton: {
     whiteSpace: "nowrap"
@@ -83,7 +83,7 @@ const AppBarContainer = React.memo(props => {
   const theme = useTheme();
   const hideMD = useMediaQuery(theme.breakpoints.up("md"));
   let pageName = routsMenu && getRoutPathName(pathname, routsMenu);
-
+debugger;
   let homePage = pathname === "/" || pathname === "";
   let authPage = pathname === "/auth";
   if (pathname === "/profile") {
@@ -131,7 +131,7 @@ const AppBarContainer = React.memo(props => {
   return (
     <>
       <AppBar position="static" className={classes.bar}>
-        <Toolbar className={!homePage ? classes.toolBar : classes.homeToolBar} >
+        <Toolbar className={!homePage ? classes.toolBar : classes.homeToolBar} disableGutters={!hideMD} >
           <Box
             display="flex"
             alignItems="center"

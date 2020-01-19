@@ -4,7 +4,8 @@
     mdiPowerSettings,
     mdiWan,
     mdiSettingsBox,
-    mdiCellphone
+    mdiCellphone,
+    mdiHelpCircleOutline ,
   } from "@mdi/js";
   
     const dashboardStatus = {
@@ -12,7 +13,8 @@
       online: mdiWan,
       power: mdiPowerSettings,
       version: mdiSettingsBox,
-      mobile: mdiCellphone
+      mobile: mdiCellphone,
+      unknown: mdiHelpCircleOutline ,
     };
   
   

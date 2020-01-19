@@ -67,7 +67,7 @@ const RoutsContent = ({ routs, logo, title, pathname }) => {
                      
                         <StyledListSubItem
                         button
-                          selected={sublink.endPoint === pathname}
+                          selected={sublink.endPoint === pathname.split("/", 3).join("/")}
                            key={sublink.id}
                           component={Link}
                           to={sublink.endPoint}

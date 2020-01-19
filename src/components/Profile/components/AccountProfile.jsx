@@ -8,8 +8,7 @@ import {
   ButtonBase,
   IconButton,
   Button,
-  Divider,
-  Box
+ 
 } from "@material-ui/core";
 import "moment-timezone";
 import Moment from "react-moment";
@@ -63,7 +62,6 @@ const useStyles = makeStyles(theme => ({
 const AccountProfile = React.memo((props) => {
   const {profile} = props;
   const [edit, setEdit] = useState(false);
-console.log("profile", profile);
   const handleEdit = () => {
     setEdit(!edit);
   };
@@ -72,7 +70,6 @@ console.log("profile", profile);
     handleSubmit,
     pristine,
     submitting,
-    submitSucceeded,
     error,
     valid
   } = props;

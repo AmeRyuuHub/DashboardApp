@@ -1,6 +1,6 @@
  import React from 'react';
  import { makeStyles } from '@material-ui/core/styles';
- import {Icon, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton,  ListItemIcon, Card, CardContent, CardHeader, Divider} from '@material-ui/core';
+ import {Icon, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton,  ListItemIcon, Card,  CardHeader, Divider} from '@material-ui/core';
  import {InfoOutlined} from '@material-ui/icons';
  import {settingList} from '../../../content/icons';
 
@@ -42,7 +42,7 @@ const DetailsConnectRow= React.memo((props) => {
        >
          {data &&
            data.map(item => (
-             <>
+             
              <ListItem dense  key={item.id}>
                <ListItemIcon className={classes.listIcons}>
                  
@@ -61,8 +61,8 @@ const DetailsConnectRow= React.memo((props) => {
                </ListItemSecondaryAction>
                
              </ListItem>
-             <Divider variant="middle"  />
-             </>
+            //  <Divider variant="middle"  />
+            
            ))}
        </List>
      

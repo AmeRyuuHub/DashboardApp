@@ -42,7 +42,6 @@ const App = props => {
     getInitialized();
     //
   }, [getInitialized]);
-
   if (!init) {
     return <MainLinearProgress />;
   }
@@ -51,7 +50,12 @@ const App = props => {
       <AppBarContainer />
       <Switch>
         <Route path="/" exact component={HomePageContainer} />
-        <Route path="/dashboard/status" component={StatusContainer} />
+        <Route path="/dashboard/status/:mac([0-9A-Fa-f]{12})/:tab(dvbc)" component={StatusContainer} />
+        <Route path="/dashboard/status/:mac([0-9A-Fa-f]{12})/:tab(ping)" component={StatusContainer} />
+        <Route path={"/dashboard/status/:mac([0-9A-Fa-f]{16})"} component={StatusContainer} />
+        <Route path={"/dashboard/status/:mac([0-9A-Fa-f]{12})"} component={StatusContainer} />
+        <Route path={"/dashboard/status/"} component={StatusContainer} />
+        {/* <Route path="/dashboard/status/" component={StatusContainer} /> */}
         <Route path="/dashboard/ping" component={PingChartContainer} />
         <Route path="/dashboard/dvbc" component={DvbcContainer} />
         <Route path="/auth" component={AuthContainer} />

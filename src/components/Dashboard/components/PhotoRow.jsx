@@ -2,9 +2,10 @@ import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {KeyboardArrowLeft, KeyboardArrowRight} from "@material-ui/icons";
 import { Card,  Grid, MobileStepper, Button,  CardContent } from "@material-ui/core";
-import SwipeableViews from "react-swipeable-views";
+// import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import SwipeableViews from "react-swipeable-views";
 
  const useStyles = makeStyles(theme => ({
    root: {

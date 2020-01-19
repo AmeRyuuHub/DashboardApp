@@ -29,7 +29,7 @@ const Status = React.memo(props => {
       </Grid>
 
       <Grid container spacing={2}>
-         {(boxType!=="MOBILE") && <Grid item xs={12}>
+         { props.photoAvailable && <Grid item xs={12}>
             <PhotoRow boxModel={props.boxModel} />
           </Grid>} 
           <Grid item md={6} sm={12} xs={12}>
