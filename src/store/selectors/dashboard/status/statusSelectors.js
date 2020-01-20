@@ -40,6 +40,10 @@ export const getStatusFetching = state => {
     return state.status.isFetching;
   };
   
+  export const getStatusMac = state => {
+    return state.status.mac;
+  };
+
   export const getStatusSearchMac = state => {
     return state.status.searchMacValue;
   };
@@ -133,3 +137,17 @@ export const getStatusFetching = state => {
     }
   );
   
+
+  // Status ->Ping tab
+
+  export const getStatusPingFetching = state => {
+    return state.status.ping.isFetching;
+  };
+  
+  export const getStatusPinghMac = state => {
+    return state.status.ping.mac;
+  };
+  
+  export const getStatusPingFailed = state => {
+    return state.status.ping.requestFailed;
+  };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Box } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 
@@ -19,10 +19,19 @@ function Media() {
   );
 }
 
-export default function Ping() {
+const  Ping = React.memo((props) => {
+  const {getStatusPing, mac, macStateValue} = props;
+useEffect(() => {
+  if (macStateValue!== mac){
+    getStatusPing(mac)
+  }
+ 
+}, [getStatusPing, mac, macStateValue]);
   return (
     <Box overflow="hidden">
       <Media />
     </Box>
   );
-}
+}) 
+
+export default Ping;

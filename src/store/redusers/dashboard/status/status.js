@@ -21,7 +21,6 @@ export default function status(state = initialState, action) {
       return {
         ...state,
         searchMacValue: action.payload,
-        
         requestFailed: false,
         searchResult:null,
       };
@@ -34,6 +33,31 @@ export default function status(state = initialState, action) {
 
     case C.SET_STATUS_BY_MAC_FAILED:
       return { ...state, requestFailed: action.payload };
+
+
+      case C.SET_STATUS_PING:
+        return {
+          ...state,
+          ping:{...state.ping,
+            mac: action.payload.mac,
+            router: action.payload.status.filter(rout => rout.platform === 0),
+            platform: action.payload.status.filter(rout => rout.platform === 1),
+          }
+      
+        };
+  
+    
+      case C.SET_STATUS_PING_SEARCH_RESULT:
+        return { ...state,  ping:{...state.ping,mac: action.payload}  };
+  
+      case C.SET_STATUS_PING_FETCHING:
+        return { ...state, ping:{...state.ping, isFetching: action.payload}  };
+  
+      case C.SET_STATUS_PING_FAILED:
+        return { ...state, requestFailed: action.payload };
+
+
+
     default:
       return state;
   }
@@ -65,14 +89,46 @@ export  function setStatusFailed(status){
 }
 
 
+
+// Status tab's thunk
+
+export const getDeviceStatusByMac = MAC => {
+  return dispatch => {
+    dispatch(startSubmit("statusEditMac"));
+    dispatch(setStartSearch(MAC));
+    getDeviceInfo(API.getInfoByMac, MAC,API.getToken)
+      .then(data => {
+        dispatch(setInfoByMac(data));
+        dispatch(setSearchResult(true));
+        dispatch(stopSubmit("statusEditMac"));
+        
+      })
+      .catch(error => {
+        dispatch(setSearchResult(false));
+        dispatch(
+          stopSubmit(
+            "statusEditMac",
+            error.response.status === 404
+              ? { macInput: "Device not found." }
+              : { macInput: "Something wrong, try latter..." }
+          )
+        );
+        dispatch(setStatusFailed(true));
+      });
+  };
+};
+
+
+
+// Ping Tab's actions
+
 export  function setStatusPing(boxinfo){
   return { type:C.SET_STATUS_PING, payload: boxinfo}
 }
 
 
-
 export  function setStatusPingSearchResult(status){
-  return { type:C.SET_STATUS_SEARCH_RESULT, payload: status }
+  return { type:C.SET_STATUS_PING_SEARCH_RESULT, payload: status }
 }
 
 export  function setStatusPingFetching(status){
@@ -87,85 +143,25 @@ return {
 }
 
 
-export const getDeviceStatusByMac = MAC => {
+
+// Status->Ping tab's thunk
+
+
+
+export const getStatusPing = MAC => {
   return dispatch => {
-    dispatch(startSubmit("editMac"));
-    dispatch(setStartSearch(MAC));
-    getDeviceInfo(API.getInfoByMac, MAC,API.getToken)
+    dispatch(setStatusPingFailed(false));
+    dispatch(setStatusPingFetching(true));
+    getDeviceInfo(API.getPing, MAC,API.getToken)
       .then(data => {
-        dispatch(setInfoByMac(data));
-        dispatch(setSearchResult(true));
-        dispatch(stopSubmit("editMac"));
+        dispatch(setStatusPing(data));
+        
+        dispatch(setStatusPingFetching(false));
         
       })
       .catch(error => {
-        dispatch(setSearchResult(false));
-        dispatch(
-          stopSubmit(
-            "editMac",
-            error.response.status === 404
-              ? { macInput: "Device not found." }
-              : { macInput: "Something wrong, try latter..." }
-          )
-        );
-        dispatch(setStatusFailed(true));
+        dispatch(setStatusPingSearchResult(MAC));
+        dispatch(setStatusPingFailed(true));
       });
   };
 };
-
-
-
-
-// export  function setPingByMac(status){
-//   return {
-//       type:C.SET_PING_BY_MAC,
-//       payload: status
-//   }
-// }
-
-// export  function setPingFetching(status){
-//   return {
-//       type:C.SET_PING_FETCHING,
-//       payload: status
-//   }
-// }
-// export  function setPingRequestStatus(status){
-//   return {
-//       type:C.SET_PING_REQUEST_RESULT,
-//       payload: status
-//   }
-// }
-// export  function setPingButtonStatus(status){
-//   return {
-//       type:C.SET_PING_TOGGLE_BUTTON,
-//       payload: status
-//   }
-// }
-// export  function setPingFailed(status){
-//   return {
-//       type:C.SET_PING_BY_MAC_FAILED,
-//       payload: status
-//   }
-// }
-
-
-// // ThunkCreators
-// export const getPingInfoByMac = MAC => {
-// return dispatch => {
-//   dispatch(setPingFailed(false));
-//   dispatch(setPingFetching(true));
-//   getDeviceInfo(API.getPing, MAC,API.getToken)
-  
-//     .then(data => {
-//       dispatch(setPingFetching(false));
-//       dispatch(setPingRequestStatus(true));
-//       dispatch(setPingByMac(data));
-//     })
-//     .catch(error => {
-//       dispatch(setPingRequestStatus(false));
-//       dispatch(setPingFetching(false));
-//       dispatch(setPingFailed(true));
-      
-//     });
-// };
-// };

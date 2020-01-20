@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getDeviceStatusByMac } from "../store/redusers/dashboard/status/status";
+import { getDeviceStatusByMac, getStatusPing } from "../store/redusers/dashboard/status/status";
 import { compose } from "redux";
 import { withAuthRole, withMainDiv } from "../common/HOC";
 import {
@@ -13,7 +13,8 @@ import {
   getStatusSearchMac,
   getStatusSearchStatus,
   getStatusValueRow,
-  getSearchFormWithLang
+  getSearchFormWithLang,
+  getStatusPinghMac
 } from "../store/selectors/dashboard/status/statusSelectors.js";
 import { Status, Ping, Dvbc } from "../components/Dashboard";
 import {
@@ -21,7 +22,6 @@ import {
   Box,
   AppBar,
   Toolbar,
-  Button,
   IconButton
 } from "@material-ui/core";
 import { getUILang } from "../store/selectors/appInit/initSelectors";
@@ -33,7 +33,6 @@ import { makeStyles } from "@material-ui/core/styles";
 // import { Link } from 'react-router-dom';
 import { ArrowBack } from "@material-ui/icons";
 import { SearchForm, SubMenuButtons } from "../components/Dashboard/components";
-import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -44,25 +43,27 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const StatusContainer = props => {
+const StatusContainer = React.memo( props => {
   const classes = useStyles();
   const {
     getDeviceStatusByMac,
+    macValue,
     searchStatus,
     isFetching,
     searchFormContent,
     lang,
     boxType,
     mainContent,
+    pingMacValue,
     match,
     ...rest
   } = props;
   const urlMac = match.params.mac;
   useEffect(() => {
-    if (urlMac) {
+    if (urlMac && urlMac !== macValue) {
       getDeviceStatusByMac(urlMac);
     }
-  }, [urlMac, getDeviceStatusByMac]);
+  }, [urlMac, getDeviceStatusByMac, macValue]);
 
 
   const buttonRedirect = value => {
@@ -102,54 +103,7 @@ if (match.params.tab && (match.params.tab ==="dvbc"|| match.params.tab ==="ping"
                 </IconButton>
                 <Box>
                   <SubMenuButtons active={match.params.tab} mac={match.params.mac} dvbcAvailable={dvbcAvailable} pingAvailable={pingAvailable} />
-                  {/* <Button
-                    aria-label="display DVB-C"
-                    size="small"
-                    variant={
-                      match.params.tab && match.params.tab === "dvbc"
-                        ? "contained"
-                        : "text"
-                    }
-                    color={
-                      match.params.tab && match.params.tab === "dvbc"
-                        ? "primary"
-                        : "inherit"
-                    }
-                    disabled={!dvbcAvailable}
-                    component={NavLink}
-                    to={`/dashboard/status/${match.params.mac}/dvbc`}
-                  >
-                    <b>DVB-C</b>
-                  </Button>
-                  <Button
-                    aria-label="display PING"
-                    size="small"
-                    variant={
-                      match.params.tab && match.params.tab === "ping"
-                        ? "contained"
-                        : "text"
-                    }
-                    color={
-                      match.params.tab && match.params.tab === "ping"
-                        ? "primary"
-                        : "inherit"
-                    }
-                    disabled={!pingAvailable}
-                    component={NavLink}
-                    to={`/dashboard/status/${match.params.mac}/ping`}
-                  >
-                    <strong>Ping</strong>
-                  </Button>
-                  <Button
-                    aria-label="display Status"
-                    size="small"
-                    variant={!match.params.tab ? "contained" : "text"}
-                    color={!match.params.tab ? "primary" : "inherit"}
-                    component={NavLink}
-                    to={`/dashboard/status/${match.params.mac}`}
-                  >
-                   <b>Status</b>
-                  </Button> */}
+                
                 </Box>
               </Box>
               <Box className={classes.searchForm}>
@@ -168,7 +122,7 @@ if (match.params.tab && (match.params.tab ==="dvbc"|| match.params.tab ==="ping"
       <Container maxWidth="lg">
         {!isFetching && searchStatus && props.boxType ? (
           match.params.tab && match.params.tab === "ping" ? (
-            <Ping />
+            <Ping  getStatusPing={props.getStatusPing} mac={match.params.mac} macStateValue={pingMacValue}/>
           ) : match.params.tab && match.params.tab === "dvbc" ? (
             <Dvbc />
           ) : (
@@ -180,7 +134,7 @@ if (match.params.tab && (match.params.tab ==="dvbc"|| match.params.tab ==="ping"
       </Container>
     </>
   );
-};
+});
 
 function mapStateToProps(state) {
   return {
@@ -196,7 +150,8 @@ function mapStateToProps(state) {
     lang: getUILang(state),
     searchFormContent: getSearchFormWithLang(state),
     mainContent: getStatusMainWithLang(state),
-    dataStatusCards: getStatusValueRow(state)
+    dataStatusCards: getStatusValueRow(state),
+    pingMacValue: getStatusPinghMac(state),
   };
 }
 
@@ -204,6 +159,6 @@ export default compose(
   withMainDiv,
   withAuthRole,
   connect(mapStateToProps, {
-    getDeviceStatusByMac
+    getDeviceStatusByMac, getStatusPing
   })
 )(StatusContainer);

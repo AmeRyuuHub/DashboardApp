@@ -6,16 +6,16 @@ export const initialState = {
   isFetching: false,
   requestFailed: false,
   ping: {
-    mac: "",
+    mac: null,
     router: null,
     platform: null,
     isFetching: false,
     requestFailed: null,
-    requestStatus: null
+   
   },
   dvbc: {
     result: null,
-    mac: "",
+    mac: null,
     frequencyList: null,
     isFetching: false,
     requestFailed: null,

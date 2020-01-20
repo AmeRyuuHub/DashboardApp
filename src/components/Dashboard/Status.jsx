@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 
  
 const Status = React.memo(props => {
-  const { boxType, dataStatusCards} = props;
+  const { dataStatusCards} = props;
   const classes = useStyles();
   return (
     <>
