@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid} from "@material-ui/core";
 import StatusCard from "./components/StatusCard";
-import CardsWithoutStatus from "./components/CardsWithoutStatus";
+// import CardsWithoutStatus from "./components/CardsWithoutStatus";
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -18,7 +18,7 @@ const Dashboard = React.memo(props => {
   const { boxType, dataStatusCards, ...rest } = props;
   const classes = useStyles();
   return (
-    <>
+ 
       
       <Grid container className={classes.root}  spacing={2}>
         {
@@ -29,8 +29,8 @@ const Dashboard = React.memo(props => {
           ))}
       </Grid>
 
-      {<CardsWithoutStatus {...rest} boxType={boxType}/>}
-    </>
+      {/* {<CardsWithoutStatus {...rest} boxType={boxType}/>} */}
+  
   );
 });
 

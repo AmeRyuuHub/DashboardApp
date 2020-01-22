@@ -65,7 +65,7 @@ const DashboardContainer = props => {
           mainContent.map(block => (
             <Grid item xs={12} sm={4} md={4} key={block.id}>
               <Card className={classes.card}>
-                <CardActionArea component={Link} to={block.link}>
+                <CardActionArea component={Link} to={block.link} className={classes.card}>
                   <CardContent className={classes.cardContent}>
                     <CardMedia
                       component="img"

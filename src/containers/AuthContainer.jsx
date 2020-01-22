@@ -38,12 +38,14 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1)
   }
 }));
-
+ 
 const AuthContainer = props => {
   const classes = useStyles();
   const { isFetching, loginStatus, pageTitle, formContent } = props;
   if (loginStatus) {
+  
     return <Redirect to="/" />;
+    // return props.history.goBack();
   }
   const handleSubmitForm = ({ login, password }) =>
     props.getAuthLogin(login, password);

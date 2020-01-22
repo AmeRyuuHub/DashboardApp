@@ -10,7 +10,12 @@ import { store } from "./store";
 
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
-let theme = createMuiTheme();
+let theme = createMuiTheme(
+  {
+    palette: {
+      // Switching the dark mode on is a single property value change.
+      type: 'light',
+    }});
 theme = responsiveFontSizes(theme);
 
 

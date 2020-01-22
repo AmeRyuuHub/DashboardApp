@@ -54,7 +54,7 @@ export default function status(state = initialState, action) {
         return { ...state, ping:{...state.ping, isFetching: action.payload}  };
   
       case C.SET_STATUS_PING_FAILED:
-        return { ...state, requestFailed: action.payload };
+        return { ...state,ping:{...state.ping, requestFailed: action.payload}  };
 
 
 

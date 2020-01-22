@@ -14,7 +14,10 @@ import {
   getStatusSearchStatus,
   getStatusValueRow,
   getSearchFormWithLang,
-  getStatusPinghMac
+  getStatusPinghMac,
+  getStatusPingFailed,
+  getStatusPingFetching,
+  getDataStatusPingRouter,
 } from "../store/selectors/dashboard/status/statusSelectors.js";
 import { Status, Ping, Dvbc } from "../components/Dashboard";
 import {
@@ -56,6 +59,7 @@ const StatusContainer = React.memo( props => {
     mainContent,
     pingMacValue,
     match,
+    dataRouter,
     ...rest
   } = props;
   const urlMac = match.params.mac;
@@ -122,7 +126,7 @@ if (match.params.tab && (match.params.tab ==="dvbc"|| match.params.tab ==="ping"
       <Container maxWidth="lg">
         {!isFetching && searchStatus && props.boxType ? (
           match.params.tab && match.params.tab === "ping" ? (
-            <Ping  getStatusPing={props.getStatusPing} mac={match.params.mac} macStateValue={pingMacValue}/>
+            <Ping  getStatusPing={props.getStatusPing} mac={match.params.mac} macStateValue={pingMacValue} failed={props.pingFailed} isFatching={props.pingFetching} dataRouter={dataRouter}/>
           ) : match.params.tab && match.params.tab === "dvbc" ? (
             <Dvbc />
           ) : (
@@ -152,6 +156,9 @@ function mapStateToProps(state) {
     mainContent: getStatusMainWithLang(state),
     dataStatusCards: getStatusValueRow(state),
     pingMacValue: getStatusPinghMac(state),
+    pingFailed: getStatusPingFailed(state),
+    pingFetching: getStatusPingFetching(state),
+    dataRouter:getDataStatusPingRouter(state),
   };
 }
 

@@ -112,6 +112,7 @@ const AppBarContainer = React.memo(props => {
               options={langList}
               setCarrentLang={setCarrentLang}
               lang={lang}
+              hideMD={hideMD}
             />
             {!authPage && (
               <IconButton

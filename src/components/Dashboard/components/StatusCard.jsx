@@ -2,8 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Typography, SvgIcon } from "@material-ui/core";
 import { dashboardStatus } from "../../../content/icons";
-
+import { useTheme } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
+  
   root: {
     height: "100%"
   },
@@ -25,6 +26,12 @@ const useStyles = makeStyles(theme => ({
 
 const StatusCard = React.memo(({ data }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const colors={
+    success: theme.palette.success.main,
+    danger: theme.palette.error.main,
+    main: theme.palette.grey[300]};
+
 
   return (
     <Paper className={classes.root}>
@@ -43,17 +50,9 @@ const StatusCard = React.memo(({ data }) => {
 
         <SvgIcon className={classes.icon}>
           <path
-            fill={
-              data.status === "success"
-                ? "#28a745"
-                : data.status === "danger"
-                ? "#dc3545"
-                : "#c8c8c8"
-            }
+            fill={colors[data.status] || colors.main }
             d={
-              data.value === "mobile"
-                ? dashboardStatus.mobile
-                : dashboardStatus[data.name]
+              dashboardStatus[data.name] 
             }
           />
         </SvgIcon>

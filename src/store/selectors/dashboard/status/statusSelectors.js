@@ -95,6 +95,7 @@ export const getStatusFetching = state => {
                 : result[item.name] === item.bad
                 ? "danger"
                 : "",
+                name: item.name === "model" && type === "MOBILE" ? "mobile" : item.name,
             id: v4()
           }))
         : null;
@@ -151,3 +152,30 @@ export const getStatusFetching = state => {
   export const getStatusPingFailed = state => {
     return state.status.ping.requestFailed;
   };
+
+
+
+  export const getStatusPingRouter = state => {
+    return state.status.ping.router;
+  };
+ 
+  export const getDataStatusPingRouter = createSelector(
+    getStatusMac,
+    getStatusPinghMac,
+    getStatusPingRouter,
+    (searchMac, ownMac, router) => {
+      if (searchMac !== ownMac) {
+        return null;
+      }
+      let timeZone = new Date().getTimezoneOffset() * 60000;
+      return router
+        ? router
+            .sort((a, b) => {
+              return +a.ts - +b.ts;
+            })
+            .map(item => {
+              return [+item.ts + timeZone, +item.rtt / 1000];
+            })
+        : null;
+    }
+  );
