@@ -9,7 +9,8 @@ import {
   Typography,
   IconButton,
   Box,
-  Icon
+  Icon,
+  Slide,
 } from "@material-ui/core";
 import {
   AsideBar,
@@ -27,6 +28,7 @@ import { ArrowBack } from "@material-ui/icons";
 import { getRoutPathName } from "../common";
 import { getLangList, getRoutsMenu, getAppTitle, getCurrentLang, getUserInfo, getRoutsApp, getRoutAuth } from '../store/selectors/appBar/appBarSelectors';
 import { getAuthStatus } from "../store/selectors/appInit/initSelectors";
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
 const useStyles = makeStyles(theme => ({
   toolBar: {
@@ -62,8 +64,11 @@ const useStyles = makeStyles(theme => ({
   },
   back:{
     padding:'12px 12px 12px 0px',
+    zIndex:10000
   }
 }));
+
+
 
 const AppBarContainer = React.memo(props => {
   const {
@@ -79,6 +84,8 @@ const AppBarContainer = React.memo(props => {
     routsApp,
     routAuth
   } = props;
+ 
+  const trigger = useScrollTrigger();
   const classes = useStyles();
   const theme = useTheme();
   const hideMD = useMediaQuery(theme.breakpoints.up("md"));
@@ -90,7 +97,8 @@ const AppBarContainer = React.memo(props => {
   }
   if (!authStatus)
     return (
-      <AppBar position="static" className={classes.bar}>
+      <Slide appear={false} direction="down" in={!trigger}>
+      <AppBar className={classes.bar}>
         <Toolbar className={classes.homeToolBar} >
           <Box
             display="flex"
@@ -127,10 +135,12 @@ const AppBarContainer = React.memo(props => {
           </Box>
         </Toolbar>
       </AppBar>
+      </Slide>
     );
   return (
     <>
-      <AppBar position="static" className={classes.bar}>
+    <Slide appear={false} direction="down" in={!trigger}>
+    <AppBar  className={classes.bar}>
         <Toolbar className={!homePage ? classes.toolBar : classes.homeToolBar} disableGutters={!hideMD} >
           <Box
             display="flex"
@@ -169,6 +179,8 @@ const AppBarContainer = React.memo(props => {
           </Box>
         </Toolbar>
       </AppBar>
+    </Slide>
+    
       {!homePage && hideMD && routsMenu && (
         <SideBar
           routs={routsMenu}
@@ -199,3 +211,6 @@ export default compose(
   connect(mapStateToProps, { setCarrentLang, getAuthLogout }),
   withRouter
 )(AppBarContainer);
+
+
+

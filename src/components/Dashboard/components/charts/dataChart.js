@@ -141,14 +141,14 @@ export const chartOptions =(lang,color,title)=> {
     },
     yaxis: {
       min: 0,
-      tickAmount: 3,
+      tickAmount: 6,
       forceNiceScale: true,
       decimalsInFloat: 1,
       labels: {
         show: true,
         minWidth: 1,
         maxWidth: 22,
-        offsetX: 0
+        // offsetX: 0
       }
     }
   };

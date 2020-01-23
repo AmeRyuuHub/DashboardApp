@@ -8,10 +8,14 @@ const StyledTab = withStyles(theme => ({
     "&.MuiTab-root":{
         fontWeight:550,
         minWidth:'72px',
-        zIndex: 0,
+        zIndex: 1,
+        color:theme.palette.primary.main
     },
     "&.Mui-selected":{
         color:theme.palette.getContrastText(theme.palette.primary.main)
+    },
+    "&.Mui-disabled":{
+      color:theme.palette.grey[400]
     }
   }
 }))(Tab);

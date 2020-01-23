@@ -16,7 +16,7 @@ const StyledTabs = withStyles(theme => ({
   bottom: '10px',
   borderRadius:'15px',
   height:'auto',
-  zIndex:-1,
+  // zIndex:-1,
 },
     // "&.MuiTab-root":{
     //     fontWeight:550,

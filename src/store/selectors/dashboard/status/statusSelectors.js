@@ -179,3 +179,100 @@ export const getStatusFetching = state => {
         : null;
     }
   );
+
+
+
+
+ 
+  export const getMaxValueRouter = createSelector(
+    getDataStatusPingRouter,
+    data => {
+      const maxValue = data
+        ? data.reduce((a, b) => {
+          return ( typeof(a) === "object") ? Math.max(a[1], +b[1]) : Math.max(a, +b[1]);
+          })
+        : null;
+     
+      return maxValue ? data.filter(item =>( +item[1] === maxValue))[0]:[0,0];
+    }
+  );
+
+  export const getMinValueRouter = createSelector(
+    getDataStatusPingRouter,
+    data => {
+      const minValue = data
+        ? data.reduce((a, b) => {
+          return ( typeof(a) === "object") ? Math.min(a[1], +b[1]) : Math.min(a, +b[1]);
+          })
+        : null;
+     
+      return minValue ? data.filter(item =>( +item[1] === minValue))[0]:[0,0];
+    }
+  );
+
+  export const getAvgValueRouter = createSelector(
+    getDataStatusPingRouter,
+    (data) => {
+      const sum = data
+        ? data.reduce((a, b) => {
+          return ( typeof(a) === "object") ? a[1] + b[1] : a + b[1];
+          })
+        : null;
+     
+      return sum ? sum/data.length:0;
+    }
+  );
+
+
+
+
+  // 1579110783
+  // 1579715583
+
+  const culcArray = (first, last) => {
+    let arr = typeof(first==='array') ? [...first]: [first];
+    console.log(arr);
+    if (+arr[arr.length - 1] < +last) {
+      arr.push(
+        +moment(arr[arr.length - 1]).add(1, 'days')
+      );
+      return culcArray(arr, last);
+    }
+    return arr;
+  };
+
+
+
+// const result = culcArray(firstDay,lastDay);
+// console.log('result=', result);
+
+
+  export const getDateArrayRouter = createSelector(
+    getDataStatusPingRouter,
+    (data) => {
+    
+        const firstDay = data ? +data[0][0]:null;
+        const lastDay =  data ? +data[data.length - 1][0]:null;
+        const first = firstDay - firstDay % 86400000;
+        const culcArray = (arr, last) => {
+          if (+arr[arr.length - 1] < +last) {
+            arr.push(arr[arr.length - 1] + 86400000);
+            return culcArray(arr, last);
+          }
+          return arr;
+        };
+      return  data ? culcArray([+first],lastDay):[firstDay, lastDay] ;
+    }
+  );
+
+
+
+
+
+   
+
+ 
+
+
+
+  

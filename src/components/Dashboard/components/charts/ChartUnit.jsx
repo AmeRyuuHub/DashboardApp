@@ -8,10 +8,6 @@ import { chartOptions } from './dataChart';
 const ChartUnit = props => {
   
  
-
-  
-  
-  
   let chartOpt=chartOptions("en", "red", props.title)
   let series = [
      {
