@@ -30,7 +30,7 @@ const StatusCard = React.memo(({ data }) => {
   const colors={
     success: theme.palette.success.main,
     danger: theme.palette.error.main,
-    main: theme.palette.grey[300]};
+    main: theme.palette.grey[400]};
 
 
   return (
@@ -46,6 +46,7 @@ const StatusCard = React.memo(({ data }) => {
             {data.text}
           </Typography>
           <Typography variant="h6">{data.value}</Typography>
+  <Typography variant="subtitle2" color="textSecondary">{data.subValue}</Typography>
         </div>
 
         <SvgIcon className={classes.icon}>

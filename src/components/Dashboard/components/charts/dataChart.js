@@ -83,18 +83,18 @@ export const chartOptions =(lang,color,title)=> {
       mode: "light",
       palette: color ? color : "palette1",
     },
-    title: {
-      text: `To ${title}`,
-      align: "left",
-      margin: 10,
-      offsetX: 0,
-      offsetY: 0,
-      floating: false,
-      style: {
-        fontSize: "16px",
-        color: "#263238"
-      }
-    },
+    // title: {
+    //   text: `To ${title}`,
+    //   align: "left",
+    //   margin: 10,
+    //   offsetX: 0,
+    //   offsetY: 0,
+    //   floating: false,
+    //   style: {
+    //     fontSize: "16px",
+    //     color: "#263238"
+    //   }
+    // },
     plotOptions: {
       bar: {
         columnWidth: "30%"
@@ -141,13 +141,13 @@ export const chartOptions =(lang,color,title)=> {
     },
     yaxis: {
       min: 0,
-      tickAmount: 6,
+      tickAmount: 5,
       forceNiceScale: true,
       decimalsInFloat: 1,
       labels: {
         show: true,
-        minWidth: 1,
-        maxWidth: 22,
+        // minWidth: 1,
+        // maxWidth: 22,
         // offsetX: 0
       }
     }

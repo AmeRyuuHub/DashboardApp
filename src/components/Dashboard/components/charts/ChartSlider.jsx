@@ -1,8 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
 import moment from 'moment';
+import { Grid, Box, Typography, Slider, Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,16 +64,20 @@ function valuetext(value) {
 
 const ChartSlider = React.memo((props)=> {
   const classes = useStyles();
-  const {dateArray} = props;
-  const marks = marksValues.map((item, index) => ({value:item, label:moment(dateArray[index]).format("DD.MM")}));
+  const {dateArray, hideMD, getRouterFilter} = props;
+  const marks = marksValues.map((item, index) => ({value:item, label:moment(dateArray[index]).format(hideMD ? "DD.MM": "DD")}));
   const [value, setValue] = React.useState([0, 100]);
 
   const handleChange = (event, newValue) => {
-    console.log(newValue);
     if (newValue[0]<newValue[1]) {
       setValue(newValue);
     }
     
+  };
+  const applyFilter = () => {
+let firstIndex = marksValues.findIndex(item => item === value[0]);
+let secondIndex = marksValues.findIndex(item => item === value[1]);
+getRouterFilter([dateArray[firstIndex],dateArray[secondIndex]])
   };
 
   const valueLabelFormat = (value) => {
@@ -83,13 +86,16 @@ const ChartSlider = React.memo((props)=> {
 };
 
   return (
-    <div className={classes.root}>
+    <Box width={1}>
      
-      <div className={classes.margin} />
-      {/* <Typography id="discrete-slider-restrict" gutterBottom variant="h4">
-       {`Ping to router from ${dateArray[0]} to ${dateArray[dateArray.length -1]}`}
-      </Typography> */}
-      <Slider
+     
+      <Typography id="route-slider" gutterBottom variant="subtitle1">
+      Filter
+      </Typography>
+    
+<Grid container>
+  <Grid item xs={12} sm={12} md={10} lg={11}> 
+  <Slider
        onChange={handleChange}
         value={value}
         step={null}
@@ -100,8 +106,16 @@ const ChartSlider = React.memo((props)=> {
         valueLabelDisplay="auto"
         marks={marks}
       />
-      <div className={classes.margin} />
-    </div>
+      <div className={classes.margin}/>
+  </Grid>
+  <Grid item xs={12} sm={12} md={2} lg={1}>
+<Button variant="contained" fullWidth color="primary" disabled={false} onClick={applyFilter}> Apply</Button>
+  </Grid>
+</Grid>
+      
+      
+      
+    </Box>
   );
 }
 )

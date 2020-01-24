@@ -8,21 +8,26 @@ import { getDeviceInfo } from "../../../../common/ReduxThunk";
 export default function status(state = initialState, action) {
   switch (action.type) {
     case C.SET_STATUS_BY_MAC:
-      if ((!state.searchResult)|| state.searchResult.last_report!==action.payload.last_report || state.mac!==action.payload.mac){
-      return {
-        ...state,
+      if (
+        !state.searchResult ||
+        state.searchResult.last_report !== action.payload.last_report ||
+        state.mac !== action.payload.mac
+      ) {
+        return {
+          ...state,
           searchResult: action.payload.status,
           mac: action.payload.mac
-      
-      };
-    } else { return state};
-    
+        };
+      } else {
+        return state;
+      }
+
     case C.SET_STATUS_SEARCH_START:
       return {
         ...state,
         searchMacValue: action.payload,
         requestFailed: false,
-        searchResult:null,
+        searchResult: null
       };
 
     case C.SET_STATUS_SEARCH_RESULT:
@@ -34,29 +39,42 @@ export default function status(state = initialState, action) {
     case C.SET_STATUS_BY_MAC_FAILED:
       return { ...state, requestFailed: action.payload };
 
+    case C.SET_STATUS_PING:
+      return {
+        ...state,
+        ping: {
+          ...state.ping,
+          mac: action.payload.mac,
+          router: action.payload.status.filter(rout => rout.platform === 0),
+          platform: action.payload.status.filter(rout => rout.platform === 1),
+          routerFilter: null,
+          platformFilter: null
+        }
+      };
 
-      case C.SET_STATUS_PING:
-        return {
-          ...state,
-          ping:{...state.ping,
-            mac: action.payload.mac,
-            router: action.payload.status.filter(rout => rout.platform === 0),
-            platform: action.payload.status.filter(rout => rout.platform === 1),
-          }
-      
-        };
-  
-    
-      case C.SET_STATUS_PING_SEARCH_RESULT:
-        return { ...state,  ping:{...state.ping,mac: action.payload}  };
-  
-      case C.SET_STATUS_PING_FETCHING:
-        return { ...state, ping:{...state.ping, isFetching: action.payload}  };
-  
-      case C.SET_STATUS_PING_FAILED:
-        return { ...state,ping:{...state.ping, requestFailed: action.payload}  };
+    case C.SET_STATUS_PING_SEARCH_RESULT:
+      return { ...state, ping: { ...state.ping, mac: action.payload } };
 
+    case C.SET_STATUS_PING_FETCHING:
+      return { ...state, ping: { ...state.ping, isFetching: action.payload } };
 
+    case C.SET_STATUS_PING_FAILED:
+      return {
+        ...state,
+        ping: { ...state.ping, requestFailed: action.payload }
+      };
+
+    case C.SET_STATUS_PING_ROUTER_FILTER:
+      return {
+        ...state,
+        ping: { ...state.ping, routerFilter: action.payload }
+      };
+
+    case C.SET_STATUS_PING_PLATFORM_FILTER:
+      return {
+        ...state,
+        ping: { ...state.ping, platformFilter: action.payload }
+      };
 
     default:
       return state;
@@ -143,6 +161,20 @@ return {
 }
 
 
+export  function setStatusPingRouterFilter(filter){
+  return {
+      type:C.SET_STATUS_PING_ROUTER_FILTER,
+      payload: filter
+  }
+  }
+  
+export  function setStatusPingPlatformFilter(filter){
+  return {
+      type:C.SET_STATUS_PING_PLATFORM_FILTER,
+      payload: filter
+  }
+  }
+
 
 // Status->Ping tab's thunk
 
@@ -165,3 +197,4 @@ export const getStatusPing = MAC => {
       });
   };
 };
+

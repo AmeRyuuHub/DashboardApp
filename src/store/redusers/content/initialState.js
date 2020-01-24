@@ -441,8 +441,38 @@ export const initialState = {
              },
              ping: {
                title: {},
-               content: []
+               content: [],
+               peakValues:{
+                langValues: [
+                  {
+                    name: "min",
+                    value: "",
+                    subValue:"",
+                    text: { ru: "MIN", ua: "MIN", en: "MIN" },
+                    good: "",
+                    bad: "",
+                    status: "success"
+                  },
+                  {
+                    name: "max",
+                    value: "",
+                    subValue:"",
+                    text: { ru: "MAX", ua: "MAX", en: "MAX" },
+                    good: "",
+                    bad: "",
+                    status: "danger"
+                  },
+                  {
+                    name: "avg",
+                    value: "",
+                    text: { ru: "AVG", ua: "AVG", en: "AVG" },
+                    good: "",
+                    bad: "",
+                    status: ""
+                  },
+               ],
              },
+            },
              dvbc: {
                title: {},
                content: []

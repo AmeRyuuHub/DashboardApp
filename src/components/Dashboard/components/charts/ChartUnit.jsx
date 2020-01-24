@@ -18,7 +18,7 @@ const ChartUnit = props => {
  
   return (
       
-        props.data &&   <ReactApexChart options={chartOpt}  series={series} type="area" height="200" />
+        props.data &&   <ReactApexChart options={chartOpt}  series={series} type="area" height="300" />
                   
   );
 };

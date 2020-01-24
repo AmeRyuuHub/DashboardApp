@@ -1,12 +1,19 @@
 import React, { useEffect } from "react";
-import { Grid, Box, Typography, Button, Paper, Icon } from "@material-ui/core";
+import { Grid, Box, Typography, Button, Paper,  SvgIcon } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { makeStyles } from "@material-ui/core/styles";
 import ChartUnit from "./components/charts/ChartUnit";
 import PieChart from "./components/charts/PieChart";
 import ChartSlider from "./components/charts/ChartSlider";
-import { ArrowDownward, ArrowUpward, VerticalAlignCenter } from "@material-ui/icons";
-import moment from "moment";
+import { StatusCard } from "./components";
+import {
+  mdiTelevisionBox,
+  mdiSwapHorizontal,
+  mdiRouterWireless,
+ 
+} from "@mdi/js";
+import { useTheme } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles(theme => ({
   backdrop: {
@@ -32,31 +39,11 @@ const useStyles = makeStyles(theme => ({
   title: {
     fontWeight: 550
   },
-
   icon: {
-    height: 80,
-    width: 80
+    height: 40,
+    width: 40,
+    margin:'0 1rem'
   },
-  iconMin: {
-    height: 80,
-    width: 80,
-    color: theme.palette.success.main
-  },
-  iconMax: {
-    height: 80,
-    width: 80,
-    color: theme.palette.error.main
-  },
-  iconAvg: {
-    height: 80,
-    width: 80,
-    color: theme.palette.grey[400]
-  },
-  divIcon: {
-    display: "flex",
-    justifyContent: "space-between",
-    padding: theme.spacing(2)
-  }
 }));
 
 function Media() {
@@ -78,6 +65,7 @@ function Media() {
 
 const Ping = React.memo(props => {
   const classes = useStyles();
+  const theme = useTheme();
   const {
     getStatusPing,
     mac,
@@ -85,10 +73,8 @@ const Ping = React.memo(props => {
     isFatching,
     failed,
     dataRouter,
-    maxRouter,
-    minRouter,
-    avgRouter,
     dateArrayRouter,
+    dataPeakValuesRouter,
   } = props;
 
   useEffect(() => {
@@ -103,8 +89,40 @@ const Ping = React.memo(props => {
     <Box>
       {!failed ? (
         <Grid container spacing={2}>
-            <ChartSlider  dateArray={dateArrayRouter}/>
-            <Grid item xs={12} sm={12} md={8} lg={8}>
+          <Grid item xs={12}>
+<Box display="flex" justifyContent="center">
+<SvgIcon className={classes.icon}>
+          <path
+            fill={theme.palette.grey[500] }
+            d={
+              mdiTelevisionBox 
+            }
+          />
+        </SvgIcon>
+        <SvgIcon className={classes.icon}>
+          <path
+            fill={theme.palette.grey[500] }
+            d={
+              mdiSwapHorizontal 
+            }
+          />
+        </SvgIcon>
+        <SvgIcon className={classes.icon}>
+          <path
+            fill={theme.palette.grey[500] }
+            d={
+              mdiRouterWireless 
+            }
+          />
+        </SvgIcon>
+
+</Box>
+          </Grid>
+          <Grid item xs={12}>
+          <ChartSlider  dateArray={dateArrayRouter} hideMD={props.hideMD} getRouterFilter={props.getRouterFilter} currentFilter={props.currentFilterRouter}/>
+          </Grid>
+            
+            <Grid item  xs={12} sm={12} md={8} lg={8} >
             <Paper>
           
             <ChartUnit data={dataRouter} lang={props.lang} title={"router"} />
@@ -117,76 +135,15 @@ const Ping = React.memo(props => {
             </Paper>
          
           </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={4}>
-            <Paper className={classes.root}>
-              <div className={classes.divIcon}>
-                <div>
-                  <Typography
-                    className={classes.title}
-                    color="textSecondary"
-                    gutterBottom
-                    variant="button"
-                  >
-                    MIN
-                  </Typography>
-                  <Typography variant="h6">{`${minRouter[1]} ms`}</Typography>
-                  <Typography variant="subtitle2" color="textSecondary">{`${ moment(+minRouter[0]).format(
-          "DD.MM.YYYY HH:mm"
-        )}`}</Typography>
-                </div>
 
-                <Icon className={classes.icon}>
-                  <ArrowDownward className={classes.iconMin} />
-                </Icon>
-              </div>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={4}>
-            <Paper className={classes.root}>
-              <div className={classes.divIcon}>
-                <div>
-                  <Typography
-                    className={classes.title}
-                    color="textSecondary"
-                    gutterBottom
-                    variant="button"
-                  >
-                    Max
-                  </Typography>
-                  <Typography variant="h6">{`${maxRouter[1]} ms`}</Typography>
-                  <Typography variant="subtitle2" color="textSecondary">{`${ moment(+maxRouter[0]).format(
-          "DD.MM.YYYY HH:mm"
-        )}`}</Typography>
-                </div>
-
-                <Icon className={classes.icon}>
-                  <ArrowUpward className={classes.iconMax} />
-                </Icon>
-              </div>
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={4}>
-            <Paper className={classes.root}>
-              <div className={classes.divIcon}>
-                <div>
-                  <Typography
-                    className={classes.title}
-                    color="textSecondary"
-                    gutterBottom
-                    variant="button"
-                  >
-                    AVG
-                  </Typography>
-                  <Typography variant="h6">{`${avgRouter.toFixed(2)} ms`}</Typography>
-                  <Typography variant="subtitle2" color="textSecondary">{`in 7 days`}</Typography>
-                </div>
-
-                <Icon className={classes.icon}>
-                  <VerticalAlignCenter className={classes.iconAvg} />
-                </Icon>
-              </div>
-            </Paper>
-          </Grid>
+          
+        {
+          dataPeakValuesRouter && dataPeakValuesRouter.map(card => (
+            <Grid item xs={12} sm={12} md={4} lg={4} key={card.id}>
+              <StatusCard data={card} />
+            </Grid>
+          ))}
+    
           
           
           <Grid item></Grid>

@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import {
   getDeviceStatusByMac,
-  getStatusPing
+  getStatusPing,
+  setStatusPingRouterFilter
 } from "../store/redusers/dashboard/status/status";
 import { compose } from "redux";
 import { withAuthRole, withMainDiv } from "../common/HOC";
@@ -20,11 +21,10 @@ import {
   getStatusPinghMac,
   getStatusPingFailed,
   getStatusPingFetching,
-  getDataStatusPingRouter,
-  getMaxValueRouter,
-  getMinValueRouter,
-  getAvgValueRouter,
-  getDateArrayRouter
+  getStatusPingRouterWithFilter,
+  getDateArrayRouter,
+  getStatusPingPeakValues,
+  getStatusPingRouterFilterValue
 } from "../store/selectors/dashboard/status/statusSelectors.js";
 import { Status, Ping, Dvbc } from "../components/Dashboard";
 import { Container, Box, IconButton } from "@material-ui/core";
@@ -85,7 +85,7 @@ const StatusContainer = React.memo(props => {
 
   const theme = useTheme();
   const hideMD = useMediaQuery(theme.breakpoints.up("sm"));
-console.log("hideMD=", hideMD);
+
 
   const buttonRedirect = value => {
     return props.history.push(`/dashboard/status/${value}`);
@@ -174,10 +174,11 @@ console.log("hideMD=", hideMD);
               failed={props.pingFailed}
               isFatching={props.pingFetching}
               dataRouter={dataRouter}
-              maxRouter={props.maxRouter}
-              minRouter={props.minRouter}
-              avgRouter={props.avgRouter}
               dateArrayRouter={props.dateArrayRouter}
+              dataPeakValuesRouter={props.dataPeakValuesRouter}
+              hideMD={hideMD}
+              getRouterFilter={props.setStatusPingRouterFilter}
+              currentFilterRouter={props.currentFilterRouter}
             />
           ) : match.params.tab && match.params.tab === "dvbc" ? (
             <Dvbc />
@@ -210,11 +211,10 @@ function mapStateToProps(state) {
     pingMacValue: getStatusPinghMac(state),
     pingFailed: getStatusPingFailed(state),
     pingFetching: getStatusPingFetching(state),
-    dataRouter: getDataStatusPingRouter(state),
-    maxRouter: getMaxValueRouter(state),
-    minRouter: getMinValueRouter(state),
-    avgRouter: getAvgValueRouter(state),
+    dataRouter: getStatusPingRouterWithFilter(state),
     dateArrayRouter:getDateArrayRouter(state),
+    dataPeakValuesRouter: getStatusPingPeakValues(state),
+    currentFilterRouter: getStatusPingRouterFilterValue(state),
   };
 }
 
@@ -223,6 +223,7 @@ export default compose(
   withAuthRole,
   connect(mapStateToProps, {
     getDeviceStatusByMac,
-    getStatusPing
+    getStatusPing,
+    setStatusPingRouterFilter,
   })
 )(StatusContainer);

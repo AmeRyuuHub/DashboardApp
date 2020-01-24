@@ -11,6 +11,8 @@ export const initialState = {
     platform: null,
     isFetching: false,
     requestFailed: null,
+    routerFilter:null,
+    platformFilter:null,
    
   },
   dvbc: {

@@ -5,7 +5,8 @@
     mdiWan,
     mdiSettingsBox,
     mdiCellphone,
-    mdiHelpCircleOutline ,
+    mdiHelpCircleOutline,
+    mdiFormatVerticalAlignBottom , mdiFormatVerticalAlignTop , mdiFormatVerticalAlignCenter 
   } from "@mdi/js";
   
     const dashboardStatus = {
@@ -14,7 +15,10 @@
       power: mdiPowerSettings,
       version: mdiSettingsBox,
       mobile: mdiCellphone,
-      unknown: mdiHelpCircleOutline ,
+      unknown: mdiHelpCircleOutline,
+      min:mdiFormatVerticalAlignBottom ,
+      max:mdiFormatVerticalAlignTop ,
+      avg:mdiFormatVerticalAlignCenter  ,
     };
   
   

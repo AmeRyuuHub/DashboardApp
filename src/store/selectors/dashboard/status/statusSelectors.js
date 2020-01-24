@@ -153,12 +153,21 @@ export const getStatusFetching = state => {
     return state.status.ping.requestFailed;
   };
 
+  export const getStatusPingRouterFilterValue = state => {
+    return state.status.ping.routerFilter;
+  };
 
 
   export const getStatusPingRouter = state => {
     return state.status.ping.router;
   };
+
+
+  
+
  
+
+
   export const getDataStatusPingRouter = createSelector(
     getStatusMac,
     getStatusPinghMac,
@@ -174,77 +183,83 @@ export const getStatusFetching = state => {
               return +a.ts - +b.ts;
             })
             .map(item => {
-              return [+item.ts + timeZone, +item.rtt / 1000];
+              return [+item.ts , +item.rtt / 1000];
             })
         : null;
     }
   );
 
-
-
-
- 
-  export const getMaxValueRouter = createSelector(
-    getDataStatusPingRouter,
-    data => {
-      const maxValue = data
-        ? data.reduce((a, b) => {
-          return ( typeof(a) === "object") ? Math.max(a[1], +b[1]) : Math.max(a, +b[1]);
-          })
-        : null;
-     
-      return maxValue ? data.filter(item =>( +item[1] === maxValue))[0]:[0,0];
-    }
-  );
-
-  export const getMinValueRouter = createSelector(
-    getDataStatusPingRouter,
-    data => {
-      const minValue = data
-        ? data.reduce((a, b) => {
-          return ( typeof(a) === "object") ? Math.min(a[1], +b[1]) : Math.min(a, +b[1]);
-          })
-        : null;
-     
-      return minValue ? data.filter(item =>( +item[1] === minValue))[0]:[0,0];
-    }
-  );
-
-  export const getAvgValueRouter = createSelector(
-    getDataStatusPingRouter,
-    (data) => {
-      const sum = data
-        ? data.reduce((a, b) => {
-          return ( typeof(a) === "object") ? a[1] + b[1] : a + b[1];
-          })
-        : null;
-     
-      return sum ? sum/data.length:0;
-    }
-  );
-
-
-
-
-  // 1579110783
-  // 1579715583
-
-  const culcArray = (first, last) => {
-    let arr = typeof(first==='array') ? [...first]: [first];
-    console.log(arr);
-    if (+arr[arr.length - 1] < +last) {
-      arr.push(
-        +moment(arr[arr.length - 1]).add(1, 'days')
-      );
-      return culcArray(arr, last);
-    }
-    return arr;
+  const getStatusPingPeakPattern = state => {
+    return state.content.pages.dashboard.ping.peakValues.langValues;
   };
 
+  export const getStatusPingRouterWithFilter = createSelector(
+    getStatusPingRouterFilterValue,
+    getDataStatusPingRouter,
+    (filter, data) => {
+      
+        return filter ? data.filter(item => item[0] >=filter[0] && item[0] <= filter[1] ): data;
+    
+    }
+  );
 
 
-// const result = culcArray(firstDay,lastDay);
-// console.log('result=', result);
+  const getStatusValuesRouter = createSelector(
+    getStatusPingRouterWithFilter,
+    (data) => {
+      if (data) {
+        const maxValue = data.reduce((a, b) => {
+          return typeof a === "object"
+            ? Math.max(a[1], +b[1])
+            : Math.max(a, +b[1]);
+        });
+        const minValue = data.reduce((a, b) => {
+          return typeof a === "object"
+            ? Math.min(a[1], +b[1])
+            : Math.min(a, +b[1]);
+        });
+
+        const avgValue =
+          data.reduce((a, b) => {
+            return typeof a === "object" ? a[1] + b[1] : a + b[1];
+          }) / data.length;
+         const max = data.filter(item => +item[1] === maxValue)[0];
+         const min =data.filter(item => +item[1] === minValue)[0];
+         const avg =[`${avgValue.toFixed(2)} ms`, "-"];
+
+        return ({
+          max: [max[1], moment(+max[0]).format(
+            "DD.MM.YYYY HH:mm"
+          )],
+          min: [min[1], moment(+min[0]).format(
+            "DD.MM.YYYY HH:mm"
+          )],
+          avg: avg
+        });
+      }
+
+      return { max: ["-", "-"], min: ["-", "-"], avg: ["-","-"] };
+    }
+  );
+
+
+
+  export const getStatusPingPeakValues = createSelector(
+    getStatusPingPeakPattern,
+    getStatusValuesRouter,
+    getUILang,
+    (pattern, result,lang) => {
+      return result
+        ? pattern.map(item => ({
+            ...item,
+            text: item.text[lang],
+            value: result[item.name][0],
+            subValue: result[item.name][1],
+            id: v4()
+          }))
+        : null;
+    }
+  );
 
 
   export const getDateArrayRouter = createSelector(
