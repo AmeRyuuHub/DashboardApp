@@ -52,7 +52,6 @@ const SearchForm = props => {
         _error: formErrors.common
       });
     } else {
-        console.log("buttonRedirect=",props.buttonRedirect);
         const submitOK = (value)  => {props.buttonRedirect(value); props.getStbStatusByMac(value);  }
       return submitOK(macInput);
     }
@@ -88,7 +87,7 @@ const SearchForm = props => {
                   color="primary"
                   className={classes.button}
                   disabled={
-                    pristine || submitting || error !== undefined || !valid
+                     submitting || error !== undefined || !valid
                   }
                 >
                   <Search />

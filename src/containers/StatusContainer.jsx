@@ -41,19 +41,17 @@ import { SearchForm, SubMenuButtons } from "../components/Dashboard/components";
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
-   
     boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2)"
   },
   searchForm: {
-    width:"100%",
+    width: "100%",
     maxWidth: "500px",
-    [theme.breakpoints.up('sm')]: {
-      marginTop:'1rem',
-      marginLeft:'2rem',
+    [theme.breakpoints.up("sm")]: {
+      marginTop: "1rem",
+      marginLeft: "2rem"
     },
-   
-    minWidth:'200px',
-    
+
+    minWidth: "200px"
   },
   mainDiv: {
     paddingTop: theme.spacing(2)
@@ -86,12 +84,12 @@ const StatusContainer = React.memo(props => {
   const theme = useTheme();
   const hideMD = useMediaQuery(theme.breakpoints.up("sm"));
 
-
   const buttonRedirect = value => {
     return props.history.push(`/dashboard/status/${value}`);
   };
-  let pingAvailable = boxType && urlMac && urlMac.length === 12;
-  let dvbcAvailable = boxType && boxType === "HYBRID";
+  let pingAvailable =
+    boxType && urlMac && urlMac.length === 12 && macValue === urlMac;
+  let dvbcAvailable = boxType && boxType === "HYBRID" && macValue === urlMac;
 
   if (
     match.params.tab &&
@@ -113,59 +111,45 @@ const StatusContainer = React.memo(props => {
               display="flex"
               flexDirection="row"
               alignItems="center"
-              flexWrap={hideMD ? "initial" :"wrap"}
+              flexWrap={hideMD ? "initial" : "wrap"}
             >
               <Box order={0}>
-              <IconButton
-                edge="start"
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="back"
-                onClick={() => props.history.goBack()}
-              >
-                <ArrowBack />
-              </IconButton>
+                <IconButton
+                  edge="start"
+                  className={classes.menuButton}
+                  color="inherit"
+                  aria-label="back"
+                  onClick={() => props.history.goBack()}
+                >
+                  <ArrowBack />
+                </IconButton>
               </Box>
-               <Box className={classes.searchForm} order={hideMD? 1 : 3} > 
-              <SearchForm
-                getStbStatusByMac={getDeviceStatusByMac}
-                {...searchFormContent}
-                checkHex={checkHex}
-                buttonRedirect={buttonRedirect}
-                initialValues={urlMac ? { macInput: urlMac } : null}
-              />
-            </Box>
-              
-              <Box order={2} flexGrow={1}>
-<Box display="flex"
-             justifyContent="end">
-<SubMenuButtons
-                  active={match.params.tab}
-                  mac={match.params.mac}
-                  dvbcAvailable={dvbcAvailable}
-                  pingAvailable={pingAvailable}
+              <Box className={classes.searchForm} order={hideMD ? 1 : 3}>
+                <SearchForm
+                  getStbStatusByMac={getDeviceStatusByMac}
+                  {...searchFormContent}
+                  checkHex={checkHex}
+                  buttonRedirect={buttonRedirect}
+                  initialValues={urlMac ? { macInput: urlMac } : null}
                 />
-</Box>
-             
               </Box>
-              
-             
-            </Box>
-            {/* {!hideMD && <Box className={classes.searchForm} > 
-              <SearchForm
-                getStbStatusByMac={getDeviceStatusByMac}
-                {...searchFormContent}
-                checkHex={checkHex}
-                buttonRedirect={buttonRedirect}
-                initialValues={urlMac ? { macInput: urlMac } : null}
-              />
-            </Box>} */}
-          </Box>
 
+              <Box order={2} flexGrow={1}>
+                <Box display="flex" justifyContent="end">
+                  <SubMenuButtons
+                    active={match.params.tab}
+                    mac={match.params.mac}
+                    dvbcAvailable={dvbcAvailable}
+                    pingAvailable={pingAvailable}
+                  />
+                </Box>
+              </Box>
+            </Box>
+          </Box>
         </Container>
       </Box>
       <Container maxWidth="lg" className={classes.mainDiv}>
-        {!isFetching && searchStatus && props.boxType ? (
+        {!isFetching && searchStatus && props.boxType && urlMac ? (
           match.params.tab && match.params.tab === "ping" ? (
             <Ping
               getStatusPing={props.getStatusPing}
@@ -212,9 +196,9 @@ function mapStateToProps(state) {
     pingFailed: getStatusPingFailed(state),
     pingFetching: getStatusPingFetching(state),
     dataRouter: getStatusPingRouterWithFilter(state),
-    dateArrayRouter:getDateArrayRouter(state),
+    dateArrayRouter: getDateArrayRouter(state),
     dataPeakValuesRouter: getStatusPingPeakValues(state),
-    currentFilterRouter: getStatusPingRouterFilterValue(state),
+    currentFilterRouter: getStatusPingRouterFilterValue(state)
   };
 }
 
@@ -224,6 +208,6 @@ export default compose(
   connect(mapStateToProps, {
     getDeviceStatusByMac,
     getStatusPing,
-    setStatusPingRouterFilter,
+    setStatusPingRouterFilter
   })
 )(StatusContainer);

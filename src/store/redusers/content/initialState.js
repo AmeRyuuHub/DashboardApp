@@ -470,6 +470,14 @@ export const initialState = {
                     bad: "",
                     status: ""
                   },
+                  {
+                    name: "time",
+                    value: "",
+                    text: { ru: "Время работи", ua: "Час праці", en: "Work Time" },
+                    good: "",
+                    bad: "",
+                    status: ""
+                  },
                ],
              },
             },

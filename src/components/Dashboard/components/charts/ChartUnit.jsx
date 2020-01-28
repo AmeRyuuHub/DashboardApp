@@ -1,6 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import { chartOptions } from './dataChart';
+import { testChartOptions } from "./testData";
+// import { chartOptions } from './dataChart';
 
 
 
@@ -8,7 +9,7 @@ import { chartOptions } from './dataChart';
 const ChartUnit = props => {
   
  
-  let chartOpt=chartOptions("en", "red", props.title)
+  let chartOpt=testChartOptions("en", "red", props.title)
   let series = [
      {
        name: `Ping to ${props.title}`,

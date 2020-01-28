@@ -60,7 +60,7 @@ const RoutsContent = ({ routs, logo, title, pathname }) => {
                     <ListItemIcon>
                       <Icon component={rout.icon} />
                     </ListItemIcon>
-                    <ListItemText primary={rout.value} />
+                    <ListItemText primary={rout.value} disableTypography />
                   </StyledListItem>
                   {rout.subLinks && <List disablePadding>
                     {rout.subLinks.map(sublink => (
@@ -73,9 +73,9 @@ const RoutsContent = ({ routs, logo, title, pathname }) => {
                           to={sublink.endPoint}
                         >
                           <ListItemIcon>
-                            <Icon component={sublink.icon}  fontSize="small"/>
+                            <Icon component={sublink.icon}  />
                           </ListItemIcon>
-                          <ListItemText primary={sublink.value} />
+                          <ListItemText primary={sublink.value} disableTypography/>
                         </StyledListSubItem>
                      
                     ))}

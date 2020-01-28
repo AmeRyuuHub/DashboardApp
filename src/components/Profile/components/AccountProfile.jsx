@@ -11,7 +11,7 @@ import {
  
 } from "@material-ui/core";
 import "moment-timezone";
-import Moment from "react-moment";
+import moment from "moment";
 import { usersRole } from "../../../content/icons";
 import { Edit, Close } from "@material-ui/icons";
 import { Field, reduxForm } from "redux-form";
@@ -120,8 +120,8 @@ const AccountProfile = React.memo((props) => {
               </Grid>
               <Grid item>
                 <Typography variant="body2" style={{ cursor: "pointer" }}>
-                  {`Created on: `}
-                  <Moment format="YYYY-MM-DD HH:mm" date={profile.createDate} />
+                  {`Created on: ${moment(profile.createDate).format("YYYY-MM-DD HH:mm")} `}
+                  
                 </Typography>
               </Grid>
               {edit && (

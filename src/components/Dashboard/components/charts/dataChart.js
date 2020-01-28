@@ -71,7 +71,7 @@ export const chartOptions =(lang,color,title)=> {
   let options = {
     chart: {
       locales: localLang[lang],
-
+      width: "100%",
       defaultLocale: lang,
       zoom: {
         enabled: false
@@ -126,8 +126,7 @@ export const chartOptions =(lang,color,title)=> {
       x: {
         show: true,
         format: "dd.MM.yyyy, HH:mm"
-        // formatter:(val)=>{return `${new Date(val).toLocaleDateString("uk-UA",{day:'numeric',month:'numeric', hour:'numeric',minute:'numeric'})}`}
-      },
+        },
 
       y: {
         formatter: function(val) {
@@ -154,3 +153,7 @@ export const chartOptions =(lang,color,title)=> {
   };
   return options;
 }
+
+
+
+

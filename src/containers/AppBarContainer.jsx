@@ -11,6 +11,7 @@ import {
   Box,
   Icon,
   Slide,
+  Button,
 } from "@material-ui/core";
 import {
   AsideBar,
@@ -62,10 +63,6 @@ const useStyles = makeStyles(theme => ({
       marginRight: theme.spacing(1)
     }
   },
-  back:{
-    padding:'12px 12px 12px 0px',
-    zIndex:10000
-  }
 }));
 
 
@@ -106,7 +103,7 @@ const AppBarContainer = React.memo(props => {
             className={classes.optionsRight}
           >
             {authPage && (
-              <IconButton color="inherit" component={Link} to="/" className={classes.back}>
+              <IconButton color="inherit" component={Link} to="/" >
                 <ArrowBack />
               </IconButton>
             )}
@@ -122,16 +119,31 @@ const AppBarContainer = React.memo(props => {
               lang={lang}
               hideMD={hideMD}
             />
-            {!authPage && (
-              <IconButton
+            { hideMD ? 
+            
+              <Button
+              variant="outlined"
                 color="inherit"
                 component={Link}
                 to={routAuth.endPoint}
                 className={classes.loginButton}
+                endIcon={ <Icon component={routAuth.icon} />}
+                disabled={authPage}
+              >
+              
+            Sign in
+            </Button>
+           :
+              <IconButton
+                color="inherit"
+                component={Link}
+                to={routAuth.endPoint}
+                
+                disabled={authPage}
               >
                <Icon component={routAuth.icon} />
               </IconButton>
-            )}
+            }
           </Box>
         </Toolbar>
       </AppBar>

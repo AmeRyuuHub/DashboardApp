@@ -192,6 +192,7 @@ export const getStatusPing = MAC => {
         
       })
       .catch(error => {
+        dispatch(setStatusPingFetching(false));
         dispatch(setStatusPingSearchResult(MAC));
         dispatch(setStatusPingFailed(true));
       });
