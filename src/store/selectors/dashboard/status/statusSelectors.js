@@ -191,7 +191,7 @@ export const getDataStatusPingRouter = createSelector(
         ...currentData,
         [Math.floor(+item.ts / 60000) * 60000]: +item.rtt / 1000
       };
-      return;
+      return item;
     });
 
    
@@ -203,7 +203,7 @@ export const getDataStatusPingRouter = createSelector(
         if (!data[+item + 900000]) {
           chart = [...chart, [+item + 900000, null]];
         }
-        return;
+        return item;
       });
 
       return chart;

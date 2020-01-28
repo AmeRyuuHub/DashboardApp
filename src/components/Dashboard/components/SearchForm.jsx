@@ -29,7 +29,7 @@ const SearchForm = props => {
   const classes = useStyles();
   const {
     handleSubmit,
-    pristine,
+    // pristine,
     submitting,
     error,
     valid,
