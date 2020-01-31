@@ -1,14 +1,5 @@
-import { localization } from "./localization";
-
-export const testChartOptions = (lang, color, title) => {
-  let testOptions = {
-    theme: {
-      mode: "light",
-      palette: color ? color : "palette1"
-    },
-
-    chart: {
-      locales: [ {
+export const localization = {
+    en:{
         "name": "en",
         "options": {
           "months": [
@@ -63,7 +54,7 @@ export const testChartOptions = (lang, color, title) => {
           }
         }
       },
-      {
+      ru:{
         "name": "ru",
         "options": {
           "months": [
@@ -118,7 +109,7 @@ export const testChartOptions = (lang, color, title) => {
           }
         }
       },
-    {
+    ua:{
         "name": "ua",
         "options": {
           "months": [
@@ -174,63 +165,4 @@ export const testChartOptions = (lang, color, title) => {
         }
       },
     
-    ],
-      defaultLocale: lang,
-      type: "area",
-      stacked: false,
-      height: 350,
-      zoom: {
-        type: "x",
-        enabled: true,
-        autoScaleYaxis: true
-      },
-      toolbar: {
-        autoSelected: "zoom"
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    markers: {
-      size: 0
-    },
-
-    stroke: {
-      curve: "straight",
-      width: 1
-    },
-
-    yaxis: {
-      min: 0,
-      tickAmount: 5,
-      forceNiceScale: true,
-      decimalsInFloat: 1,
-      labels: {
-        show: true,
-        minWidth: 1,
-        maxWidth: 22,
-        offsetX: 0
-      }
-    },
-    xaxis: {
-      type: "datetime",
-      labels: {
-        datetimeUTC: true
-      }
-    },
-    tooltip: {
-      shared: false,
-      x: {
-        show: true,
-        format: "dd.MM.yyyy, HH:mm"
-      },
-      y: {
-        formatter: function(val) {
-          return `${val} ms`;
-        }
-      }
-    }
-  };
-
-  return testOptions;
-};
+    };

@@ -28,7 +28,7 @@ import {
 } from "../store/selectors/dashboard/status/statusSelectors.js";
 import { Status, Ping, Dvbc } from "../components/Dashboard";
 import { Container, Box, IconButton } from "@material-ui/core";
-import { getUILang } from "../store/selectors/appInit/initSelectors";
+import { getUILang, getLangFatching } from "../store/selectors/appInit/initSelectors";
 import { checkHexWithLang } from "../common/ReduxValidators";
 import { getStatusMainWithLang } from "../store/selectors/dashboard/dashboardSelectors";
 import { Redirect } from "react-router";
@@ -163,6 +163,8 @@ const StatusContainer = React.memo(props => {
               hideMD={hideMD}
               getRouterFilter={props.setStatusPingRouterFilter}
               currentFilterRouter={props.currentFilterRouter}
+              lang={lang}
+              langFatching={props.langFatching}
             />
           ) : match.params.tab && match.params.tab === "dvbc" ? (
             <Dvbc />
@@ -182,7 +184,7 @@ function mapStateToProps(state) {
     searchStatus: getStatusSearchStatus(state),
     isFetching: getStatusFetching(state),
     macValue: getStatusSearchMac(state),
-
+langFatching: getLangFatching(state),
     boxType: getStatusStbType(state),
     lastReport: getStatusLastReport(state),
     dataDetailsRow: getDetailsValue(state),
