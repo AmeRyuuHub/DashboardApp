@@ -20,7 +20,3 @@ export const getUILang = state => {
   return state.lang.langUI;
 };
 
-export const getLangFatching = state =>{
-
-  return state.lang.isFatching;
-}

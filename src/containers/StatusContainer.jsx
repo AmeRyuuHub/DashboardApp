@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import {
   getDeviceStatusByMac,
   getStatusPing,
-  setStatusPingRouterFilter
+  setStatusPingRouterFilter,
+  setStatusPingPlatformFilter,
 } from "../store/redusers/dashboard/status/status";
 import { compose } from "redux";
 import { withAuthRole, withMainDiv } from "../common/HOC";
@@ -23,12 +24,16 @@ import {
   getStatusPingFetching,
   getStatusPingRouterWithFilter,
   getDateArrayRouter,
-  getStatusPingPeakValues,
-  getStatusPingRouterFilterValue
+  getStatusPingRouterPeakValues,
+  getStatusPingRouterFilterValue,
+  getStatusPingPlatformWithFilter,
+  getDateArrayPlatform,
+  getStatusPingPlatformPeakValues,
+  getStatusPingPlatformFilterValue
 } from "../store/selectors/dashboard/status/statusSelectors.js";
 import { Status, Ping, Dvbc } from "../components/Dashboard";
 import { Container, Box, IconButton } from "@material-ui/core";
-import { getUILang, getLangFatching } from "../store/selectors/appInit/initSelectors";
+import { getUILang } from "../store/selectors/appInit/initSelectors";
 import { checkHexWithLang } from "../common/ReduxValidators";
 import { getStatusMainWithLang } from "../store/selectors/dashboard/dashboardSelectors";
 import { Redirect } from "react-router";
@@ -72,6 +77,7 @@ const StatusContainer = React.memo(props => {
     pingMacValue,
     match,
     dataRouter,
+    dataPlatform,
     ...rest
   } = props;
   const urlMac = match.params.mac;
@@ -157,14 +163,22 @@ const StatusContainer = React.memo(props => {
               macStateValue={pingMacValue}
               failed={props.pingFailed}
               isFatching={props.pingFetching}
+              lang={lang}
+              hideMD={hideMD}
+              
               dataRouter={dataRouter}
               dateArrayRouter={props.dateArrayRouter}
               dataPeakValuesRouter={props.dataPeakValuesRouter}
-              hideMD={hideMD}
-              getRouterFilter={props.setStatusPingRouterFilter}
+              setRouterFilter={props.setStatusPingRouterFilter}
               currentFilterRouter={props.currentFilterRouter}
-              lang={lang}
-              langFatching={props.langFatching}
+        
+              dataPlatform={dataPlatform}
+              dateArrayPlatform={props.dateArrayPlatform}
+              dataPeakValuesPlatform={props.dataPeakValuesPlatform}
+              setPlatformFilter={props.setStatusPingPlatformFilter}
+              currentFilterPlatform={props.currentFilterPlatform}
+             
+             
             />
           ) : match.params.tab && match.params.tab === "dvbc" ? (
             <Dvbc />
@@ -184,7 +198,6 @@ function mapStateToProps(state) {
     searchStatus: getStatusSearchStatus(state),
     isFetching: getStatusFetching(state),
     macValue: getStatusSearchMac(state),
-langFatching: getLangFatching(state),
     boxType: getStatusStbType(state),
     lastReport: getStatusLastReport(state),
     dataDetailsRow: getDetailsValue(state),
@@ -199,8 +212,13 @@ langFatching: getLangFatching(state),
     pingFetching: getStatusPingFetching(state),
     dataRouter: getStatusPingRouterWithFilter(state),
     dateArrayRouter: getDateArrayRouter(state),
-    dataPeakValuesRouter: getStatusPingPeakValues(state),
-    currentFilterRouter: getStatusPingRouterFilterValue(state)
+    dataPeakValuesRouter: getStatusPingRouterPeakValues(state),
+    currentFilterRouter: getStatusPingRouterFilterValue(state),
+
+    dataPlatform: getStatusPingPlatformWithFilter(state),
+    dateArrayPlatform: getDateArrayPlatform(state),
+    dataPeakValuesPlatform: getStatusPingPlatformPeakValues(state),
+    currentFilterPlatform: getStatusPingPlatformFilterValue(state),
   };
 }
 
@@ -210,6 +228,7 @@ export default compose(
   connect(mapStateToProps, {
     getDeviceStatusByMac,
     getStatusPing,
-    setStatusPingRouterFilter
+    setStatusPingRouterFilter,
+    setStatusPingPlatformFilter,
   })
 )(StatusContainer);

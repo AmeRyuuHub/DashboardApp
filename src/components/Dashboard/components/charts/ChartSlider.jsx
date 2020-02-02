@@ -32,7 +32,7 @@ function valuetext(value) {
 const ChartSlider = React.memo(props => {
  
   const classes = useStyles();
-  const { dateArray, hideMD, getRouterFilter } = props;
+  const { dateArray, hideMD, setFilter } = props;
 
 
   const marks = dateArray.map((item, index,arr) => ({
@@ -50,7 +50,7 @@ const ChartSlider = React.memo(props => {
   const applyFilter = () => {
     let firstIndex = marks.findIndex(item => item.value === value[0]);
     let secondIndex = marks.findIndex(item => item.value === value[1]);
-    getRouterFilter([dateArray[firstIndex], dateArray[secondIndex]]);
+    setFilter([dateArray[firstIndex], dateArray[secondIndex]]);
   };
 
   const valueLabelFormat = value => {
@@ -84,8 +84,8 @@ const ChartSlider = React.memo(props => {
               disabled={false}
               onClick={applyFilter}
             >
-              {" "}
-              Apply
+              {"Apply"}
+              
             </Button>
           </Grid>
         </Grid>

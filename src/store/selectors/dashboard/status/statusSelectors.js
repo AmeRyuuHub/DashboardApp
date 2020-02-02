@@ -162,145 +162,215 @@ export const getStatusPingFailed = state => {
   return state.status.ping.requestFailed;
 };
 
+
+
+// Status -> Ping Tab -> Router info
+
 export const getStatusPingRouterFilterValue = state => {
   return state.status.ping.routerFilter;
 };
-
-export const getStatusPingRouter = state => {
+ const getStatusPingRouter = state => {
   return state.status.ping.router;
 };
 
 
-
-
-export const getDataStatusPingRouter = createSelector(
-  getStatusMac,
-  getStatusPinghMac,
-  getStatusPingRouter,
-  (searchMac, ownMac, router) => {
-    if (searchMac !== ownMac || router === null) {
-      return null;
-    }
-
-    let sortState = router.sort((a, b) => {
-      return +a.ts - +b.ts;
-    });
-    let currentData = {};
-    sortState.map(item => {
-      currentData = {
-        ...currentData,
-        [Math.floor(+item.ts / 60000) * 60000]: +item.rtt / 1000
-      };
-      return item;
-    });
-
-   
-
-    const culcChart = (data) => {
-      let chart = [];
-      Object.keys(data).map((item, index, arr) => {
-        chart = [...chart, [+item, +data[item]]];
-        if (!data[+item + 900000]) {
-          chart = [...chart, [+item + 900000, null]];
-        }
-        return item;
-      });
-
-      return chart;
-    };
-
-    let data = culcChart(currentData);
-
-    return data;
-  }
-);
-
-export const getDateArrayRouter = createSelector(
-  getDataStatusPingRouter,
-  (data) => {
-    const firstDay = data ? +data[0][0] : null;
-    const lastDay = data ? +data[data.length - 1][0] : null;
-    const first = firstDay - (firstDay % 86400000);
-    return data ? culcArray([+first], lastDay, 86400000) : [firstDay, lastDay];
-  }
-);
+export const getStatusPingPlatformFilterValue = state => {
+  return state.status.ping.platformFilter;
+};
+ const getStatusPingPlatform = state => {
+  return state.status.ping.platform;
+};
 
 const getStatusPingPeakPattern = state => {
   return state.content.pages.dashboard.ping.peakValues.langValues;
 };
 
-export const getStatusPingRouterWithFilter = createSelector(
-  getStatusPingRouterFilterValue,
-  getDataStatusPingRouter,
-  (filter, data) => {
+const culcChart = data => {
+  let chart = [];
+  Object.keys(data).forEach((item) => {
+    chart = [...chart, [+item, +data[item]]];
+    if (!data[+item + 900000]) {
+      chart = [...chart, [+item + 900000, null]];
+    }
+  });
+
+  return chart;
+};
+
+const gettingDataStatusPing = inputData =>
+  createSelector(
+    getStatusMac,
+    getStatusPinghMac,
+    inputData,
+    (searchMac, ownMac, data) => {
+      if (searchMac !== ownMac || data === null) {
+        return null;
+      }
+      let sortState = data.sort((a, b) => {
+        return +a.ts - +b.ts;
+      });
+      let currentData = {};
+      sortState.forEach(item => {
+        currentData = {
+          ...currentData,
+          [Math.floor(+item.ts / 60000) * 60000]: +item.rtt / 1000
+        };
+      });
+
+      return culcChart(currentData);
+    }
+  );
+
+
+
+export const getDataStatusPingRouter = gettingDataStatusPing(getStatusPingRouter);
+export const getDataStatusPingPlatform = gettingDataStatusPing(getStatusPingPlatform);
+
+
+
+
+ const gettingDateArray = inputData =>
+   createSelector(inputData, data => {
+     const firstDay = data ? +data[0][0] : null;
+     const lastDay = data ? +data[data.length - 1][0] : null;
+     const first = firstDay - (firstDay % 86400000);
+     return data ? culcArray([+first], lastDay, 86400000) : [firstDay, lastDay];
+   });
+
+
+export const getDateArrayRouter = gettingDateArray(getDataStatusPingRouter);
+export const getDateArrayPlatform = gettingDateArray(getDataStatusPingPlatform);
+
+
+ 
+const gettingStatusPingWithFilter = (inputFilter, inputData) =>
+  createSelector(inputFilter, inputData, (filter, data) => {
     return filter
       ? data.filter(item => item[0] >= filter[0] && item[0] <= filter[1])
       : data;
-  }
-);
+  }); 
 
-const getStatusValuesRouter = createSelector(
-  getStatusPingRouterFilterValue,
-  getStatusPingRouterWithFilter,
-  (filter, data) => {
-    if (data) {
-      let maxValue = data.reduce((a, b) => {
-        return typeof a === "object"
-          ? Math.max(a[1], +b[1])
-          : Math.max(a, +b[1]);
-      });
-      let minValue = data.reduce((a, b) => {
-        if (b[1]) {
-          return typeof a === "object"
-            ? Math.min(a[1], +b[1])
-            : Math.min(a, +b[1]);
+export const getStatusPingRouterWithFilter = gettingStatusPingWithFilter(
+    getStatusPingRouterFilterValue,
+    getDataStatusPingRouter
+  );
+
+  export const getStatusPingPlatformWithFilter = gettingStatusPingWithFilter(
+    getStatusPingPlatformFilterValue,
+    getDataStatusPingPlatform
+  );
+
+
+
+
+  const gettingStatusValues = (inputFilter, inputData) =>(
+    createSelector(
+      inputFilter,
+      inputData,
+      (filter, data) => {
+        if (data) {
+          let maxValue = data.reduce((a, b) => {
+            return typeof a === "object"
+              ? Math.max(a[1], +b[1])
+              : Math.max(a, +b[1]);
+          });
+          let minValue = data.reduce((a, b) => {
+            if (b[1]) {
+              return typeof a === "object"
+                ? Math.min(a[1], +b[1])
+                : Math.min(a, +b[1]);
+            }
+            return a;
+          });
+    
+          let avgValue =
+            data.reduce((a, b) => {
+              return typeof a === "object" ? a[1] + b[1] : a + b[1];
+            }) /
+            (data.length - data.filter(item => item[1] === null).length);
+          let avgTime = filter ? (filter[1] - filter[0]) / 86400000 : 7;
+          let max = data.filter(item => +item[1] === maxValue)[0];
+          let min = data.filter(item => +item[1] === minValue)[0];
+          let avg = [
+            `${avgValue.toFixed(2)} ms`,
+            `${avgTime} ${avgTime > 1 ? "days" : "day"}`
+          ];
+          let allWorkTime = data.reduce((a, b, index, arr) => {
+            if (index !== arr.length - 1 && b[1] && arr[index + 1][1]) {
+              return a + 900000;
+            }
+            return a;
+          }, 0);
+          return {
+            max: [max[1], moment(+max[0]).format("DD.MM.YYYY HH:mm")],
+            min: [min[1], moment(+min[0]).format("DD.MM.YYYY HH:mm")],
+            avg: avg,
+            time: [
+              `~${
+                filter
+                  ? Math.ceil((allWorkTime / (filter[1] - filter[0])) * 100)
+                  : Math.ceil((allWorkTime / 604800000) * 100)
+              } %`,
+              `~${Math.floor(allWorkTime / 3600000)} h ${Math.floor(
+                (allWorkTime % 3600000) / 60000
+              )} m`
+            ]
+          };
         }
-        return a;
-      });
+    
+        return {
+          max: ["-", "-"],
+          min: ["-", "-"],
+          avg: ["-", ""],
+          time: ["-", ""]
+        };
+      }
+    )
+  ); 
+  
 
-      let avgValue =
-        data.reduce((a, b) => {
-          return typeof a === "object" ? a[1] + b[1] : a + b[1];
-        }) /
-        (data.length - data.filter(item => item[1] === null).length);
-      let avgTime =(filter) ? (filter[1] - filter[0]) / 86400000 : 7;
-      let max = data.filter(item => +item[1] === maxValue)[0];
-      let min = data.filter(item => +item[1] === minValue)[0];
-      let avg = [
-        `${avgValue.toFixed(2)} ms`,
-        `${avgTime} ${avgTime > 1 ? "days" : "day"}`
-      ];
-let allWorkTime =data.reduce((a,b,index,arr)=>{
-if (index!== arr.length-1 && b[1] && arr[index+1][1]) { return a+900000}
-return a;
-},0);
-      return {
-        max: [max[1], moment(+max[0]).format("DD.MM.YYYY HH:mm")],
-        min: [min[1], moment(+min[0]).format("DD.MM.YYYY HH:mm")],
-        avg: avg,
-        time: [`~${filter? Math.ceil(allWorkTime/(filter[1] - filter[0])*100):Math.ceil(allWorkTime/604800000*100)} %`, `~${Math.floor(allWorkTime/3600000)} h ${Math.floor(allWorkTime%3600000/60000)} m`]
-      };
+  const getStatusValuesRouter = gettingStatusValues(
+    getStatusPingRouterFilterValue,
+    getStatusPingRouterWithFilter
+  );
+
+  const getStatusValuesPlatform = gettingStatusValues(
+    getStatusPingPlatformFilterValue,
+    getStatusPingPlatformWithFilter
+  );
+
+
+
+
+
+const gettingStatusPingPeakValues = (inputPattern, inputValues, inputLang) =>
+  createSelector(
+    inputPattern,
+    inputValues,
+    inputLang,
+    (pattern, result, lang) => {
+      return result
+        ? pattern.map(item => ({
+            ...item,
+            text: item.text[lang],
+            value: result[item.name][0],
+            subValue: result[item.name][1],
+            id: v4()
+          }))
+        : null;
     }
+  ); 
 
-    return { max: ["-", "-"], min: ["-", "-"], avg: ["-", ""] ,time: ["-", ""]};
-  }
-);
 
-export const getStatusPingPeakValues = createSelector(
+export const getStatusPingRouterPeakValues = gettingStatusPingPeakValues(
   getStatusPingPeakPattern,
   getStatusValuesRouter,
-  getUILang,
-  (pattern, result, lang) => {
-    return result
-      ? pattern.map(item => ({
-          ...item,
-          text: item.text[lang],
-          value: result[item.name][0],
-          subValue: result[item.name][1],
-          id: v4()
-        }))
-      : null;
-  }
+  getUILang
 );
 
+export const getStatusPingPlatformPeakValues = gettingStatusPingPeakValues(
+  getStatusPingPeakPattern,
+  getStatusValuesPlatform,
+  getUILang
+);
 

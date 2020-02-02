@@ -1,59 +1,186 @@
 import React from "react";
-
 import ReactApexChart from "react-apexcharts";
-import { testChartOptions } from "./testData";
-import { localization } from "./localization";
-// import { chartOptions } from './dataChart';
-
-
 
 
 const ChartUnit = props => {
-  const {lang, data, title, langFatching} = props;
-  const [value, setValue] = React.useState(false);
-  const handleChange = (status) => {
-    setValue(status);
-  };
+  const { lang, data, chartId, color } = props;
 
- React.useEffect(()=>{
- handleChange(true);
- 
- },[lang]);
-  
-  // const chartOpt=testChartOptions(lang, "red",title)
-
-
-
-  let nullOptions = {
-    
-      chart: {
-        id:"chart",
-          height: 350,
-          
-      },
-      dataLabels: {
-          enabled: false
-      },
-      
-      title: {
-          text: 'Ajax Example',
-      },
-      noData: {
-        text: 'Loading...'
-      }
-    
-  }
-
-  let testOptions = {
+  let options = {
     theme: {
       mode: "light",
-      palette:  "palette1"
+      palette: color ? color :"palette1",
     },
 
     chart: {
-      id:"mychart",
-      //  locales: [localization[lang]],
-      //  defaultLocale: lang,
+      id: chartId,
+      locales: [
+        {
+          name: "en",
+          options: {
+            months: [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December"
+            ],
+            shortMonths: [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec"
+            ],
+            days: [
+              "Sunday",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ],
+            shortDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            toolbar: {
+              exportToSVG: "Download SVG",
+              exportToPNG: "Download PNG",
+              exportToCSV: "Download CSV",
+              menu: "Menu",
+              selection: "Selection",
+              selectionZoom: "Selection Zoom",
+              zoomIn: "Zoom In",
+              zoomOut: "Zoom Out",
+              pan: "Panning",
+              reset: "Reset Zoom"
+            }
+          }
+        },
+        {
+          name: "ru",
+          options: {
+            months: [
+              "Январь",
+              "Февраль",
+              "Март",
+              "Апрель",
+              "Май",
+              "Июнь",
+              "Июль",
+              "Август",
+              "Сентябрь",
+              "Октябрь",
+              "Ноябрь",
+              "Декабрь"
+            ],
+            shortMonths: [
+              "Янв",
+              "Фев",
+              "Мар",
+              "Апр",
+              "Май",
+              "Июн",
+              "Июл",
+              "Авг",
+              "Сен",
+              "Окт",
+              "Ноя",
+              "Дек"
+            ],
+            days: [
+              "Воскресенье",
+              "Понедельник",
+              "Вторник",
+              "Среда",
+              "Четверг",
+              "Пятница",
+              "Суббота"
+            ],
+            shortDays: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+            toolbar: {
+              exportToSVG: "Сохранить SVG",
+              exportToPNG: "Сохранить PNG",
+              exportToCSV: "Сохранить CSV",
+              menu: "Меню",
+              selection: "Выбор",
+              selectionZoom: "Выбор с увеличением",
+              zoomIn: "Увеличить",
+              zoomOut: "Уменьшить",
+              pan: "Перемещение",
+              reset: "Сбросить увеличение"
+            }
+          }
+        },
+        {
+          name: "ua",
+          options: {
+            months: [
+              "Січень",
+              "Лютий",
+              "Березень",
+              "Квітень",
+              "Травень",
+              "Червень",
+              "Липень",
+              "Серпень",
+              "Вересень",
+              "Жовтень",
+              "Листопад",
+              "Грудень"
+            ],
+            shortMonths: [
+              "Січ",
+              "Лют",
+              "Бер",
+              "Кві",
+              "Тра",
+              "Чер",
+              "Лип",
+              "Сер",
+              "Вер",
+              "Жов",
+              "Лис",
+              "Гру"
+            ],
+            days: [
+              "Неділя",
+              "Понеділок",
+              "Вівторок",
+              "Середа",
+              "Четвер",
+              "П'ятниця",
+              "Субота"
+            ],
+            shortDays: ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+            toolbar: {
+              exportToSVG: "Зберегти SVG",
+              exportToPNG: "Зберегти PNG",
+              exportToCSV: "Зберегти CSV",
+              menu: "Меню",
+              selection: "Вибір",
+              selectionZoom: "Вибір із збільшенням",
+              zoomIn: "Збільшити",
+              zoomOut: "Зменшити",
+              pan: "Переміщення",
+              reset: "Скинути збільшення"
+            }
+          }
+        }
+      ],
+      defaultLocale: lang,
       type: "area",
       stacked: false,
       height: 350,
@@ -65,6 +192,9 @@ const ChartUnit = props => {
       toolbar: {
         autoSelected: "zoom"
       }
+    },
+    noData: {
+      text: "Loading..."
     },
     dataLabels: {
       enabled: false
@@ -111,25 +241,21 @@ const ChartUnit = props => {
   };
 
   let series = [
-     {
-       name: `Ping to ${title}`,
-       data: data,
-     }
-   ];
- 
-   if (value) {setTimeout(() => {
-    handleChange(false);
-   }, 1);}
+    {
+      name: `Ping`,
+      data: data
+    }
+  ];
 
   return (
-      
-  
-        !value && props.data ?   <ReactApexChart options={{...testOptions, chart: {
-       locales: [{...localization[lang]}],
-       defaultLocale: lang,
-     
-    }, }}  series={series} type="area" height="300" /> : null 
-              
+    data && (
+      <ReactApexChart
+        options={{ ...options }}
+        series={series}
+        type="area"
+        height="300"
+      />
+    )
   );
 };
 
