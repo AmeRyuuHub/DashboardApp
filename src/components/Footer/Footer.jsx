@@ -1,26 +1,21 @@
-
-import React from 'react';
-import {Typography} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { Copyright } from '../common/Copyright';
-
+import React from "react";
+// import {Typography} from '@material-ui/core';
+import { makeStyles } from "@material-ui/core/styles";
+import { Copyright } from "../../common/Copyright";
 
 const useStyles = makeStyles(theme => ({
   footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6)
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.getContrastText(theme.palette.primary.main),
+    padding: theme.spacing(2)
   }
 }));
-
 
 const Footer = () => {
   const classes = useStyles();
   return (
-    
-
- 
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
+    <footer className={classes.footer}>
+      {/* <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
         <Typography
@@ -30,12 +25,10 @@ const Footer = () => {
           component="p"
         >
           Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </footer>
-      
-    
+        </Typography> */}
+      <Copyright />
+    </footer>
   );
-}
+};
 
 export default Footer;

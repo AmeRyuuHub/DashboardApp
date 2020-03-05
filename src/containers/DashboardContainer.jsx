@@ -1,137 +1,116 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getStbStatusByMac} from '../store/redusers/StatusByMac/StatusByMac';
-import {getPingInfoByMac} from '../store/redusers/PingByMac/PingByMac';
-import {getDvbcInfoByMac} from '../store/redusers/DvbcByMac/DvbcByMac';
-import {compose} from 'redux';
-import { withAuthRole, withMainDiv } from '../components/common/HOC/'
-import { getStatusFetching, getStatusStbType, getStatusLastReport, getDetailsValue, getConnectValue, getStatusStbModel, getStatusSearchMac, getStatusSearchStatus, getStatusValueRow } from '../store/selectors/DashboardSelectors';
-import Dashboard from '../components/ContentPages/Dashboard/Dashboard';
-import SearchMacForm from '../components/ContentPages/Dashboard/SearchMacForm';
-import {  Grid, Container, Divider, Box, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { getUILang } from '../store/selectors/dataUISelectors';
-import { SubmissionError } from 'redux-form';
-
-
-
-
+import React from "react";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { withAuthRole, withMainDiv } from "../common/HOC";
+import {
+  Grid,
+  Container,
+  Divider,
+  Box,
+  Typography,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { getUILang } from "../store/selectors/appInit/initSelectors";
+import { Link } from "react-router-dom";
+import {
+  getDashMainHeaderWithLang,
+  getDashMainOptionsWithLang
+} from "../store/selectors/dashboard/dashboardSelectors";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(2)
+    paddingTop: theme.spacing(2)
+  },
+  cardContent: {
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+    alignItems: "center"
+  },
+  media: {
+    maxWidth: "12rem"
+    // minHeight: 140,
+  },
+  card: {
+    height: "100%"
   }
 }));
 
 const DashboardContainer = props => {
-  const startSearch = ({ macInput, deviceType }, dispatch) => {
-    switch (deviceType) {
-      case "stb":
-        if (!macInput || macInput.length !== 12) {
-          throw new SubmissionError({
-            macInput: "Must be 12 symbols",
-            _error: "MAC failed!"
-          });
-        } else {
-          return props.getStbStatusByMac(macInput);
-        }
-      case "mob":
-        if (!macInput || macInput.length !== 16) {
-          throw new SubmissionError({
-            macInput: "Must be 16 symbols",
-            _error: "MAC failed!"
-          });
-        } else {
-          return dispatch(props.getStbStatusByMac(macInput));
-        }
-
-      default:
-        break;
-    }
-  };
-
-  const getPingByMac = () => {
-    props.getPingInfoByMac(props.macValue);
-  };
-
-  const getDvbcByMac = () => {
-    props.getDvbcInfoByMac(props.macValue);
-  };
-
   const classes = useStyles();
-  const {
-    getStbStatusByMac,
-    getPingInfoByMac,
-    searchStatus,
-    isFetching,
-
-    ...rest
-  } = props;
+  const { headerContent, mainContent } = props;
 
   return (
-    <div className={classes.root}>
-     
-      
-      <Container maxWidth="lg">
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} md={6} lg={5} xl={4}>
-          <SearchMacForm onSubmit={startSearch} />
-        </Grid>
-      </Grid>
-      <Box color="text.secondary">
-        <Typography variant="h6" >
-          {(props.macValue && props.lastReport)?`Dashboard: ${props.macValue} ( last update: ${props.lastReport} )`:"Dashboard"}
+    <Container maxWidth="lg">
+      <Box py={4}>
+        <Typography variant="h2" align="center" gutterBottom color="primary">
+          {headerContent.title}
         </Typography>
-        <Divider/>
+        <Typography
+          variant="h5"
+          align="center"
+          gutterBottom
+          color="textSecondary"
+        >
+          {headerContent.subTitle}
+        </Typography>
       </Box>
-      
-      </Container>
-      {!isFetching && searchStatus && props.boxType && (
-         <Container maxWidth="lg">
-          <Dashboard
-            {...rest}
-            getPingByMac={getPingByMac}
-            getDvbcByMac={getDvbcByMac}
-          />
-        </Container>
-      
-      
-      )}
-    
-    </div>
+      <Divider />
+      <Grid container className={classes.root} spacing={4}>
+        {mainContent &&
+          mainContent.map(block => (
+            <Grid item xs={12} sm={4} md={4} key={block.id}>
+              <Card className={classes.card}>
+                <CardActionArea component={Link} to={block.link} className={classes.card}>
+                  <CardContent className={classes.cardContent}>
+                    <CardMedia
+                      component="img"
+                      className={classes.media}
+                      image={block.imgUrl}
+                      title={block.title}
+                    />
+
+                    <Typography gutterBottom variant="h5">
+                      {block.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {block.access}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
+                      {block.about}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
+      </Grid>
+    </Container>
   );
 };
 
 function mapStateToProps(state) {
   return {
-    searchStatus: getStatusSearchStatus(state),
-    isFetching: getStatusFetching(state),
-    macValue: getStatusSearchMac(state),
-    dataStatusCards: getStatusValueRow(state),
-    boxType: getStatusStbType(state),
-    lastReport: getStatusLastReport(state),
-    dataDetailsRow: getDetailsValue(state),
-    dataConnectRow: getConnectValue(state),
-    boxModel: getStatusStbModel(state),
     lang: getUILang(state),
-    
-    
-    
-   
+    headerContent: getDashMainHeaderWithLang(state),
+    mainContent: getDashMainOptionsWithLang(state)
   };
 }
 
 export default compose(
   withMainDiv,
   withAuthRole,
-  connect(mapStateToProps, {
-    getStbStatusByMac,
-    getPingInfoByMac,
-    getDvbcInfoByMac
-  })
+  connect(mapStateToProps, null)
 )(DashboardContainer);
-
-
-  
-
-

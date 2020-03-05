@@ -9,4 +9,11 @@ export const initialState = {
   requestDelStatus: null,
   requestChangeFailed: null,
   requestChangeStatus: null,
+  openDeleteDialog: false,
+  valueDeleteDialog: null,
+  statusRole: {
+    1: "User",
+    2: "Tech User",
+    3: "Administrator"
+  }
 };

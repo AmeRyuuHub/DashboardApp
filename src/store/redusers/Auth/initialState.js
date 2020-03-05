@@ -1,9 +1,9 @@
 export const initialState = {
-    result: null,
+  fullName: null,
   loginStatus: false,
   isFetching: false,
   requestLoginFailed: false,
   requestLogoutFailed: false,
-  session_id:null,
+  role:null
   
 }; 

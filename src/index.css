@@ -4,12 +4,10 @@
   margin:0px;
   padding: 0px;
   box-sizing: border-box;
+  
 }
-
-
-
-
+ 
  body {
- padding-top:70px;
-} 
+padding-top:4rem;
+}  
 

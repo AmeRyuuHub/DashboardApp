@@ -1,55 +1,37 @@
 import React from "react";
 import {
-  getRoutsMenu,
   getMainContainerWithLang,
   getHowItWorkBlockWithLang,
   getOtherBlocksWithLang
-} from "../store/selectors/dataUISelectors";
+} from "../store/selectors/home/homeSelector";
 import { connect } from "react-redux";
-import OtherBlock from "../components/ContentPages/HomePage/OtherBlock";
-import HowItWorksBlock from "../components/ContentPages/HomePage/HowItWorkBlock";
-import FirstBlock from "../components/ContentPages/HomePage/FirstBlock";
+import {
+  OtherBlock,
+  HowItWorksBlock,
+  FirstBlock
+} from "../components/HomePage";
 import Footer from "../components/Footer/Footer";
+import { getRoutsMenu } from "../store/selectors/appBar/appBarSelectors";
 
 const HomePageContainer = props => {
   const { mainBlock, secondBlock, otherBlocks } = props;
-  let secondMinHeight = { minHeight: "50vh" };
+
   return (
     <>
       <main>
-      {mainBlock && <FirstBlock
-          firstTitle={mainBlock.firstTitle}
-          secondTitle={mainBlock.secondTitle}
-          titleButton={mainBlock.titleButton}
-          imgUrl={mainBlock.imgUrl}
-          imgAlt={mainBlock.imgAlt}
-          buttonLink={mainBlock.link}
-        />}
+        {mainBlock && <FirstBlock {...mainBlock} />}
 
-       {secondBlock && <HowItWorksBlock
-          firstTitle={secondBlock.firstTitle}
-          secondTitle={secondBlock.secondTitle}
-          steps={secondBlock.steps}
-          minHeight={secondMinHeight}
-          imgUrl={secondBlock.imgUrl}
-        />} 
+       {secondBlock && <HowItWorksBlock {...secondBlock} />}
 
-        {otherBlocks.value.map((block, index) => {
-          return (
-            <OtherBlock
-              block={block}
-              imgUrl={otherBlocks.imgUrl[index]}
-              link={otherBlocks.link[index]}
-              count={index}
-              key={block.firstTitle}
-            />
-          );
-        })}
+       {otherBlocks && otherBlocks.map((block, index) => (
+          <OtherBlock {...block} count={index} key={index} />
+       ))}
       </main>
       <Footer />
     </>
   );
 };
+
 
 function mapStateToProps(state) {
   return {

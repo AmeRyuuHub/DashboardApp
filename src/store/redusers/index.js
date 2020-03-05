@@ -1,22 +1,24 @@
-import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form'
-import ping from './PingByMac/PingByMac';
-import stbInfo from './StatusByMac/StatusByMac';
-import dvbc from './DvbcByMac/DvbcByMac'
-import dataUI from './DataUI/DataUI'
-import authApp from './Auth/Auth';
-import appInit from './AppInit/AppInit';
-import users from './Users/UsersList';
+import { combineReducers } from "redux";
+import { reducer as formReducer } from "redux-form";
+import { status, ping, dvbc } from "./dashboard";
+import lang from "./lang/lang";
+import auth from "./auth/Auth";
+import appInit from "./appInit/AppInit";
+import users from "./users/users";
+import profile from "./profile/profile";
+import content from "./content/content";
 
 const rootReducer = combineReducers({
-    ping,
-    stbInfo,
-    dvbc,
-    dataUI,
-    authApp,
-    appInit,
-    users,
-    form: formReducer,
-})
+  ping,
+  status,
+  dvbc,
+  lang,
+  auth,
+  appInit,
+  users,
+  profile,
+  content,
+  form: formReducer
+});
 
 export default rootReducer;

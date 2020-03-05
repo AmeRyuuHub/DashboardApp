@@ -1,72 +1,102 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { getAuthFetching, getloginStatus} from '../store/selectors/dataUISelectors';
-import logo from '../pics/logo-main.svg'
-import {Redirect} from 'react-router-dom'
-import { getAuthLogin } from '../store/redusers/Auth/Auth';
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Box } from '@material-ui/core';
-import { MainLinearProgress } from '../components/common/ProgressLines';
-import LoginForm from '../components/Auth/LoginForm';
-import { Copyright } from '../components/common/Copyright';
+import React from "react";
+import { connect } from "react-redux";
+import {
+  getAuthFetching,
+  getAuthPageTitleWithLang,
+  getAuthPageFormWithLang
+} from "../store/selectors/auth/authSelectors";
+
+import { Redirect } from "react-router-dom";
+import { getAuthLogin } from "../store/redusers/auth/Auth";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Typography,
+  Container,
+  Paper,
+  Grid,
+} from "@material-ui/core";
+import { MainLinearProgress } from "../common/ProgressLines";
+import LoginForm from "../components/Auth/LoginForm";
+import { Copyright } from "../common/Copyright";
+import { LockOpen } from "@material-ui/icons";
+import { getAuthStatus } from "../store/selectors/appInit/initSelectors";
 
 
 const useStyles = makeStyles(theme => ({
-    
-    paper: {
-      marginTop: theme.spacing(4),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      
-    },
-   
-  }));
-
-
-const AuthContainer = (props) => {
-    const classes = useStyles();
-    const {isFetching, loginStatus} = props;
-    if (loginStatus) {return <Redirect to="/"/>} 
-    const handleSubmitForm =({login,password})=> (props.getAuthLogin(login,password));
-   let appMinHeight = {minHeight:'85vh'};
-    return (
-        <div style={appMinHeight}>
-        {isFetching && <MainLinearProgress />}
-      <Container component="main" maxWidth="xs">
-      
-      <div className={classes.paper}>
-        
-          <img src={logo} alt="" className={classes.avatar}/>
-        
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <LoginForm onSubmit={handleSubmitForm}/>
-        <Box mt={8}>
-        <Copyright />
-      </Box>
-      </div>
-    </Container>
-    </div>
-    )
+  root: {
+    height: "calc(100vh - 70px)"
+  },
+  paper: {
+    padding: theme.spacing(2),
+    // borderColor:theme.palette.primary.main,
+  },
+  login: {
+    fontSize: "2.5rem",
+    marginRight: theme.spacing(2)
+  },
+  avatar: {
+    margin: theme.spacing(1)
+  }
+}));
+ 
+const AuthContainer = props => {
+  const classes = useStyles();
+  const { isFetching, loginStatus, pageTitle, formContent } = props;
+  if (loginStatus) {
   
+    return <Redirect to="/" />;
+    // return props.history.goBack();
+  }
+  const handleSubmitForm = ({ login, password }) =>
+    props.getAuthLogin(login, password);
+
+  return (
+    <Container maxWidth="xs">
+      <Grid
+        container
+        direction="column"
+        justify="space-around"
+        alignItems="center"
+        className={classes.root}
+      >
+        {isFetching && <MainLinearProgress />}
+        <Grid
+          item
+          container
+          direction="column"
+          justify="space-around"
+          alignItems="center"
+          spacing={6}
+        >
+          <Grid item container justify="center" alignItems="center">
+          
+            <LockOpen color="primary" className={classes.login} />
+            <Typography component="span" variant="h4" color="primary">
+             {pageTitle}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Paper className={classes.paper} variant="outlined">
+              <LoginForm onSubmit={handleSubmitForm} {...formContent}/>
+            </Paper>
+          </Grid>
+        </Grid>
+        <Grid item>
+          <Copyright />
+        </Grid>
+      </Grid>
+    </Container>
+  );
 };
 
 function mapStateToProps(state) {
   return {
     isFetching: getAuthFetching(state),
-    loginStatus:getloginStatus(state),
+    loginStatus: getAuthStatus(state),
+    pageTitle: getAuthPageTitleWithLang(state),
+    formContent:getAuthPageFormWithLang(state),
   };
 }
 
 export default connect(mapStateToProps, { getAuthLogin })(AuthContainer);
-
-
-
-
-
 

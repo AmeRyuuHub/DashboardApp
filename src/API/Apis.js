@@ -1,72 +1,88 @@
 
 import * as axios from 'axios';
 
+const options = () => {
+  return {
+    headers: { Authorization: `Bearer ${localStorage.getItem("jssid")}`}
+  };
+};
 
-
-
-const instance = axios.create({
-  baseURL:process.env.API_URL,
-  
+let instance = axios.create({
+  baseURL:process.env.REACT_APP_API_URL,
+  //  headers:{ "Content-Type":"application/json", "Accept":"*/*"},
+  withCredentials: true,
   
 })
 export const API = {
   getInfoByMac(MAC){
-    return instance.get(`status/${MAC}`)
-    
+    return instance.get(`dashboard/${MAC}`, options())
     .then(response=>{return response.data})
-   
   },
  
 getPing(MAC){
-  return instance.get(`ping/${MAC}`)
+  return instance.get(`dashboard/${MAC}/ping`, options())
   .then(response=>{return response.data})
- 
 },
+
 getDvbcInfo(MAC){
-  return instance.get(`dvbc/${MAC}`)
+  return instance.get(`dashboard/${MAC}/dvbc`, options())
   .then(response=>{return response.data})
  
 },
 
-getAuth(token){
-  return instance.post(`auth`,{token})
+getAuth(){
+  return instance.get(`refresh/auth`)
   .then(response=>{return response.data})
  
 },
-getLogin(login, password){
+getToken(){
+  return instance.get(`refresh/token`,)
+  .then(response=>{return response.data})
+ 
+},
+postLogin(login, password){
   return instance.post(`login`,{login, password})
   .then(response=>{return response.data})
  
 },
-getLogout(token){
-  return instance.post(`logout`,{token})
+patchLogout(){
+  return instance.patch(`logout`,null, options())
   .then(response=>{return response.data})
  
 },
 getUsers(){
-  return instance.get(`users`)
+  return instance.get(`users`, options())
   .then(response=>{return response.data})
  
 },
-getUsersAdd({username, password, fullname,email,role}){
-  return instance.post(`users/add`,{username, password, fullname,email,role_id:role})
+postNewUser({login, password, fullName, email, role}){
+  return instance.post(`users`,{login, password, fullName,email,role}, options())
   .then(response=>{return response.data})
   
 },
-getUsersEdit(ID,role_id){
-  return instance.post(`users/edit`,{ID,role_id})
+getOneUser(ID){
+  return instance.get(`users/${ID}`, options())
   .then(response=>{return response.data})
   
 },
-getUsersDel(ID){
-  return instance.post(`users/del`,{ID})
+
+deleteUser(ID){
+  return instance.delete(`users/${ID}`, options())
   .then(response=>{return response.data})
   
+},
+
+getProfile(){
+  return instance.get(`profile`, options())
+  .then(response=>{return response.data})
+ 
 },
 }
 
 
  
+
+
 
 
 

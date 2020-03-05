@@ -1,7 +1,7 @@
 
 import {C} from '../ActionsNameList'
 import {API} from '../../../API/Apis';
-import { setAuthLogin } from '../Auth/Auth';
+import { setAuthLogin } from '../auth/Auth';
 import { initialState } from './initialState';
 
 export default function appInit(state = initialState, action) {
@@ -22,19 +22,18 @@ export  function setInitializeSuccess(status){
     return { type:C.SET_INITIALIZE_SUCCESS, payload: status}
 }
  
-  export const getInitialized = (token) => {
+  export const getInitialized = () => {
     return dispatch => {
-      token ?
-      API.getAuth(token)
+      API.getAuth()
         .then(data => {
-          data.status &&
-            dispatch(setAuthLogin(data.result[0],data.result[0].jsession_id));
+            dispatch(setAuthLogin(data));
             dispatch(setInitializeSuccess(true));
  
         })
-        .catch(() => {
+        .catch((error) => {   
+         
           dispatch(setInitializeSuccess(true));
-          ;
-        }) : dispatch(setInitializeSuccess(true));
+          
+        }) 
     };
   };
